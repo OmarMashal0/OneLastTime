@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_Core/Scenes/00_MainMenu.unity
+    guid: a7e567d981baa3a4eaee0ba2aad8e9b8
+  - enabled: 1
+    path: Assets/_Core/Scenes/01_IntroCutscene.unity
+    guid: d15decd10ff2c4c45829af9986278bec
+  - enabled: 1
+    path: Assets/Level1_Museum/Scenes/L1_A_MuseumStealth.unity
+    guid: 75d143b5f20525a49b711d4ff6ebf2a3
+  - enabled: 1
+    path: Assets/Level1_Museum/Scenes/L1_B_DisplayRoom.unity
+    guid: 4d8325d567506844b9bda591754dc461
+  - enabled: 1
+    path: Assets/Level2_Village/Scenes/L2_A_VillageChase.unity
+    guid: 8ca6293e642399a4486ed20111f2d31c
+  - enabled: 1
+    path: Assets/Level2_Village/Scenes/L2_B_NoticeboardDecode.unity
+    guid: 57817879f1f806b42bb64705d8156586
+  - enabled: 1
+    path: Assets/Level3_Bamboo/Scenes/L3_A_BambooTrail.unity
+    guid: 048782a0fb5035742a1c65e4e47fd843
+  - enabled: 1
+    path: Assets/Level3_Bamboo/Scenes/L3_B_RiverCrossing.unity
+    guid: ce1ea9a3c034f0040ac430fd01d2eb17
+  - enabled: 1
+    path: Assets/Level4_Temple/Scenes/L4_A_TempleCollapse.unity
+    guid: 16093330fdc7063458b4eb61620f556f
+  - enabled: 1
+    path: Assets/Level4_Temple/Scenes/L4_B_VisionsAndReina.unity
+    guid: ab3a84a2ba6d28f47a5194a7a3734fe4
+  - enabled: 1
+    path: Assets/Level5_Hideout/Scenes/L5_A_HallwayCollapse.unity
+    guid: 3a0111b79876b5342a9094cb1268f49f
+  - enabled: 1
+    path: Assets/Level5_Hideout/Scenes/L5_B_YamiFinalBattle.unity
+    guid: 2010c5ac8e878814e8288928b3fb76d5
+  - enabled: 1
+    path: Assets/_Core/Scenes/99_EndingChoice.unity
+    guid: e7dba6d357f0ee54dab05be02bf2eb33
+  m_configObjects: {}

@@ -338,3 +338,4 @@ Add quick guide for Omar, Nada, Eyad, and Ziad on where to place sprites/audio, 
 git add README.md
 git commit -m "docs: add teammate guide for scene hierarchy and asset organization"
 ```
+
