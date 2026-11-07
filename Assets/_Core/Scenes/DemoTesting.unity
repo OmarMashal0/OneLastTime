@@ -508,7 +508,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  acceleration: 60
+  acceleration: 80
   deceleration: 80
   jumpVelocity: 24
   groundCheck: {fileID: 1000555558}
