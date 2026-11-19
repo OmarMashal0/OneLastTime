@@ -87,6 +87,7 @@ namespace OneLastTime.EditorTools
             // --- CAMERAS ---
             GameObject camerasRoot = new GameObject("--- CAMERAS ---");
             GameObject mainCam = CreateChild(camerasRoot, "Main Camera");
+            mainCam.transform.position = new Vector3(0f, 0f, -10f);
             Camera cam = mainCam.AddComponent<Camera>();
             cam.orthographic = true;
             cam.orthographicSize = 5f;
@@ -131,6 +132,7 @@ namespace OneLastTime.EditorTools
 
             GameObject camerasRoot = new GameObject("--- CAMERAS ---");
             GameObject mainCam = CreateChild(camerasRoot, "Main Camera");
+            mainCam.transform.position = new Vector3(0f, 0f, -10f);
             Camera cam = mainCam.AddComponent<Camera>();
             cam.orthographic = true;
             mainCam.tag = "MainCamera";
