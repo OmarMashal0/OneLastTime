@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace OneLastTime.Systems
@@ -7,6 +8,7 @@ namespace OneLastTime.Systems
         [Header("Target to Follow")]
         [Tooltip("The GameObject for the camera to follow (e.g. Player_Ryu)")]
         [SerializeField] private Transform target;
+        public Transform Target { get => target; set => target = value; }
 
         [Header("Camera Settings")]
         [Tooltip("Offset relative to the player. Keep Z at -10 for 2D.")]
@@ -30,15 +32,90 @@ namespace OneLastTime.Systems
         [SerializeField] private float minX = -2f;
         [SerializeField] private float maxX = 85f;
 
+        [Header("Zoom & Alignment")]
+        [Tooltip("Default unzoomed orthographic size used as baseline for bottom-alignment")]
+        [SerializeField] private float baseOrthoSize = 5.0f;
+        [Tooltip("When zooming, keep the bottom edge of the camera view aligned at the same world min Y")]
+        [SerializeField] private bool keepBottomAlignedOnZoom = true;
+
         private Vector3 currentVelocity = Vector3.zero;
+        private Camera cam;
+        private Vector3 shakeOffset = Vector3.zero;
+
+        private void Awake()
+        {
+            cam = GetComponent<Camera>();
+        }
+
+        public IEnumerator ZoomTo(float targetOrthoSize, float duration)
+        {
+            if (cam == null) yield break;
+            float startSize = cam.orthographicSize;
+            float elapsed = 0f;
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                cam.orthographicSize = Mathf.Lerp(startSize, targetOrthoSize, elapsed / duration);
+                yield return null;
+            }
+            cam.orthographicSize = targetOrthoSize;
+        }
+
+        public IEnumerator Shake(float duration, float magnitude)
+        {
+            float elapsed = 0f;
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                float x = Random.Range(-1f, 1f) * magnitude;
+                float y = Random.Range(-1f, 1f) * magnitude;
+                shakeOffset = new Vector3(x, y, 0f);
+                yield return null;
+            }
+            shakeOffset = Vector3.zero;
+        }
+
+        public void SetLimits(float newMinX, float newMaxX, float newMinY, float newMaxY)
+        {
+            minX = newMinX;
+            maxX = newMaxX;
+            minY = newMinY;
+            maxY = newMaxY;
+        }
+
+        public void SnapToTarget()
+        {
+            if (target == null) return;
+            float targetX = target.position.x + offset.x;
+            float targetY = followY ? (target.position.y + offset.y) : fixedY;
+            if (useLimits)
+            {
+                targetX = Mathf.Clamp(targetX, minX, maxX);
+                targetY = Mathf.Clamp(targetY, minY, maxY);
+            }
+            transform.position = new Vector3(targetX, targetY, offset.z);
+            currentVelocity = Vector3.zero;
+        }
 
         private void Start()
         {
             if (target == null)
             {
-                var player = GameObject.FindWithTag("Player");
-                if (player == null) player = GameObject.Find("Player_Ryu");
-                if (player != null) target = player.transform;
+                var pm = FindObjectOfType<PlayerMovement>();
+                if (pm != null) target = pm.transform;
+                else
+                {
+                    var player = GameObject.FindWithTag("Player");
+                    if (player == null) player = GameObject.Find("player_ryu") ?? GameObject.Find("Player_Ryu");
+                    if (player != null) target = player.transform;
+                }
+            }
+
+            if (target != null && target.position.y < -15f)
+            {
+                // Target is in the museum! Apply museum boundaries immediately
+                SetLimits(-2.5f, 54.0f, -20.65f, -20.45f);
+                SnapToTarget();
             }
         }
 
@@ -49,17 +126,29 @@ namespace OneLastTime.Systems
             float targetX = target.position.x + offset.x;
             float targetY = followY ? (target.position.y + offset.y) : fixedY;
 
+            // When zoomed, compensate camera Y downwards so the bottom of the viewport
+            // stays aligned with the same world min Y as without zoom.
+            float zoomYCompensation = 0f;
+            if (keepBottomAlignedOnZoom && cam != null)
+            {
+                zoomYCompensation = -(baseOrthoSize - cam.orthographicSize);
+            }
+
+            targetY += zoomYCompensation;
+            float effectiveMinY = minY + zoomYCompensation;
+            float effectiveMaxY = maxY + zoomYCompensation;
+
             // Clamp within level boundaries
             if (useLimits)
             {
                 targetX = Mathf.Clamp(targetX, minX, maxX);
                 if (followY)
                 {
-                    targetY = Mathf.Clamp(targetY, minY, maxY);
+                    targetY = Mathf.Clamp(targetY, effectiveMinY, effectiveMaxY);
                 }
             }
 
-            Vector3 targetPosition = new Vector3(targetX, targetY, offset.z);
+            Vector3 targetPosition = new Vector3(targetX + shakeOffset.x, targetY + shakeOffset.y, offset.z);
             transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref currentVelocity, smoothTime);
         }
 

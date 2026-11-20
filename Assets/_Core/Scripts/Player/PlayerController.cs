@@ -23,6 +23,8 @@ namespace OneLastTime.Player
 
         private Rigidbody2D rb;
         private BoxCollider2D boxCollider;
+        private Animator animator;
+        private SpriteRenderer spriteRenderer;
         private float horizontalInput;
         private bool isGrounded;
 
@@ -30,6 +32,10 @@ namespace OneLastTime.Player
         {
             rb = GetComponent<Rigidbody2D>();
             boxCollider = GetComponent<BoxCollider2D>();
+            animator = GetComponentInChildren<Animator>();
+            spriteRenderer = animator != null
+                ? animator.GetComponent<SpriteRenderer>()
+                : GetComponentInChildren<SpriteRenderer>();
 
             // Ensure physics settings are configured for a 2D platformer
             rb.freezeRotation = true;
@@ -47,9 +53,20 @@ namespace OneLastTime.Player
         {
             // 1. Read player input (A/D or Left/Right Arrow keys)
             horizontalInput = Input.GetAxisRaw("Horizontal");
+            if (spriteRenderer != null && horizontalInput != 0f)
+            {
+                spriteRenderer.flipX = horizontalInput < 0f;
+            }
 
             // 2. Ground detection
             CheckGrounded();
+
+            if (animator != null)
+            {
+                animator.SetFloat("moveSpeed", Mathf.Abs(rb.velocity.x));
+                animator.SetFloat("jumpHeight", rb.velocity.y);
+                animator.SetBool("grounded", isGrounded);
+            }
 
             // 3. Jump (Spacebar)
             if (Input.GetKeyDown(KeyCode.Space) && isGrounded)

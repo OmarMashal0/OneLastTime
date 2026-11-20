@@ -87,7 +87,23 @@ namespace OneLastTime.Interaction
             }
         }
 
-        private void HideAllBubbles()
+        public void StopAndDisablePermanently()
+        {
+            if (dialogueRoutine != null)
+            {
+                StopCoroutine(dialogueRoutine);
+                dialogueRoutine = null;
+            }
+            StopAllCoroutines();
+            HideAllBubbles();
+            hasTriggered = true;
+            enabled = false;
+
+            var col = GetComponent<Collider2D>();
+            if (col != null) col.enabled = false;
+        }
+
+        public void HideAllBubbles()
         {
             if (speechBubbles == null) return;
             foreach (var bubble in speechBubbles)
@@ -101,7 +117,7 @@ namespace OneLastTime.Interaction
 
         private bool IsPlayer(Collider2D other)
         {
-            return other.CompareTag("Player") || other.name.Contains("Player");
+            return other.CompareTag("Player") || other.name.IndexOf("player", System.StringComparison.OrdinalIgnoreCase) >= 0;
         }
     }
 }

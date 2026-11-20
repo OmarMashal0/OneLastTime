@@ -1,0 +1,1179 @@
+fileFormatVersion: 2
+guid: 92912ae853548a14d99662c679df8c6c
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: e_interact_prompt_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 760
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b42d7fe94066987a0800000000000000
+      internalID: -6374451627533282741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_1
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 760
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fef06d3e0c9002c0800000000000000
+      internalID: -4467399245378289929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_2
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 760
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b0c2dff9970967b0800000000000000
+      internalID: -5230641134210727759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_3
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 760
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6dcab8c73f761cc0800000000000000
+      internalID: -3740662562917003923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_4
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 760
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80a74eb847b7aaaf0800000000000000
+      internalID: -384359077693326840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_5
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 760
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44a01a757979a7870800000000000000
+      internalID: 8681417907976079940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_6
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 760
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1509cfbba452a7e20800000000000000
+      internalID: 3349030275815084113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_7
+      rect:
+        serializedVersion: 2
+        x: 1344
+        y: 760
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17a1330916b036910800000000000000
+      internalID: 1829318387301554801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 608
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03483f5a51a88ce50800000000000000
+      internalID: 6829860660490503216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_9
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 608
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d717c9806ceccc140800000000000000
+      internalID: 4741391857657606525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_10
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 608
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c82c173ae0cbc880800000000000000
+      internalID: -8589559752099616575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_11
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 608
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 098745c422f36c0f0800000000000000
+      internalID: -1097120042676094832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_12
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 608
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05a2d9a661bb658f0800000000000000
+      internalID: -552048199353947568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_13
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 608
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1a647402ad64ca40800000000000000
+      internalID: 5387551596868823578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_14
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 608
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 955d700286ee95210800000000000000
+      internalID: 1322350096591344985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_15
+      rect:
+        serializedVersion: 2
+        x: 1344
+        y: 608
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f351d1ced39576f0800000000000000
+      internalID: -687480783160388623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 456
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cafc8d13f9338b450800000000000000
+      internalID: 6104686053729816492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_17
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 456
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05adf95fd70ce14d0800000000000000
+      internalID: -3161878241143170480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_18
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 456
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93ce1e0b918668380800000000000000
+      internalID: -8969367148310696903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_19
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 456
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6a768abd3a039ad0800000000000000
+      internalID: -2696800491626136978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_20
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 456
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73f6295db0577e100800000000000000
+      internalID: 137207007346323255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_21
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 456
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ceb8b16832477d70800000000000000
+      internalID: 9040767586894659268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_22
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 456
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73313bf09d7db3240800000000000000
+      internalID: 4772645557400441655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_23
+      rect:
+        serializedVersion: 2
+        x: 1344
+        y: 456
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4ac72ecae6d2f4f0800000000000000
+      internalID: -796337880121750962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 304
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd1d8a2596c52add0800000000000000
+      internalID: -2476315237672234531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_25
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 304
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a07395461c97e5b0800000000000000
+      internalID: -5339127213753929564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_26
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 304
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b522d94305aff8740800000000000000
+      internalID: 5156615320749548123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_27
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 304
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60a9cc7dca5db84b0800000000000000
+      internalID: -5437017186788140538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_28
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 304
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33c935b723714e010800000000000000
+      internalID: 1217123304881757235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_29
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 304
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb80adf5d9f523b80800000000000000
+      internalID: -8416559624079406916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_30
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 304
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d9b4f9106c282660800000000000000
+      internalID: 7361182382201027031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_31
+      rect:
+        serializedVersion: 2
+        x: 1344
+        y: 304
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93acaf3e8f949e5f0800000000000000
+      internalID: -726968531518043591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 152
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8df1614fc7c5d8580800000000000000
+      internalID: -8823294403208142888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_33
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 152
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bba50ca49f8552040800000000000000
+      internalID: 4622198420289903291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_34
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 152
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54606954731e7b3a0800000000000000
+      internalID: -6649598697282337211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_35
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 152
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb61c732c9c7e9070800000000000000
+      internalID: 8115060588620289727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_36
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 152
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3835807167de8bfa0800000000000000
+      internalID: -5784612629909056637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_37
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 152
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62e6a30e0be7f7fd0800000000000000
+      internalID: -2342013983068099034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_38
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 152
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d0be7e61b0a0b8c0800000000000000
+      internalID: -3985508986299436845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_39
+      rect:
+        serializedVersion: 2
+        x: 1344
+        y: 152
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bad594d5ec79d530800000000000000
+      internalID: 3880269880512338611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a264935e6460e0c10800000000000000
+      internalID: 2021560184299144746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_41
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dadebe6b9ecea4360800000000000000
+      internalID: 7154791446571904429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_42
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 434bd1f9592b367b0800000000000000
+      internalID: -5232141986384989132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_43
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 0
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4b6bde9fec6f4750800000000000000
+      internalID: 6291366980878035790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_44
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fcdced80d6bed0490800000000000000
+      internalID: -7778302127866196529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_45
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 0
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6fd9834d2b481a30800000000000000
+      internalID: 4186178511419596651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_46
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 0
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6181f83e29a754970800000000000000
+      internalID: 8738525423283935254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: e_interact_prompt_47
+      rect:
+        serializedVersion: 2
+        x: 1344
+        y: 0
+        width: 192
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65d42f4c3617bb3c0800000000000000
+      internalID: -4342752742348796586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      e_interact_prompt_29: -8416559624079406916
+      e_interact_prompt_11: -1097120042676094832
+      e_interact_prompt_38: -3985508986299436845
+      e_interact_prompt_41: 7154791446571904429
+      e_interact_prompt_39: 3880269880512338611
+      e_interact_prompt_42: -5232141986384989132
+      e_interact_prompt_25: -5339127213753929564
+      e_interact_prompt_35: 8115060588620289727
+      e_interact_prompt_2: -5230641134210727759
+      e_interact_prompt_24: -2476315237672234531
+      e_interact_prompt_37: -2342013983068099034
+      e_interact_prompt_0: -6374451627533282741
+      e_interact_prompt_10: -8589559752099616575
+      e_interact_prompt_4: -384359077693326840
+      e_interact_prompt_13: 5387551596868823578
+      e_interact_prompt_5: 8681417907976079940
+      e_interact_prompt_33: 4622198420289903291
+      e_interact_prompt_26: 5156615320749548123
+      e_interact_prompt_3: -3740662562917003923
+      e_interact_prompt_28: 1217123304881757235
+      e_interact_prompt_22: 4772645557400441655
+      e_interact_prompt_9: 4741391857657606525
+      e_interact_prompt_45: 4186178511419596651
+      e_interact_prompt_44: -7778302127866196529
+      e_interact_prompt_17: -3161878241143170480
+      e_interact_prompt_6: 3349030275815084113
+      e_interact_prompt_47: -4342752742348796586
+      e_interact_prompt_15: -687480783160388623
+      e_interact_prompt_14: 1322350096591344985
+      e_interact_prompt_7: 1829318387301554801
+      e_interact_prompt_16: 6104686053729816492
+      e_interact_prompt_20: 137207007346323255
+      e_interact_prompt_30: 7361182382201027031
+      e_interact_prompt_23: -796337880121750962
+      e_interact_prompt_36: -5784612629909056637
+      e_interact_prompt_31: -726968531518043591
+      e_interact_prompt_43: 6291366980878035790
+      e_interact_prompt_8: 6829860660490503216
+      e_interact_prompt_12: -552048199353947568
+      e_interact_prompt_21: 9040767586894659268
+      e_interact_prompt_1: -4467399245378289929
+      e_interact_prompt_18: -8969367148310696903
+      e_interact_prompt_27: -5437017186788140538
+      e_interact_prompt_46: 8738525423283935254
+      e_interact_prompt_32: -8823294403208142888
+      e_interact_prompt_34: -6649598697282337211
+      e_interact_prompt_19: -2696800491626136978
+      e_interact_prompt_40: 2021560184299144746
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

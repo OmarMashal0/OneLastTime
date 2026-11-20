@@ -1,0 +1,205 @@
+using System.Collections;
+using UnityEngine;
+using OneLastTime.Player;
+using OneLastTime.Systems;
+using OneLastTime.UI;
+
+namespace OneLastTime.Interaction
+{
+    [RequireComponent(typeof(Collider2D))]
+    public class DoorTeleport : MonoBehaviour
+    {
+        [Header("Teleport Target")]
+        [Tooltip("The Transform where the player will be teleported")]
+        [SerializeField] private Transform destination;
+
+        [Header("Interaction")]
+        [Tooltip("Key to press when standing in front of the door")]
+        [SerializeField] private KeyCode interactKey = KeyCode.E;
+
+        [Tooltip("Optional prompt GameObject (e.g. '[E] Enter') to show when near the door")]
+        [SerializeField] private GameObject interactionPrompt;
+
+        [Header("Player Scaling")]
+        [Tooltip("Scale multiplier for the player when teleported (e.g. 2 for 2x scale, 0 to leave unchanged)")]
+        [SerializeField] private float targetPlayerScale = 2f;
+
+        [Header("Camera Transition")]
+        [Tooltip("Update camera limits when entering this zone")]
+        [SerializeField] private bool updateCameraLimits = true;
+        [SerializeField] private float newMinX = -2.5f;
+        [SerializeField] private float newMaxX = 20.0f;
+        [SerializeField] private float newMinY = -20.0f;
+        [SerializeField] private float newMaxY = -18.0f;
+
+        [Header("Fade Timings")]
+        [SerializeField] private float fadeDuration = 0.4f;
+        [SerializeField] private float blackoutHoldTime = 0.15f;
+
+        private bool isPlayerInZone;
+        private GameObject playerObj;
+        private PlayerMovement playerMovement;
+        private bool isTransitioning;
+
+        public Transform Destination { get => destination; set => destination = value; }
+        public GameObject InteractionPrompt { get => interactionPrompt; set => interactionPrompt = value; }
+        public bool IsTransitioning => isTransitioning;
+
+        private InteractableTarget interactableTarget;
+
+        private void Awake()
+        {
+            var col = GetComponent<Collider2D>();
+            if (col != null) col.isTrigger = true;
+
+            if (interactionPrompt != null)
+                interactionPrompt.SetActive(false);
+
+            interactableTarget = GetComponent<InteractableTarget>();
+            if (interactableTarget != null)
+            {
+                interactableTarget.canInteractCheck = () => !isTransitioning;
+            }
+        }
+
+        public void StartDoorTransition()
+        {
+            if (isTransitioning) return;
+            if (playerObj == null)
+            {
+                var pm = FindObjectOfType<PlayerMovement>();
+                if (pm != null)
+                {
+                    playerMovement = pm;
+                    playerObj = pm.gameObject;
+                }
+                else
+                {
+                    var p = GameObject.FindWithTag("Player") ?? GameObject.Find("Player_Ryu");
+                    if (p != null)
+                    {
+                        playerMovement = p.GetComponentInChildren<PlayerMovement>();
+                        playerObj = playerMovement != null ? playerMovement.gameObject : p;
+                    }
+                }
+            }
+            StartCoroutine(TransitionRoutine());
+        }
+
+        private void Update()
+        {
+            // If managed by InteractableTarget, skip direct input polling
+            if (interactableTarget != null) return;
+
+            if (!isPlayerInZone || isTransitioning) return;
+
+            if (Input.GetKeyDown(interactKey))
+            {
+                StartDoorTransition();
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (IsPlayer(other))
+            {
+                isPlayerInZone = true;
+                playerObj = other.gameObject;
+                playerMovement = other.GetComponent<PlayerMovement>() ?? other.GetComponentInParent<PlayerMovement>();
+
+                if (interactableTarget == null && interactionPrompt != null && !isTransitioning)
+                {
+                    interactionPrompt.SetActive(true);
+                }
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (IsPlayer(other))
+            {
+                isPlayerInZone = false;
+                if (interactableTarget == null && interactionPrompt != null)
+                {
+                    interactionPrompt.SetActive(false);
+                }
+            }
+        }
+
+        private IEnumerator TransitionRoutine()
+        {
+            if (destination == null || playerObj == null) yield break;
+
+            isTransitioning = true;
+            if (interactionPrompt != null) interactionPrompt.SetActive(false);
+
+            // 1. Freeze player
+            if (playerMovement != null) playerMovement.canMove = false;
+            var rb = playerObj.GetComponent<Rigidbody2D>() ?? playerObj.GetComponentInParent<Rigidbody2D>();
+            if (rb != null) rb.velocity = Vector2.zero;
+
+            // 2. Fade to black
+            var fader = ScreenFader.Instance;
+            if (fader != null)
+            {
+                yield return fader.FadeToBlack(fadeDuration);
+            }
+            else
+            {
+                yield return new WaitForSeconds(fadeDuration);
+            }
+
+            // 3. Teleport & scale player
+            if (targetPlayerScale > 0f)
+            {
+                float facingSign = Mathf.Sign(playerObj.transform.localScale.x);
+                if (facingSign == 0f) facingSign = 1f;
+                playerObj.transform.localScale = new Vector3(targetPlayerScale * facingSign, targetPlayerScale, targetPlayerScale);
+            }
+
+            Transform rootPlayer = playerObj.transform.parent != null && playerObj.transform.parent.name.Contains("Player")
+                ? playerObj.transform.parent
+                : playerObj.transform;
+
+            rootPlayer.position = destination.position;
+            playerObj.transform.position = destination.position;
+
+            // 4. Update Camera
+            var cam = Camera.main;
+            if (cam != null)
+            {
+                var cf = cam.GetComponent<CameraFollow>();
+                if (cf != null)
+                {
+                    if (updateCameraLimits)
+                    {
+                        cf.SetLimits(newMinX, newMaxX, newMinY, newMaxY);
+                    }
+                    cf.SnapToTarget();
+                }
+            }
+
+            // 5. Short pause in blackout
+            if (blackoutHoldTime > 0f)
+            {
+                yield return new WaitForSeconds(blackoutHoldTime);
+            }
+
+            // 6. Fade back in
+            if (fader != null)
+            {
+                yield return fader.FadeFromBlack(fadeDuration);
+            }
+
+            // 7. Unfreeze player
+            if (playerMovement != null) playerMovement.canMove = true;
+            isTransitioning = false;
+        }
+
+        private bool IsPlayer(Collider2D other)
+        {
+            return other.CompareTag("Player") || other.name.IndexOf("player", System.StringComparison.OrdinalIgnoreCase) >= 0;
+        }
+    }
+}
+
