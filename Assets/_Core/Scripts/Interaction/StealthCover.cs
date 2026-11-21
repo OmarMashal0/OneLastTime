@@ -30,7 +30,7 @@ namespace OneLastTime.Interaction
         [Tooltip("Duration of the duck/un-duck transition in seconds")]
         [SerializeField] private float transitionDuration = 0.15f;
 
-        // Public state for AI guards to check
+        // Public state for enemy guards to check
         public bool IsPlayerHidden { get; private set; }
 
         private Collider2D triggerCollider;
