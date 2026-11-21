@@ -40,7 +40,7 @@ namespace OneLastTime.Systems
             if (other.name.IndexOf("player", System.StringComparison.OrdinalIgnoreCase) >= 0) return true;
             if (other.name.IndexOf("ryu", System.StringComparison.OrdinalIgnoreCase) >= 0) return true;
             if (other.transform.root != null && (other.transform.root.name.IndexOf("player", System.StringComparison.OrdinalIgnoreCase) >= 0 || other.transform.root.name.IndexOf("ryu", System.StringComparison.OrdinalIgnoreCase) >= 0)) return true;
-            if (other.GetComponentInParent<OneLastTime.Player.PlayerMovement>() != null) return true;
+            if (other.GetComponentInParent<PlayerMovement>() != null) return true;
             if (other.GetComponentInParent<OneLastTime.Player.PlayerHealth>() != null) return true;
             return false;
         }
