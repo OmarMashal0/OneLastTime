@@ -157,12 +157,18 @@ namespace OneLastTime.Interaction
                 playerObj.transform.localScale = new Vector3(targetPlayerScale * facingSign, targetPlayerScale, targetPlayerScale);
             }
 
-            Transform rootPlayer = playerObj.transform.parent != null && playerObj.transform.parent.name.Contains("Player")
-                ? playerObj.transform.parent
+            Transform rootPlayer = playerObj.transform.root != null && (playerObj.transform.root.name.IndexOf("ryu", System.StringComparison.OrdinalIgnoreCase) >= 0 || playerObj.transform.root.name.IndexOf("player", System.StringComparison.OrdinalIgnoreCase) >= 0)
+                ? playerObj.transform.root
                 : playerObj.transform;
 
             rootPlayer.position = destination.position;
             playerObj.transform.position = destination.position;
+
+            if (rb != null)
+            {
+                rb.velocity = Vector2.zero;
+                rb.position = destination.position;
+            }
 
             // 4. Update Camera
             var cam = Camera.main;
@@ -174,19 +180,19 @@ namespace OneLastTime.Interaction
                     if (updateCameraLimits)
                     {
                         float finalMaxX = newMaxX;
-                        var rightWall = GameObject.Find("Museum_Right_Wall");
-                        if (rightWall != null)
+                        // Only clamp to Museum_Right_Wall if teleporting into the upper museum corridor (-35 < Y < -15)
+                        if (destination.position.y > -35f && destination.position.y < -15f)
                         {
-                            float halfWidth = (cam != null && cam.orthographic) ? cam.orthographicSize * cam.aspect : 8.89f;
-                            float calculatedMaxX = rightWall.transform.position.x - halfWidth;
-                            if (calculatedMaxX > finalMaxX)
+                            var rightWall = GameObject.Find("Museum_Right_Wall");
+                            if (rightWall != null)
                             {
-                                finalMaxX = calculatedMaxX;
+                                float halfWidth = (cam != null && cam.orthographic) ? cam.orthographicSize * cam.aspect : 8.89f;
+                                float calculatedMaxX = rightWall.transform.position.x - halfWidth;
+                                if (calculatedMaxX > finalMaxX)
+                                {
+                                    finalMaxX = calculatedMaxX;
+                                }
                             }
-                        }
-                        if (cf.MaxX > finalMaxX)
-                        {
-                            finalMaxX = cf.MaxX;
                         }
 
                         cf.SetLimits(newMinX, finalMaxX, newMinY, newMaxY);
