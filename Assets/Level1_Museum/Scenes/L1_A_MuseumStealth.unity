@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 17733403}
   - component: {fileID: 17733402}
   m_Layer: 0
-  m_Name: bubble_2_sprite_sheet_0
+  m_Name: SpeechBubble_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1326,7 +1326,7 @@ GameObject:
   - component: {fileID: 106947264}
   - component: {fileID: 106947263}
   m_Layer: 0
-  m_Name: Propro (1) 1 (2)
+  m_Name: Banner_Animated_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1875,7 +1875,7 @@ GameObject:
   - component: {fileID: 162434453}
   - component: {fileID: 162434454}
   m_Layer: 0
-  m_Name: villagers_sheet_0
+  m_Name: NPC_Villagers_Whispering
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2784,7 +2784,7 @@ GameObject:
   - component: {fileID: 216043456}
   - component: {fileID: 216043455}
   m_Layer: 0
-  m_Name: lantern_glow_sprite_sheet (1)_0 (11)
+  m_Name: Lantern_Glow_13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3154,7 +3154,7 @@ GameObject:
   - component: {fileID: 239623713}
   - component: {fileID: 239623712}
   m_Layer: 0
-  m_Name: Props (2)_5 (7)
+  m_Name: StealthMonument_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3873,7 +3873,7 @@ GameObject:
   - component: {fileID: 303286887}
   - component: {fileID: 303286886}
   m_Layer: 0
-  m_Name: lantern_glow_sprite_sheet (1)_0 (6)
+  m_Name: Lantern_Glow_08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4104,7 +4104,7 @@ GameObject:
   - component: {fileID: 321743233}
   - component: {fileID: 321743232}
   m_Layer: 0
-  m_Name: Museum_Guard_Sleeping_2 (4)
+  m_Name: Museum_Guard_Sleeping_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4455,7 +4455,7 @@ GameObject:
   - component: {fileID: 339434328}
   - component: {fileID: 339434327}
   m_Layer: 0
-  m_Name: Props (2)_5 (3)
+  m_Name: StealthMonument_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5067,7 +5067,7 @@ GameObject:
   - component: {fileID: 381130701}
   - component: {fileID: 381130700}
   m_Layer: 0
-  m_Name: to_move_0
+  m_Name: Tutorial_Move_Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7229,7 +7229,7 @@ GameObject:
   - component: {fileID: 510427003}
   - component: {fileID: 510427002}
   m_Layer: 0
-  m_Name: bubble_1_sprite_sheet_0
+  m_Name: SpeechBubble_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8857,7 +8857,7 @@ GameObject:
   - component: {fileID: 587755976}
   - component: {fileID: 587755975}
   m_Layer: 0
-  m_Name: Pixel-Art Double Wooden Door (1)
+  m_Name: Door_UpperFloor_Entrance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9027,7 +9027,7 @@ GameObject:
   - component: {fileID: 596343781}
   - component: {fileID: 596343783}
   m_Layer: 6
-  m_Name: Pixel museum with left tree removed
+  m_Name: Background_Museum_Facade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9479,7 +9479,7 @@ GameObject:
   - component: {fileID: 611377954}
   - component: {fileID: 611377953}
   m_Layer: 0
-  m_Name: lantern_glow_sprite_sheet_0
+  m_Name: Lantern_Glow_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9584,7 +9584,7 @@ GameObject:
   - component: {fileID: 617194406}
   - component: {fileID: 617194405}
   m_Layer: 0
-  m_Name: Propro (1) 1 (4)
+  m_Name: Banner_Animated_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9975,7 +9975,7 @@ GameObject:
   - component: {fileID: 640562522}
   - component: {fileID: 640562521}
   m_Layer: 0
-  m_Name: Propro (1) 1 (3)
+  m_Name: Banner_Animated_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10247,7 +10247,7 @@ GameObject:
   - component: {fileID: 659393168}
   - component: {fileID: 659393167}
   m_Layer: 0
-  m_Name: to_move
+  m_Name: Tutorial_Move_Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10586,7 +10586,7 @@ GameObject:
   - component: {fileID: 703432350}
   - component: {fileID: 703432349}
   m_Layer: 0
-  m_Name: Museum_Guard_Sleeping_2 (1)
+  m_Name: Museum_Guard_Sleeping_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10771,7 +10771,7 @@ GameObject:
   - component: {fileID: 718234137}
   - component: {fileID: 718234136}
   m_Layer: 0
-  m_Name: 'Preview.(2) '
+  m_Name: Background_Sky
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11611,7 +11611,7 @@ GameObject:
   - component: {fileID: 796649752}
   - component: {fileID: 796649751}
   m_Layer: 0
-  m_Name: Props (2)_5 (9)
+  m_Name: StealthMonument_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11999,7 +11999,7 @@ GameObject:
   - component: {fileID: 819654837}
   - component: {fileID: 819654836}
   m_Layer: 0
-  m_Name: e_key_sprite_sheet_0
+  m_Name: Tutorial_Hide_Key
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12189,7 +12189,7 @@ GameObject:
   - component: {fileID: 825185825}
   - component: {fileID: 825185824}
   m_Layer: 0
-  m_Name: Props (2)_5
+  m_Name: StealthMonument_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14242,7 +14242,7 @@ GameObject:
   - component: {fileID: 887847119}
   - component: {fileID: 887847118}
   m_Layer: 0
-  m_Name: lantern_glow_sprite_sheet (1)_0 (9)
+  m_Name: Lantern_Glow_11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14634,7 +14634,7 @@ GameObject:
   - component: {fileID: 955027275}
   - component: {fileID: 955027274}
   m_Layer: 0
-  m_Name: Propro (1) 1
+  m_Name: Banner_Animated_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14739,7 +14739,7 @@ GameObject:
   - component: {fileID: 969486961}
   - component: {fileID: 969486960}
   m_Layer: 0
-  m_Name: lantern_glow_sprite_sheet (1)_0 (2)
+  m_Name: Lantern_Glow_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14927,7 +14927,7 @@ GameObject:
   - component: {fileID: 986350060}
   - component: {fileID: 986350059}
   m_Layer: 0
-  m_Name: to_move (1)
+  m_Name: Tutorial_Move_Banner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15416,7 +15416,7 @@ GameObject:
   - component: {fileID: 1031961065}
   - component: {fileID: 1031961067}
   m_Layer: 0
-  m_Name: Prop (2)1
+  m_Name: Banner_Village_Animated
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15520,7 +15520,7 @@ GameObject:
   - component: {fileID: 1036658385}
   - component: {fileID: 1036658384}
   m_Layer: 0
-  m_Name: to_hide_behind_the_monument (1)
+  m_Name: Tutorial_Hide_Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16123,7 +16123,7 @@ GameObject:
   - component: {fileID: 1100346899}
   - component: {fileID: 1100346898}
   m_Layer: 0
-  m_Name: to_jump
+  m_Name: Tutorial_Jump_Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16545,7 +16545,7 @@ GameObject:
   - component: {fileID: 1134658354}
   - component: {fileID: 1134658353}
   m_Layer: 0
-  m_Name: lantern_glow_sprite_sheet (1)_0 (3)
+  m_Name: Lantern_Glow_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16978,7 +16978,7 @@ GameObject:
   - component: {fileID: 1169080430}
   - component: {fileID: 1169080429}
   m_Layer: 0
-  m_Name: Warm Pixel-Art Stairwell Descent
+  m_Name: Background_Stairwell_Descent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18472,7 +18472,7 @@ GameObject:
   - component: {fileID: 1311628853}
   - component: {fileID: 1311628852}
   m_Layer: 0
-  m_Name: lantern_glow_sprite_sheet (1)_0
+  m_Name: Lantern_Glow_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18988,7 +18988,7 @@ GameObject:
   - component: {fileID: 1359185220}
   - component: {fileID: 1359185222}
   m_Layer: 0
-  m_Name: Preview (4)
+  m_Name: Background_Village
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19940,7 +19940,7 @@ GameObject:
   - component: {fileID: 1451584239}
   - component: {fileID: 1451584238}
   m_Layer: 0
-  m_Name: Propro (1) 1 (5)
+  m_Name: Banner_Animated_06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20599,7 +20599,7 @@ GameObject:
   - component: {fileID: 1508941352}
   - component: {fileID: 1508941351}
   m_Layer: 0
-  m_Name: Propro (1) 1 (1)
+  m_Name: Banner_Animated_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21036,7 +21036,7 @@ GameObject:
   - component: {fileID: 1534443346}
   - component: {fileID: 1534443345}
   m_Layer: 0
-  m_Name: lantern_glow_sprite_sheet (1)_0 (1)
+  m_Name: Lantern_Glow_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21308,7 +21308,7 @@ GameObject:
   - component: {fileID: 1539593186}
   - component: {fileID: 1539593185}
   m_Layer: 0
-  m_Name: Eight-frame sneak controls sprite sheet_0
+  m_Name: Tutorial_Sneak_Controls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21918,7 +21918,7 @@ GameObject:
   - component: {fileID: 1585244650}
   - component: {fileID: 1585244649}
   m_Layer: 0
-  m_Name: Pixel Art Stairway with Amber Lantern
+  m_Name: Background_Stairway_Lantern
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22070,7 +22070,7 @@ GameObject:
   - component: {fileID: 1628905828}
   - component: {fileID: 1628905827}
   m_Layer: 0
-  m_Name: Museum_Guard
+  m_Name: Museum_Guard_Patrol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22847,7 +22847,7 @@ GameObject:
   - component: {fileID: 1667494028}
   - component: {fileID: 1667494027}
   m_Layer: 0
-  m_Name: Museum_Guard_Sleeping_2 (3)
+  m_Name: Museum_Guard_Sleeping_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23530,7 +23530,7 @@ GameObject:
   - component: {fileID: 1728298130}
   - component: {fileID: 1728298131}
   m_Layer: 0
-  m_Name: Props (2)_12 (1)
+  m_Name: LevelTitle_Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23655,7 +23655,7 @@ GameObject:
   - component: {fileID: 1732255852}
   - component: {fileID: 1732255851}
   m_Layer: 0
-  m_Name: lantern_glow_sprite_sheet (1)_0 (10)
+  m_Name: Lantern_Glow_12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24250,7 +24250,7 @@ GameObject:
   - component: {fileID: 1789418638}
   - component: {fileID: 1789418637}
   m_Layer: 0
-  m_Name: lantern_glow_sprite_sheet (1)_0 (5)
+  m_Name: Lantern_Glow_07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25078,7 +25078,7 @@ GameObject:
   - component: {fileID: 880000502}
   - component: {fileID: 880000503}
   m_Layer: 0
-  m_Name: Pixel-Art Double Wooden Door
+  m_Name: Door_Basement_Entrance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25844,7 +25844,7 @@ GameObject:
   - component: {fileID: 1930800388}
   - component: {fileID: 1930800387}
   m_Layer: 0
-  m_Name: Props (2)_5 (2)
+  m_Name: StealthMonument_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26096,7 +26096,7 @@ GameObject:
   - component: {fileID: 1949757414}
   - component: {fileID: 1949757413}
   m_Layer: 0
-  m_Name: lantern_glow_sprite_sheet (1)_0 (7)
+  m_Name: Lantern_Glow_09
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27055,7 +27055,7 @@ GameObject:
   - component: {fileID: 2007066196}
   - component: {fileID: 2007066195}
   m_Layer: 0
-  m_Name: Museum_Guard_Sleeping_2 (2)
+  m_Name: Museum_Guard_Sleeping_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27569,7 +27569,7 @@ GameObject:
   - component: {fileID: 2028992960}
   - component: {fileID: 2028992959}
   m_Layer: 0
-  m_Name: space_bar_sheet_0
+  m_Name: Tutorial_Jump_Key
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27674,7 +27674,7 @@ GameObject:
   - component: {fileID: 2037128218}
   - component: {fileID: 2037128217}
   m_Layer: 0
-  m_Name: lantern_glow_sprite_sheet (1)_0 (4)
+  m_Name: Lantern_Glow_06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28013,7 +28013,7 @@ GameObject:
   - component: {fileID: 2063139535}
   - component: {fileID: 2063139534}
   m_Layer: 0
-  m_Name: movement_keys_sheet_0 (1)
+  m_Name: Tutorial_Move_Keys_Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28286,7 +28286,7 @@ GameObject:
   - component: {fileID: 2082671296}
   - component: {fileID: 2082671295}
   m_Layer: 0
-  m_Name: lantern_glow_sprite_sheet (1)_0 (8)
+  m_Name: Lantern_Glow_10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28475,7 +28475,7 @@ GameObject:
   - component: {fileID: 2097088422}
   - component: {fileID: 2097088421}
   m_Layer: 0
-  m_Name: movement_keys_sheet_0
+  m_Name: Tutorial_Move_Keys
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28868,7 +28868,7 @@ GameObject:
   - component: {fileID: 2125578081}
   - component: {fileID: 2125578080}
   m_Layer: 0
-  m_Name: Props (2)_5 (8)
+  m_Name: StealthMonument_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
