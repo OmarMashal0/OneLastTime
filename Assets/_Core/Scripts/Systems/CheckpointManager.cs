@@ -145,15 +145,15 @@ namespace OneLastTime.Systems
                 {
                     if (spawnPos.y < -35f)
                     {
-                        camFollow.SetLimits(-8.0f, 120.0f, -42.5f, -41.0f);
+                        camFollow.SetLimits(-6.0f, 120.0f, -42.5f, -42.0f);
                     }
                     else if (spawnPos.y < -15f)
                     {
-                        camFollow.SetLimits(-2.5f, 151.85f, -20.65f, -20.45f);
+                        camFollow.SetLimits(-1.0f, 151.85f, -20.65f, -20.45f);
                     }
                     else
                     {
-                        camFollow.SetLimits(-2.0f, 151.85f, -1.0f, 3.5f);
+                        camFollow.SetLimits(0.0f, 151.85f, 0.0f, 3.0f);
                     }
                     camFollow.SnapToTarget();
                 }

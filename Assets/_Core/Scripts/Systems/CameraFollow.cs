@@ -27,9 +27,9 @@ namespace OneLastTime.Systems
         [Header("Camera Boundaries (Clamps)")]
         [Tooltip("Enable to prevent the camera from moving beyond your level edges")]
         [SerializeField] private bool useLimits = true;
-        [SerializeField] private float minY = -1f;
-        [SerializeField] private float maxY = 3.5f;
-        [SerializeField] private float minX = -2f;
+        [SerializeField] private float minY = 0f;
+        [SerializeField] private float maxY = 3f;
+        [SerializeField] private float minX = 0f;
         [SerializeField] private float maxX = 151.85f;
 
         public float MinX => minX;
@@ -121,7 +121,7 @@ namespace OneLastTime.Systems
                 if (target.position.y < -35f)
                 {
                     // Target is in the lower floor / basement!
-                    SetLimits(-8.0f, 120.0f, -42.5f, -41.0f);
+                    SetLimits(-6.0f, 120.0f, -42.5f, -42.0f);
                     SnapToTarget();
                 }
                 else if (target.position.y < -15f)
@@ -137,7 +137,13 @@ namespace OneLastTime.Systems
 
                     // Respect whichever is larger: the calculated wall bound or any inspector/custom maxX
                     float targetMaxX = Mathf.Max(maxX, calculatedMaxX);
-                    SetLimits(-2.5f, targetMaxX, -20.65f, -20.45f);
+                    SetLimits(-1.0f, targetMaxX, -20.65f, -20.45f);
+                    SnapToTarget();
+                }
+                else
+                {
+                    // Target is outside in the village!
+                    SetLimits(0.0f, maxX, 0.0f, 3.0f);
                     SnapToTarget();
                 }
             }
