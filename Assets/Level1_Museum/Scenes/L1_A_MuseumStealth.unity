@@ -19921,9 +19921,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '<size=65%><color=#E5A823><cspace=0.35em><b>— LEVEL 1 —</b></cspace></color></size>
-<size=110%><color=#FFFFFF><cspace=0.12em><b>The Return of The Greatest Samurai</b></cspace></color></size>
-<size=40%><color=#B22222>━━━━━━━ ❖ ━━━━━━━</color></size>'
+  m_text: 'Level 1 | The Return of The Greatest Samurai'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8a13ee6bfdfcaa24e887e3f92758103e, type: 2}
   m_sharedMaterial: {fileID: -5438314895532980641, guid: 8a13ee6bfdfcaa24e887e3f92758103e, type: 2}
