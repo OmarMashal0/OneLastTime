@@ -90,12 +90,13 @@ namespace OneLastTime.Systems
                 if (g != null) g.ResetGuard();
             }
 
-            // 4. Reposition player at checkpoint (middle of Tileset (2) _6)
+            // 4. Reposition player at checkpoint
             if (playerObj != null)
             {
+                Vector3 spawnPos;
                 if (currentCheckpoint != null)
                 {
-                    playerObj.transform.position = currentCheckpoint.SpawnPosition;
+                    spawnPos = currentCheckpoint.SpawnPosition;
                 }
                 else
                 {
@@ -103,15 +104,22 @@ namespace OneLastTime.Systems
                     if (cp != null)
                     {
                         currentCheckpoint = cp;
-                        playerObj.transform.position = cp.SpawnPosition;
+                        spawnPos = cp.SpawnPosition;
                     }
                     else
                     {
                         var t6 = GameObject.Find("Tileset (2) _6");
                         float targetX = (t6 != null) ? t6.transform.position.x : -3.84f;
-                        playerObj.transform.position = new Vector3(targetX, -23.15f, 0f);
+                        spawnPos = new Vector3(targetX, -23.15f, 0f);
                     }
                 }
+
+                Transform rootPlayer = playerObj.transform.parent != null && playerObj.transform.parent.name.Contains("Player")
+                    ? playerObj.transform.parent
+                    : playerObj.transform;
+
+                rootPlayer.position = spawnPos;
+                playerObj.transform.position = spawnPos;
             }
 
             // 5. Restore player health, animation & movement
