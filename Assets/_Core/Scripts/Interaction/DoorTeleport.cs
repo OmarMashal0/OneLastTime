@@ -173,7 +173,23 @@ namespace OneLastTime.Interaction
                 {
                     if (updateCameraLimits)
                     {
-                        cf.SetLimits(newMinX, newMaxX, newMinY, newMaxY);
+                        float finalMaxX = newMaxX;
+                        var rightWall = GameObject.Find("Museum_Right_Wall");
+                        if (rightWall != null)
+                        {
+                            float halfWidth = (cam != null && cam.orthographic) ? cam.orthographicSize * cam.aspect : 8.89f;
+                            float calculatedMaxX = rightWall.transform.position.x - halfWidth;
+                            if (calculatedMaxX > finalMaxX)
+                            {
+                                finalMaxX = calculatedMaxX;
+                            }
+                        }
+                        if (cf.MaxX > finalMaxX)
+                        {
+                            finalMaxX = cf.MaxX;
+                        }
+
+                        cf.SetLimits(newMinX, finalMaxX, newMinY, newMaxY);
                     }
                     cf.SnapToTarget();
                 }

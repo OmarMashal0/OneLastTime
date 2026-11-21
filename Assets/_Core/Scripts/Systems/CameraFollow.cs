@@ -32,6 +32,11 @@ namespace OneLastTime.Systems
         [SerializeField] private float minX = -2f;
         [SerializeField] private float maxX = 85f;
 
+        public float MinX => minX;
+        public float MaxX => maxX;
+        public float MinY => minY;
+        public float MaxY => maxY;
+
         [Header("Zoom & Alignment")]
         [Tooltip("Default unzoomed orthographic size used as baseline for bottom-alignment")]
         [SerializeField] private float baseOrthoSize = 5.0f;
