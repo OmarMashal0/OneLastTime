@@ -91,9 +91,9 @@ namespace OneLastTime.Systems
             }
 
             // 4. Reposition player at checkpoint
+            Vector3 spawnPos = Vector3.zero;
             if (playerObj != null)
             {
-                Vector3 spawnPos;
                 if (currentCheckpoint != null)
                 {
                     spawnPos = currentCheckpoint.SpawnPosition;
