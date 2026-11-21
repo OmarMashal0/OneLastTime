@@ -3,7 +3,6 @@ using System.IO;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 namespace OneLastTime.EditorTools
@@ -53,7 +52,7 @@ namespace OneLastTime.EditorTools
                     Directory.CreateDirectory(directory);
                 }
 
-                // Create new empty scene in editor
+                // create new scene in editor
                 Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
 
                 if (config.isLevelScene)
@@ -73,18 +72,16 @@ namespace OneLastTime.EditorTools
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
 
-            Debug.Log($"[One Last Time] Successfully generated {AllScenes.Length} scenes with standardized hierarchies and added to Build Settings!");
+            Debug.Log("[ProjectSkeletonGenerator] Generated all scenes.");
         }
 
         private static void BuildStandardLevelHierarchy()
         {
-            // --- SYSTEMS ---
             GameObject systemsRoot = new GameObject("--- SYSTEMS ---");
             CreateChild(systemsRoot, "GameManager");
             CreateChild(systemsRoot, "AudioManager");
             CreateChild(systemsRoot, "LevelController");
 
-            // --- CAMERAS ---
             GameObject camerasRoot = new GameObject("--- CAMERAS ---");
             GameObject mainCam = CreateChild(camerasRoot, "Main Camera");
             mainCam.transform.position = new Vector3(0f, 0f, -10f);
@@ -95,20 +92,17 @@ namespace OneLastTime.EditorTools
             mainCam.AddComponent<AudioListener>();
             CreateChild(camerasRoot, "CameraBounds");
 
-            // --- UI ---
             GameObject uiRoot = new GameObject("--- UI ---");
             CreateChild(uiRoot, "HUD_Canvas");
             CreateChild(uiRoot, "Interaction_Canvas");
             CreateChild(uiRoot, "Cutscene_Canvas");
 
-            // --- ENVIRONMENT ---
             GameObject envRoot = new GameObject("--- ENVIRONMENT ---");
             CreateChild(envRoot, "Background_Parallax");
             CreateChild(envRoot, "Grid_Tilemap");
             CreateChild(envRoot, "Props_Static");
             CreateChild(envRoot, "Lighting_2D");
 
-            // --- GAMEPLAY & INTERACTABLES ---
             GameObject gameplayRoot = new GameObject("--- GAMEPLAY & INTERACTABLES ---");
             CreateChild(gameplayRoot, "Checkpoints");
             CreateChild(gameplayRoot, "Interactables");
@@ -116,7 +110,6 @@ namespace OneLastTime.EditorTools
             CreateChild(gameplayRoot, "Triggers");
             CreateChild(gameplayRoot, "Projectiles_Pool");
 
-            // --- CHARACTERS ---
             GameObject charRoot = new GameObject("--- CHARACTERS ---");
             CreateChild(charRoot, "Player_Ryu");
             CreateChild(charRoot, "Companion_Raccoon");

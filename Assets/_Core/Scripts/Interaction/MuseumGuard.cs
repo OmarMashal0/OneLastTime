@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using OneLastTime.Player;
 
-namespace OneLastTime.AI
+namespace OneLastTime.Enemies
 {
     [RequireComponent(typeof(SpriteRenderer), typeof(Animator))]
     public class MuseumGuard : MonoBehaviour
@@ -19,26 +19,18 @@ namespace OneLastTime.AI
         }
 
         [Header("Sleeping Behavior")]
-        [Tooltip("If true, the guard is sleeping by default and only wakes up if player makes noise nearby")]
         [SerializeField] private bool isSleeping = false;
-        [Tooltip("Radius within which normal (noisy) footsteps or gunshots wake up this guard")]
         [SerializeField] private float hearingRadius = 5.5f;
 
         [Header("Patrol Endpoints")]
-        [Tooltip("Optional Transform for Endpoint A (left). If unassigned, uses StartPosition - PatrolDistance.")]
         [SerializeField] private Transform endpointA;
-
-        [Tooltip("Optional Transform for Endpoint B (right). If unassigned, uses StartPosition + PatrolDistance.")]
         [SerializeField] private Transform endpointB;
-
-        [Tooltip("Default horizontal patrol span from start position if transforms are unassigned")]
         [SerializeField] private float patrolDistanceLeft = 4.0f;
         [SerializeField] private float patrolDistanceRight = 4.0f;
 
         [Header("Speeds & Timings")]
         [SerializeField] private float patrolSpeed = 2.0f;
         [SerializeField] private float pauseAtEndpointDuration = 1.0f;
-        [Tooltip("Delay from spotting player until bullet is fired (0.6 - 0.9s)")]
         [SerializeField] private float noticeDuration = 0.25f;
         [SerializeField] private float aimDuration = 0.50f;
         [SerializeField] private float postShootCooldown = 1.2f;
@@ -61,7 +53,7 @@ namespace OneLastTime.AI
         private Vector3 startPos;
         private float worldMinX;
         private float worldMaxX;
-        private int movingDirection = 1; // 1 = right, -1 = left
+        private int movingDirection = 1;
         private float pauseTimer;
         private float originalScaleX;
         private Coroutine alertRoutine;
@@ -71,7 +63,7 @@ namespace OneLastTime.AI
 
         public GuardState CurrentState => currentState;
 
-        private void Awake()
+        void Awake()
         {
             anim = GetComponent<Animator>();
             sr = GetComponent<SpriteRenderer>();
@@ -90,7 +82,7 @@ namespace OneLastTime.AI
                 transform.localScale = curScale;
             }
 
-            // Compute patrol endpoints
+            // calculate patrol bounds
             worldMinX = (endpointA != null) ? endpointA.position.x : startPos.x - patrolDistanceLeft;
             worldMaxX = (endpointB != null) ? endpointB.position.x : startPos.x + patrolDistanceRight;
 
@@ -117,7 +109,7 @@ namespace OneLastTime.AI
             }
         }
 
-        private void Start()
+        void Start()
         {
             FindPlayer();
             SetFacingDirection(movingDirection);
@@ -129,7 +121,7 @@ namespace OneLastTime.AI
             }
         }
 
-        private void FindPlayer()
+        void FindPlayer()
         {
             var pm = FindObjectOfType<PlayerMovement>();
             if (pm != null)
@@ -160,21 +152,19 @@ namespace OneLastTime.AI
             }
         }
 
-        private void Update()
+        void Update()
         {
             if (playerTransform == null)
             {
                 FindPlayer();
             }
 
-            // If sleeping, listen for player footstep noise
             if (currentState == GuardState.Sleeping)
             {
                 CheckHearing();
                 return;
             }
 
-            // High priority: check vision when patrolling or pausing
             if (currentState == GuardState.Patrolling || currentState == GuardState.PausingAtEndpoint)
             {
                 CheckVision();
@@ -192,7 +182,7 @@ namespace OneLastTime.AI
             }
         }
 
-        private void ExecutePatrol()
+        void ExecutePatrol()
         {
             if (anim != null) anim.SetBool("isWalking", true);
 
@@ -203,7 +193,7 @@ namespace OneLastTime.AI
             pos.x = Mathf.MoveTowards(pos.x, targetX, step);
             transform.position = pos;
 
-            // Reached endpoint
+            // reached edge of patrol route
             if (Mathf.Abs(pos.x - targetX) < 0.05f)
             {
                 currentState = GuardState.PausingAtEndpoint;
@@ -212,19 +202,19 @@ namespace OneLastTime.AI
             }
         }
 
-        private void ExecutePause()
+        void ExecutePause()
         {
             pauseTimer -= Time.deltaTime;
             if (pauseTimer <= 0f)
             {
-                // Turn around and resume patrol
+                // turn around and continue walking
                 movingDirection = -movingDirection;
                 SetFacingDirection(movingDirection);
                 currentState = GuardState.Patrolling;
             }
         }
 
-        private void CheckHearing()
+        void CheckHearing()
         {
             if (playerTransform == null)
             {
@@ -253,7 +243,7 @@ namespace OneLastTime.AI
             alertRoutine = StartCoroutine(WakeUpAndShootRoutine());
         }
 
-        private IEnumerator WakeUpAndShootRoutine()
+        IEnumerator WakeUpAndShootRoutine()
         {
             currentState = GuardState.AlertNotice;
             isSleeping = false;
@@ -276,16 +266,16 @@ namespace OneLastTime.AI
                 if (dirToPlayer != 0) SetFacingDirection((int)dirToPlayer);
             }
 
-            // 1. Wakeup animation plays (~0.60s)
+            // wake up animation
             yield return new WaitForSeconds(0.60f);
 
-            // 2. Aim phase (~0.40s)
+            // aim at player
             currentState = GuardState.Aiming;
             if (anim != null) anim.SetTrigger("aim");
 
             yield return new WaitForSeconds(aimDuration);
 
-            // 3. Pre-fire recheck
+            // check if player moved into cover
             Vector3 targetTorso;
             if (visionCone != null && !visionCone.CanShootPlayer(playerTransform, out targetTorso))
             {
@@ -293,7 +283,7 @@ namespace OneLastTime.AI
                 yield break;
             }
 
-            // 4. Fire!
+            // shoot
             currentState = GuardState.Shooting;
             if (anim != null) anim.SetTrigger("shoot");
 
@@ -301,13 +291,13 @@ namespace OneLastTime.AI
 
             SpawnBullet();
 
-            // 5. Post shoot recovery
+            // recovery before returning to idle
             yield return new WaitForSeconds(postShootCooldown);
 
             yield return ReturnToPatrolRoutine();
         }
 
-        private void CheckVision()
+        void CheckVision()
         {
             if (visionCone == null) return;
             if (playerTransform == null)
@@ -316,20 +306,19 @@ namespace OneLastTime.AI
                 if (playerTransform == null) return;
             }
 
-            // Don't notice or shoot if player is already dead
             var health = playerTransform.GetComponent<PlayerHealth>() ?? playerTransform.GetComponentInParent<PlayerHealth>();
             if (health != null && health.IsDead) return;
 
             Vector3 torsoPoint;
             if (visionCone.CanSeePlayer(playerTransform, out torsoPoint))
             {
-                // Player spotted! Begin Notice -> Aim -> Shoot sequence
+                // player spotted
                 if (alertRoutine != null) StopCoroutine(alertRoutine);
                 alertRoutine = StartCoroutine(AlertAndShootRoutine());
             }
         }
 
-        private IEnumerator AlertAndShootRoutine()
+        IEnumerator AlertAndShootRoutine()
         {
             currentState = GuardState.AlertNotice;
             if (anim != null)
@@ -339,44 +328,42 @@ namespace OneLastTime.AI
             }
             if (visionCone != null) visionCone.SetAlert(true);
 
-            // Face player
+            // face towards player
             float dirToPlayer = Mathf.Sign(playerTransform.position.x - transform.position.x);
             if (dirToPlayer != 0) SetFacingDirection((int)dirToPlayer);
 
-            // 1. Notice duration (~0.25s)
+            // brief notice delay
             yield return new WaitForSeconds(noticeDuration);
 
-            // 2. Aim phase (~0.50s)
+            // aim
             currentState = GuardState.Aiming;
             if (anim != null) anim.SetTrigger("aim");
 
             yield return new WaitForSeconds(aimDuration);
 
-            // 3. Pre-fire line of sight recheck
+            // recheck line of sight
             Vector3 targetTorso;
             if (visionCone != null && !visionCone.CanShootPlayer(playerTransform, out targetTorso))
             {
-                // Player escaped into cover or broke sight behind solid wall! Cancel shot
                 yield return ReturnToPatrolRoutine();
                 yield break;
             }
 
-            // 4. Fire!
+            // shoot
             currentState = GuardState.Shooting;
             if (anim != null) anim.SetTrigger("shoot");
 
-            // Frame delay to align bullet spawn exactly with the firing frame flash
             yield return new WaitForSeconds(0.12f);
 
             SpawnBullet();
 
-            // 5. Post shoot recovery & resume
+            // wait cooldown
             yield return new WaitForSeconds(postShootCooldown);
 
             yield return ReturnToPatrolRoutine();
         }
 
-        private IEnumerator ReturnToPatrolRoutine()
+        IEnumerator ReturnToPatrolRoutine()
         {
             currentState = GuardState.Cooldown;
             if (visionCone != null) visionCone.SetAlert(false);
@@ -386,28 +373,26 @@ namespace OneLastTime.AI
 
             if (initialIsSleeping)
             {
-                // Once woken up and fired, the sleeping guard remains awake, standing watchful
                 currentState = GuardState.PausingAtEndpoint;
                 pauseTimer = 999999f;
                 if (anim != null) anim.SetBool("isWalking", false);
             }
             else
             {
-                // Resume patrol in current facing direction
                 currentState = GuardState.Patrolling;
             }
 
             alertRoutine = null;
         }
 
-        private void SpawnBullet()
+        void SpawnBullet()
         {
             if (gunshotSound != null)
             {
                 AudioSource.PlayClipAtPoint(gunshotSound, transform.position, soundVolume);
             }
 
-            // Gunshot sound wakes up any adjacent sleeping guards!
+            // wake up nearby guards
             Collider2D[] nearby = Physics2D.OverlapCircleAll(transform.position, 12f);
             foreach (var c in nearby)
             {
@@ -495,7 +480,7 @@ namespace OneLastTime.AI
             }
         }
 
-        private void OnDrawGizmosSelected()
+        void OnDrawGizmosSelected()
         {
             if (isSleeping || initialIsSleeping)
             {

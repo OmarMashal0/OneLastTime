@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using OneLastTime.Player;
+using OneLastTime.Enemies;
 
 namespace OneLastTime.Interaction
 {
@@ -8,29 +9,15 @@ namespace OneLastTime.Interaction
     public class StealthCover : MonoBehaviour
     {
         [Header("Visual Feedback")]
-        [Tooltip("The prompt instance (InteractionPromptView) floating on this monument. If unassigned, automatically loaded from Interaction_Prompt.prefab.")]
         [SerializeField] private InteractionPromptView promptView;
-
-        [Tooltip("Optional GameObject reference for backwards compatibility")]
         [SerializeField] private GameObject interactionPrompt;
-
-        [Tooltip("Local height offset above the monument for the floating [E] prompt")]
         [SerializeField] private float promptHeightOffset = 0.5f;
-
-        [Tooltip("Scale for the instantiated Interaction_Prompt (0.22 matches door and NPC prompts)")]
         [SerializeField] private float promptScale = 0.22f;
-
-        [Tooltip("How much the player shrinks when hiding (0.95 = 5% smaller)")]
         [Range(0.8f, 1f)]
         [SerializeField] private float hiddenScaleMultiplier = 0.95f;
-
-        [Tooltip("Shadow color tint when hidden (dark gray/slate stealth tint)")]
         [SerializeField] private Color shadowColor = new Color(0.35f, 0.4f, 0.5f, 0.85f);
-
-        [Tooltip("Duration of the duck/un-duck transition in seconds")]
         [SerializeField] private float transitionDuration = 0.15f;
 
-        // Public state for enemy guards to check
         public bool IsPlayerHidden { get; private set; }
 
         private Collider2D triggerCollider;
@@ -47,7 +34,7 @@ namespace OneLastTime.Interaction
         private Coroutine transitionRoutine;
         private Vector3 promptBaseLocalPos;
 
-        private void Awake()
+        void Awake()
         {
             triggerCollider = GetComponent<Collider2D>();
             if (triggerCollider != null) triggerCollider.isTrigger = true;
@@ -65,7 +52,7 @@ namespace OneLastTime.Interaction
             }
         }
 
-        private void SetupInteractionPrompt()
+        void SetupInteractionPrompt()
         {
             if (promptView == null)
             {
@@ -79,7 +66,6 @@ namespace OneLastTime.Interaction
 
             if (promptView == null)
             {
-                // Instantiate the official game interaction prompt prefab
                 GameObject promptPrefab = null;
 #if UNITY_EDITOR
                 promptPrefab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Core/Prefabs/UI/Interaction_Prompt.prefab");
@@ -120,9 +106,9 @@ namespace OneLastTime.Interaction
             }
         }
 
-        private void Update()
+        void Update()
         {
-            // Bob the floating E prompt gently while visible
+            // gently bob prompt up and down
             if (promptView != null && promptView.IsVisible)
             {
                 float bobOffset = Mathf.Sin(Time.time * 4f) * 0.08f;
@@ -131,7 +117,7 @@ namespace OneLastTime.Interaction
 
             if (!isPlayerInZone && !IsPlayerHidden) return;
 
-            // 1. Press E to toggle hiding
+            // toggle hiding with e key
             if (Input.GetKeyDown(KeyCode.E))
             {
                 if (!IsPlayerHidden)
@@ -143,7 +129,7 @@ namespace OneLastTime.Interaction
                     ExitHiding();
                 }
             }
-            // 2. Pressing movement keys (A/D or Space) also breaks cover smoothly
+            // moving breaks cover
             else if (IsPlayerHidden)
             {
                 if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.1f || Input.GetKeyDown(KeyCode.Space))
@@ -153,7 +139,7 @@ namespace OneLastTime.Interaction
             }
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        void OnTriggerEnter2D(Collider2D other)
         {
             if (IsPlayer(other))
             {
@@ -162,9 +148,7 @@ namespace OneLastTime.Interaction
                 playerController = other.GetComponent<PlayerController>() ?? other.GetComponentInParent<PlayerController>();
                 playerMovement = other.GetComponent<PlayerMovement>() ?? other.GetComponentInParent<PlayerMovement>();
                 Animator playerAnimator = other.GetComponentInChildren<Animator>() ?? other.GetComponentInParent<Animator>();
-                playerSprite = playerAnimator != null
-                    ? playerAnimator.GetComponent<SpriteRenderer>()
-                    : other.GetComponent<SpriteRenderer>();
+                playerSprite = playerAnimator != null ? playerAnimator.GetComponent<SpriteRenderer>() : other.GetComponent<SpriteRenderer>();
                 playerRb = other.GetComponent<Rigidbody2D>() ?? other.GetComponentInParent<Rigidbody2D>();
 
                 if (!IsPlayerHidden)
@@ -174,7 +158,7 @@ namespace OneLastTime.Interaction
             }
         }
 
-        private void OnTriggerExit2D(Collider2D other)
+        void OnTriggerExit2D(Collider2D other)
         {
             if (IsPlayer(other))
             {
@@ -189,28 +173,26 @@ namespace OneLastTime.Interaction
             }
         }
 
-        private void EnterHiding()
+        void EnterHiding()
         {
             if (playerObj == null || playerSprite == null) return;
 
             IsPlayerHidden = true;
 
-            // Save original appearance (scale and color only; do NOT change sorting layers)
             originalScale = playerObj.transform.localScale;
             originalColor = playerSprite.color;
 
-            // Hide the prompt while hidden
             HidePrompt();
 
-            // Freeze player physics velocity and make kinematic so guards cannot push the player
+            // freeze velocity while hidden
             if (playerRb != null)
             {
                 playerRb.velocity = Vector2.zero;
                 playerRb.isKinematic = true;
             }
 
-            // Ignore physical collision with all patrolling guards while hidden
-            var guards = FindObjectsOfType<OneLastTime.AI.MuseumGuard>();
+            // ignore collision with patrolling guards
+            var guards = FindObjectsOfType<MuseumGuard>();
             var playerCols = playerObj.GetComponentsInChildren<Collider2D>();
             foreach (var g in guards)
             {
@@ -225,7 +207,6 @@ namespace OneLastTime.Interaction
                 }
             }
 
-            // Temporarily disable running/jumping in PlayerController or PlayerMovement
             if (playerController != null)
             {
                 playerController.enabled = false;
@@ -235,25 +216,24 @@ namespace OneLastTime.Interaction
                 playerMovement.canMove = false;
             }
 
-            // Animate scale & stealth shadow color tint (player remains on their own sorting layer)
             Vector3 targetScale = originalScale * hiddenScaleMultiplier;
             if (transitionRoutine != null) StopCoroutine(transitionRoutine);
             transitionRoutine = StartCoroutine(AnimateTransition(targetScale, shadowColor));
         }
 
-        private void ExitHiding()
+        void ExitHiding()
         {
             if (!IsPlayerHidden || playerObj == null || playerSprite == null) return;
 
             IsPlayerHidden = false;
 
-            // Restore player physics & collision
             if (playerRb != null)
             {
                 playerRb.isKinematic = false;
             }
 
-            var guards = FindObjectsOfType<OneLastTime.AI.MuseumGuard>();
+            // restore collisions with guards
+            var guards = FindObjectsOfType<MuseumGuard>();
             var playerCols = playerObj.GetComponentsInChildren<Collider2D>();
             foreach (var g in guards)
             {
@@ -268,7 +248,6 @@ namespace OneLastTime.Interaction
                 }
             }
 
-            // Restore player controller movement
             if (playerController != null)
             {
                 playerController.enabled = true;
@@ -278,13 +257,11 @@ namespace OneLastTime.Interaction
                 playerMovement.canMove = true;
             }
 
-            // Show prompt again if still in zone
             if (isPlayerInZone)
             {
                 ShowPrompt();
             }
 
-            // Animate scale & color back to normal, maintaining current facing direction
             float currentSign = Mathf.Sign(playerObj.transform.localScale.x);
             Vector3 restoreScale = originalScale;
             restoreScale.x = Mathf.Abs(originalScale.x) * (currentSign == 0 ? 1 : currentSign);
@@ -292,7 +269,7 @@ namespace OneLastTime.Interaction
             transitionRoutine = StartCoroutine(AnimateTransition(restoreScale, originalColor));
         }
 
-        private void ShowPrompt()
+        void ShowPrompt()
         {
             if (promptView != null)
             {
@@ -304,7 +281,7 @@ namespace OneLastTime.Interaction
             }
         }
 
-        private void HidePrompt()
+        void HidePrompt()
         {
             if (promptView != null)
             {
@@ -316,7 +293,7 @@ namespace OneLastTime.Interaction
             }
         }
 
-        private IEnumerator AnimateTransition(Vector3 targetScale, Color targetColor)
+        IEnumerator AnimateTransition(Vector3 targetScale, Color targetColor)
         {
             Vector3 startScale = playerObj.transform.localScale;
             Color startColor = playerSprite.color;
@@ -336,7 +313,7 @@ namespace OneLastTime.Interaction
             playerSprite.color = targetColor;
         }
 
-        private bool IsPlayer(Collider2D other)
+        bool IsPlayer(Collider2D other)
         {
             return other.CompareTag("Player") || other.name.IndexOf("player", System.StringComparison.OrdinalIgnoreCase) >= 0;
         }

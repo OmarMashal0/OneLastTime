@@ -10,20 +10,16 @@ public class PlayerMovement : MonoBehaviour
     public float deceleration = 80f;
     public float jumpVelocity = 14.5f;
 
-    [Header("Stealth / Quiet Walk")]
-    [Tooltip("Movement speed when sneaking")]
+    [Header("Sneak")]
     public float sneakSpeed = 3.2f;
     public KeyCode sneakKey = KeyCode.LeftShift;
     public KeyCode altSneakKey = KeyCode.LeftControl;
 
-    [Header("Air Physics & Feel")]
-    [Tooltip("Extra gravity multiplier when falling for a snappy, responsive descent")]
+    [Header("Jump Physics")]
     public float fallMultiplier = 2.2f;
-    [Tooltip("Extra gravity multiplier when releasing jump button early for variable jump height")]
     public float lowJumpMultiplier = 2.5f;
 
-    [Header("Slope & Stairs Handling")]
-    [Tooltip("Maximum slope angle in degrees that the player can walk up")]
+    [Header("Slopes")]
     public float maxSlopeAngle = 60f;
 
     [Header("Ground Check")]
@@ -31,13 +27,10 @@ public class PlayerMovement : MonoBehaviour
     public float groundCheckDistance = 0.1f;
     public LayerMask whatIsGround;
 
-    [Header("Game Feel (Forgiveness)")]
-    [Tooltip("Grace period in seconds where the player can still jump after walking off a ledge")]
+    [Header("Jump Timers")]
     public float coyoteTime = 0.15f;
-    [Tooltip("Grace period in seconds for queuing a jump before landing")]
     public float jumpBufferTime = 0.2f;
 
-    [Header("State flags")]
     public bool canMove = true;
     public bool controlsInverted = false;
 
@@ -49,12 +42,10 @@ public class PlayerMovement : MonoBehaviour
     private float coyoteCounter;
     private float jumpBufferCounter;
 
-    // Stealth state
     private bool isSneaking;
     public bool IsSneaking => isSneaking;
     public bool IsMakingFootstepNoise => grounded && Mathf.Abs(rb != null ? rb.velocity.x : 0f) > 0.5f && !isSneaking;
 
-    // Slope calculation state
     private Vector2 slopeNormal = Vector2.up;
     private float slopeAngle;
     private bool isOnSlope;
@@ -77,14 +68,14 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // 1. Read sneaking input
+        // check sneak input
         isSneaking = canMove && (Input.GetKey(sneakKey) || Input.GetKey(altSneakKey));
 
-        // 2. Read movement input
+        // horizontal input
         moveInput = canMove ? Input.GetAxisRaw("Horizontal") : 0f;
         if (controlsInverted) moveInput = -moveInput;
 
-        // 3. Jump input & buffer (supports both KeyCode.Space and Input axis)
+        // jump buffer lets players press jump slightly before hitting the ground
         bool jumpPressed = Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.Space);
         if (canMove && jumpPressed)
         {
@@ -95,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
             jumpBufferCounter -= Time.deltaTime;
         }
 
-        // 4. Coyote timer
+        // coyote time lets players jump briefly after stepping off an edge
         if (grounded)
         {
             coyoteCounter = coyoteTime;
@@ -105,7 +96,6 @@ public class PlayerMovement : MonoBehaviour
             coyoteCounter -= Time.deltaTime;
         }
 
-        // 5. Animator hooks
         if (anim != null && rb != null)
         {
             float animSpeed = (isOnSlope && grounded) ? rb.velocity.magnitude : Mathf.Abs(rb.velocity.x);
@@ -120,7 +110,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (rb == null) return;
 
-        // Detect ground and slope normal
         CheckGrounded();
 
         if (canMove)
@@ -129,7 +118,6 @@ public class PlayerMovement : MonoBehaviour
             float targetSpeed = moveInput * currentMaxSpeed;
             float rate = (moveInput != 0f) ? acceleration : deceleration;
 
-            // Jump execution (coyote time + jump buffer)
             if (jumpBufferCounter > 0f && coyoteCounter > 0f)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
@@ -140,7 +128,6 @@ public class PlayerMovement : MonoBehaviour
             }
             else if (grounded && isOnSlope)
             {
-                // Moving on a slope / stairs
                 if (moveInput != 0f)
                 {
                     Vector2 slopeDir = new Vector2(slopeNormal.y, -slopeNormal.x).normalized;
@@ -150,17 +137,16 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else
                 {
-                    // Prevent sliding down slope when idle
+                    // stop sliding on stairs when idle
                     rb.velocity = Vector2.zero;
                 }
             }
             else
             {
-                // Flat ground or in-air horizontal movement
                 float newX = Mathf.MoveTowards(rb.velocity.x, targetSpeed, rate * Time.fixedDeltaTime);
                 rb.velocity = new Vector2(newX, rb.velocity.y);
 
-                // Variable jump height & snappy falling
+                // faster fall and variable jump height
                 bool jumpHeld = Input.GetButton("Jump") || Input.GetKey(KeyCode.Space);
                 if (rb.velocity.y < 0)
                 {
@@ -172,7 +158,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-            // Facing direction
+            // flip sprite based on movement direction
             if (moveInput != 0f)
             {
                 Vector3 s = transform.localScale;
@@ -182,15 +168,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void CheckGrounded()
+    void CheckGrounded()
     {
         Vector2 checkOrigin = (col != null) ? (Vector2)col.bounds.center : (Vector2)transform.position;
         float rayDistance = (col != null) ? (col.bounds.extents.y + groundCheckDistance) : (1.025f + groundCheckDistance);
 
-        // Downward raycast from center to find ground and surface normal
         RaycastHit2D hit = Physics2D.Raycast(checkOrigin, Vector2.down, rayDistance, whatIsGround);
 
-        // If center ray missed, probe slightly left and right (inside collider width)
+        // probe sides if center ray misses near edges
         if (hit.collider == null || hit.collider.gameObject == gameObject || hit.collider.isTrigger)
         {
             float probeOffset = (col != null) ? (col.bounds.extents.x * 0.6f) : 0.25f;
@@ -208,7 +193,6 @@ public class PlayerMovement : MonoBehaviour
             slopeNormal = hit.normal;
             slopeAngle = Vector2.Angle(slopeNormal, Vector2.up);
 
-            // Ground is only valid if the slope is walkable (not a vertical wall)
             if (slopeAngle <= maxSlopeAngle)
             {
                 grounded = true;

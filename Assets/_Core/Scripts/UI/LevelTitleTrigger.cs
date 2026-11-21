@@ -12,7 +12,7 @@ namespace OneLastTime.UI
 
         private bool hasTriggered;
 
-        private void Awake()
+        void Awake()
         {
             var col = GetComponent<Collider2D>();
             if (col != null)
@@ -21,7 +21,7 @@ namespace OneLastTime.UI
             }
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        void OnTriggerEnter2D(Collider2D other)
         {
             if (hasTriggered && triggerOnce) return;
 
@@ -44,4 +44,3 @@ namespace OneLastTime.UI
         }
     }
 }
-

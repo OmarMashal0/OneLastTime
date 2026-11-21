@@ -7,26 +7,21 @@ namespace OneLastTime.Interaction
     public class NPCProximityBubble : MonoBehaviour
     {
         [Header("Speech Bubbles")]
-        [Tooltip("Add your animated speech bubbles here (e.g. bubble_1, bubble_2)")]
         [SerializeField] private GameObject[] speechBubbles;
 
         [Header("Timing")]
-        [Tooltip("Seconds to wait before showing the next bubble. Set to 0 to show all at once.")]
         [SerializeField] private float delayBetweenBubbles = 0.8f;
 
-        [Header("Trigger Behavior")]
-        [Tooltip("If checked, bubbles stay visible permanently once triggered, even if you walk away.")]
+        [Header("Trigger Settings")]
         [SerializeField] private bool stayActiveOnceTriggered = true;
 
         private Coroutine dialogueRoutine;
         private bool hasTriggered;
 
-        private void Start()
+        void Start()
         {
-            // Ensure all speech bubbles start hidden
             HideAllBubbles();
 
-            // Ensure this detection collider acts as a trigger
             var col = GetComponent<Collider2D>();
             if (col != null)
             {
@@ -34,7 +29,7 @@ namespace OneLastTime.Interaction
             }
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        void OnTriggerEnter2D(Collider2D other)
         {
             if (hasTriggered && stayActiveOnceTriggered) return;
 
@@ -44,7 +39,6 @@ namespace OneLastTime.Interaction
                 if (dialogueRoutine != null) StopCoroutine(dialogueRoutine);
                 dialogueRoutine = StartCoroutine(ShowBubblesSequence());
 
-                // Disable trigger collider once activated so it doesn't re-trigger
                 if (stayActiveOnceTriggered)
                 {
                     var col = GetComponent<Collider2D>();
@@ -53,9 +47,8 @@ namespace OneLastTime.Interaction
             }
         }
 
-        private void OnTriggerExit2D(Collider2D other)
+        void OnTriggerExit2D(Collider2D other)
         {
-            // If set to stay active permanently, don't hide when leaving
             if (stayActiveOnceTriggered) return;
 
             if (IsPlayer(other))
@@ -69,7 +62,7 @@ namespace OneLastTime.Interaction
             }
         }
 
-        private IEnumerator ShowBubblesSequence()
+        IEnumerator ShowBubblesSequence()
         {
             if (speechBubbles == null) yield break;
 
@@ -115,7 +108,7 @@ namespace OneLastTime.Interaction
             }
         }
 
-        private bool IsPlayer(Collider2D other)
+        bool IsPlayer(Collider2D other)
         {
             return other.CompareTag("Player") || other.name.IndexOf("player", System.StringComparison.OrdinalIgnoreCase) >= 0;
         }

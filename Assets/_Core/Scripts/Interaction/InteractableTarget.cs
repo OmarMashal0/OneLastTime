@@ -6,21 +6,13 @@ namespace OneLastTime.Interaction
 {
     public class InteractableTarget : MonoBehaviour
     {
-        [Header("Interaction Ranges (Hysteresis)")]
-        [Tooltip("Horizontal distance at which the prompt appears")]
+        [Header("Interaction Ranges")]
         [SerializeField] private float entryRangeX = 2.4f;
-
-        [Tooltip("Vertical distance at which the prompt appears")]
         [SerializeField] private float entryRangeY = 3.2f;
-
-        [Tooltip("Horizontal distance at which the prompt disappears")]
         [SerializeField] private float exitRangeX = 3.2f;
-
-        [Tooltip("Vertical distance at which the prompt disappears")]
         [SerializeField] private float exitRangeY = 4.2f;
 
         [Header("Prompt Positioning")]
-        [Tooltip("Offset in world space anchored above this target")]
         [SerializeField] private Vector3 promptOffset = new Vector3(0f, 1.8f, 0f);
 
         [Header("Prompt Instance")]
@@ -29,7 +21,6 @@ namespace OneLastTime.Interaction
         [Header("Events")]
         [SerializeField] private UnityEvent onInteract;
 
-        // Custom condition delegate (e.g. from NPCConfrontation or DoorTeleport)
         public Func<bool> canInteractCheck;
 
         public float EntryRangeX { get => entryRangeX; set => entryRangeX = value; }
@@ -42,30 +33,28 @@ namespace OneLastTime.Interaction
         public UnityEvent OnInteract => onInteract;
         public bool IsInRange { get; set; }
 
-        private void Awake()
+        void Awake()
         {
-            // Automatically capture the exact position placed by the designer in the editor
             if (promptView != null)
             {
                 promptOffset = promptView.transform.position - transform.position;
             }
         }
 
-        private void OnValidate()
+        void OnValidate()
         {
-            // Sync offset in editor as the user moves the prompt
             if (!Application.isPlaying && promptView != null)
             {
                 promptOffset = promptView.transform.position - transform.position;
             }
         }
 
-        private void OnEnable()
+        void OnEnable()
         {
             InteractionManager.RegisterTarget(this);
         }
 
-        private void OnDisable()
+        void OnDisable()
         {
             InteractionManager.UnregisterTarget(this);
             if (promptView != null)
@@ -124,7 +113,7 @@ namespace OneLastTime.Interaction
             onInteract?.Invoke();
         }
 
-        private void OnDrawGizmosSelected()
+        void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.green;
             Gizmos.DrawWireCube(transform.position, new Vector3(entryRangeX * 2f, entryRangeY * 2f, 0.1f));

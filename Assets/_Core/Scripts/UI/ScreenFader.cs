@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace OneLastTime.UI
 {
@@ -10,7 +9,7 @@ namespace OneLastTime.UI
 
         [SerializeField] private CanvasGroup canvasGroup;
 
-        private void Awake()
+        void Awake()
         {
             if (Instance == null)
             {
@@ -71,4 +70,3 @@ namespace OneLastTime.UI
         }
     }
 }
-

@@ -1,8 +1,8 @@
 using System.Collections;
 using UnityEngine;
-using OneLastTime.AI;
 using OneLastTime.Player;
 using OneLastTime.UI;
+using OneLastTime.Enemies;
 
 namespace OneLastTime.Systems
 {
@@ -11,14 +11,14 @@ namespace OneLastTime.Systems
         public static CheckpointManager Instance { get; private set; }
 
         [Header("Fade Settings")]
-        [SerializeField] private float fadeDuration = 0.35f;
+        public float fadeDuration = 0.35f;
 
         private Checkpoint currentCheckpoint;
         private GameObject playerObj;
         private PlayerMovement playerMovement;
         private PlayerHealth playerHealth;
 
-        private void Awake()
+        void Awake()
         {
             if (Instance == null)
             {
@@ -33,7 +33,7 @@ namespace OneLastTime.Systems
             FindPlayer();
         }
 
-        private void FindPlayer()
+        void FindPlayer()
         {
             playerHealth = FindObjectOfType<PlayerHealth>();
             if (playerHealth != null)
@@ -61,11 +61,11 @@ namespace OneLastTime.Systems
             StartCoroutine(RespawnRoutine());
         }
 
-        private IEnumerator RespawnRoutine()
+        IEnumerator RespawnRoutine()
         {
             FindPlayer();
 
-            // 1. Fade to black
+            // fade out screen
             var fader = ScreenFader.Instance;
             if (fader != null)
             {
@@ -76,21 +76,21 @@ namespace OneLastTime.Systems
                 yield return new WaitForSeconds(0.2f);
             }
 
-            // 2. Destroy lingering bullets
+            // clear remaining bullets
             var bullets = FindObjectsOfType<GuardBullet>();
             foreach (var b in bullets)
             {
                 if (b != null) Destroy(b.gameObject);
             }
 
-            // 3. Reset all guards
+            // reset guards to patrol positions
             var guards = FindObjectsOfType<MuseumGuard>();
             foreach (var g in guards)
             {
                 if (g != null) g.ResetGuard();
             }
 
-            // 4. Reposition player at checkpoint
+            // reposition player at active checkpoint
             Vector3 spawnPos = Vector3.zero;
             if (playerObj != null)
             {
@@ -130,13 +130,13 @@ namespace OneLastTime.Systems
                 }
             }
 
-            // 5. Restore player health, animation & movement
+            // revive player and restore controls
             if (playerHealth != null)
             {
                 playerHealth.RestorePlayer();
             }
 
-            // 6. Snap Camera
+            // update camera limits for current area
             var cam = Camera.main;
             if (cam != null)
             {
@@ -159,7 +159,7 @@ namespace OneLastTime.Systems
                 }
             }
 
-            // 7. Reposition Raccoon companion if present (safe lookup, no undefined tag queries)
+            // move companion near player
             var raccoon = GameObject.Find("Companion_Raccoon") ?? GameObject.Find("Raccoon");
             if (raccoon == null)
             {
@@ -179,7 +179,7 @@ namespace OneLastTime.Systems
                 raccoon.transform.position = playerObj.transform.position + new Vector3(-1f, 0f, 0f);
             }
 
-            // 8. Fade back in
+            // fade back in
             if (fader != null)
             {
                 yield return fader.FadeFromBlack(fadeDuration);
@@ -187,4 +187,3 @@ namespace OneLastTime.Systems
         }
     }
 }
-

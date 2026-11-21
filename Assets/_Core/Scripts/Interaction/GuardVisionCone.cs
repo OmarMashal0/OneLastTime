@@ -2,25 +2,19 @@ using UnityEngine;
 using OneLastTime.Interaction;
 using OneLastTime.Player;
 
-namespace OneLastTime.AI
+namespace OneLastTime.Enemies
 {
     [ExecuteAlways]
     [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
     public class GuardVisionCone : MonoBehaviour
     {
         [Header("Vision Settings")]
-        [Tooltip("Maximum sight range in world units")]
         [SerializeField] private float viewDistance = 7.0f;
-
-        [Tooltip("Vision cone opening angle in degrees")]
         [SerializeField] private float viewAngle = 50.0f;
-
-        [Tooltip("Number of ray segments used to generate the mesh")]
         [Range(10, 60)]
         [SerializeField] private int rayCount = 30;
 
         [Header("Obstacle Detection")]
-        [Tooltip("Layers that block vision and clip the visual cone")]
         [SerializeField] private LayerMask obstacleLayer;
 
         [Header("Visual Styling")]
@@ -38,17 +32,17 @@ namespace OneLastTime.AI
         public float ViewDistance { get => viewDistance; set => viewDistance = value; }
         public float ViewAngle { get => viewAngle; set => viewAngle = value; }
 
-        private void Awake()
+        void Awake()
         {
             Init();
         }
 
-        private void OnEnable()
+        void OnEnable()
         {
             Init();
         }
 
-        private void Init()
+        void Init()
         {
             if (meshFilter == null) meshFilter = GetComponent<MeshFilter>();
             if (meshRenderer == null) meshRenderer = GetComponent<MeshRenderer>();
@@ -94,7 +88,7 @@ namespace OneLastTime.AI
             }
         }
 
-        private void LateUpdate()
+        void LateUpdate()
         {
             RenderCone();
         }
@@ -113,7 +107,6 @@ namespace OneLastTime.AI
             float scaleX = transform.lossyScale.x;
             if (Mathf.Abs(scaleX) < 0.001f) scaleX = 0.22f;
             float facingSign = Mathf.Sign(scaleX);
-            // In 2D world space: facing right is 0 deg, facing left is 180 deg
             float baseAngle = (facingSign >= 0f) ? 0f : 180f;
 
             float halfAngle = viewAngle * 0.5f;
@@ -121,7 +114,6 @@ namespace OneLastTime.AI
 
             Vector3[] vertices = new Vector3[rayCount + 2];
             Vector2[] uvs = new Vector2[vertices.Length];
-            // Double-sided triangles to prevent any backface culling issues with negative scale
             int[] triangles = new int[rayCount * 6];
             Color[] colors = new Color[vertices.Length];
 
@@ -139,7 +131,7 @@ namespace OneLastTime.AI
                 float rad = angle * Mathf.Deg2Rad;
                 Vector2 dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
 
-                // RaycastAll to filter out guard's own collider and hits at distance ~ 0
+                // raycast to detect walls blocking vision
                 RaycastHit2D[] hits = Physics2D.RaycastAll(origin, dir, viewDistance, obstacleLayer);
                 Vector3 endpoint = origin + (Vector3)dir * viewDistance;
 
@@ -147,8 +139,7 @@ namespace OneLastTime.AI
                 {
                     if (hit.collider == guardCol) continue;
                     if (hit.collider.isTrigger) continue;
-                    if (hit.distance < 0.2f) continue; // Skip starting overlap
-                    // Vision cone light shines over the player and does not get cut by the player's body
+                    if (hit.distance < 0.2f) continue;
                     if (hit.collider.CompareTag("Player") || hit.collider.name.IndexOf("player", System.StringComparison.OrdinalIgnoreCase) >= 0) continue;
 
                     endpoint = hit.point;
@@ -165,11 +156,11 @@ namespace OneLastTime.AI
                 if (i < rayCount)
                 {
                     int triIdx = i * 6;
-                    // Front face
+                    // front face
                     triangles[triIdx] = 0;
                     triangles[triIdx + 1] = i + 1;
                     triangles[triIdx + 2] = i + 2;
-                    // Back face (double-sided)
+                    // back face
                     triangles[triIdx + 3] = 0;
                     triangles[triIdx + 4] = i + 2;
                     triangles[triIdx + 5] = i + 1;
@@ -194,13 +185,13 @@ namespace OneLastTime.AI
             targetTorsoPoint = Vector3.zero;
             if (playerTarget == null) return false;
 
-            // 1. Check if Ryu is currently hidden behind cover (e.g. monument)
+            // check if player is hidden behind cover
             var activeCovers = FindObjectsOfType<StealthCover>();
             foreach (var cover in activeCovers)
             {
                 if (cover != null && cover.IsPlayerHidden)
                 {
-                    return false; // Ryu is safely hidden!
+                    return false;
                 }
             }
 
@@ -210,7 +201,6 @@ namespace OneLastTime.AI
 
             Vector2 origin = transform.position;
 
-            // Check multi-point profile: center, upper torso, lower torso
             Vector3[] testPoints = new Vector3[]
             {
                 bodyCenter,
@@ -231,7 +221,7 @@ namespace OneLastTime.AI
                 float angle = Vector2.Angle(forward, toPt.normalized);
                 if (angle > halfAngle) continue;
 
-                // Line of sight raycast (must not hit solid obstacle before reaching player)
+                // check if line of sight is clear
                 RaycastHit2D[] hits = Physics2D.RaycastAll(origin, toPt.normalized, dist, obstacleLayer);
                 bool blocked = false;
                 foreach (var hit in hits)
@@ -239,12 +229,11 @@ namespace OneLastTime.AI
                     if (hit.collider == guardCol) continue;
                     if (hit.collider != null && (hit.collider.gameObject == playerTarget.gameObject || hit.transform.IsChildOf(playerTarget)))
                     {
-                        break; // Reached player!
+                        break;
                     }
                     if (hit.collider.isTrigger) continue;
                     if (hit.distance < 0.2f) continue;
 
-                    // Hit solid wall or obstacle before reaching player
                     if (hit.distance < dist - 0.25f)
                     {
                         blocked = true;
@@ -267,7 +256,7 @@ namespace OneLastTime.AI
             targetTorsoPoint = Vector3.zero;
             if (playerTarget == null) return false;
 
-            // 1. Is player hidden?
+            // player is hidden behind cover
             var activeCovers = FindObjectsOfType<StealthCover>();
             foreach (var cover in activeCovers)
             {
@@ -277,7 +266,7 @@ namespace OneLastTime.AI
                 }
             }
 
-            // 2. Is player dead?
+            // player is already dead
             var health = playerTarget.GetComponent<PlayerHealth>() ?? playerTarget.GetComponentInParent<PlayerHealth>();
             if (health != null && health.IsDead) return false;
 
@@ -289,7 +278,7 @@ namespace OneLastTime.AI
 
             if (dist > viewDistance * 2f) return false;
 
-            // Raycast for solid wall blocking shot
+            // check if wall blocks the shot
             RaycastHit2D[] hits = Physics2D.RaycastAll(origin, toPlayer.normalized, dist, obstacleLayer);
             foreach (var hit in hits)
             {
@@ -310,7 +299,7 @@ namespace OneLastTime.AI
             return true;
         }
 
-        private void OnDestroy()
+        void OnDestroy()
         {
             if (Application.isPlaying && mesh != null) Destroy(mesh);
         }

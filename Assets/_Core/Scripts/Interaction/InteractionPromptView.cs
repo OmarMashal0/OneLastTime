@@ -7,7 +7,6 @@ namespace OneLastTime.Interaction
     public class InteractionPromptView : MonoBehaviour
     {
         [Header("Fade Settings")]
-        [Tooltip("Seconds to smoothly fade in/out")]
         [SerializeField] private float fadeDuration = 0.08f;
 
         private SpriteRenderer spriteRenderer;
@@ -18,12 +17,12 @@ namespace OneLastTime.Interaction
 
         public bool IsVisible => isVisible;
 
-        private void Awake()
+        void Awake()
         {
             Init();
         }
 
-        private void Start()
+        void Start()
         {
             Init();
             if (!hasInitializedAtStart && !isVisible)
@@ -34,7 +33,7 @@ namespace OneLastTime.Interaction
             }
         }
 
-        private void Init()
+        void Init()
         {
             if (spriteRenderer == null)
             {
@@ -52,7 +51,6 @@ namespace OneLastTime.Interaction
             }
             isVisible = true;
 
-            // If already fading to or reached 1f, do not restart coroutine every frame
             if (targetAlpha == 1f && (fadeRoutine != null || (spriteRenderer != null && spriteRenderer.color.a >= 0.99f)))
             {
                 return;
@@ -79,7 +77,6 @@ namespace OneLastTime.Interaction
                 return;
             }
 
-            // If already fading to 0f, do not restart
             if (targetAlpha == 0f && fadeRoutine != null)
             {
                 return;
@@ -97,7 +94,7 @@ namespace OneLastTime.Interaction
             }
         }
 
-        private IEnumerator FadeTo(float targetAlpha, System.Action onComplete = null)
+        IEnumerator FadeTo(float targetAlpha, System.Action onComplete = null)
         {
             Init();
             if (spriteRenderer == null) yield break;
@@ -118,7 +115,7 @@ namespace OneLastTime.Interaction
             onComplete?.Invoke();
         }
 
-        private void SetAlpha(float a)
+        void SetAlpha(float a)
         {
             Init();
             if (spriteRenderer != null)

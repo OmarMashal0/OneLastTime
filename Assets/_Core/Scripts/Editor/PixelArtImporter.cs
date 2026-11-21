@@ -7,7 +7,7 @@ namespace OneLastTime.EditorTools
 {
     public class PixelArtImporter : AssetPostprocessor
     {
-        private void OnPreprocessTexture()
+        void OnPreprocessTexture()
         {
             if (assetPath.StartsWith("Assets/Level") || assetPath.StartsWith("Assets/_Core/Art"))
             {
@@ -63,9 +63,8 @@ namespace OneLastTime.EditorTools
                 AssetDatabase.Refresh();
             }
 
-            Debug.Log($"[PixelArtImporter] Successfully configured {count} textures in Level1_Museum/Art with Point filter, Uncompressed, and 16 PPU.");
+            Debug.Log("[PixelArtImporter] Configured " + count + " textures in Level1_Museum/Art.");
         }
     }
 }
 #endif
-

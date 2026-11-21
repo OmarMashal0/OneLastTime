@@ -1,14 +1,15 @@
 using UnityEngine;
 using OneLastTime.Player;
+using OneLastTime.Interaction;
 
-namespace OneLastTime.AI
+namespace OneLastTime.Enemies
 {
     [RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D))]
     public class GuardBullet : MonoBehaviour
     {
         [Header("Bullet Settings")]
-        [SerializeField] private float speed = 38f;
-        [SerializeField] private float lifetime = 3.5f;
+        public float speed = 38f;
+        public float lifetime = 3.5f;
 
         private Rigidbody2D rb;
         private Collider2D bulletCol;
@@ -16,7 +17,7 @@ namespace OneLastTime.AI
         private bool hasHit;
         private Collider2D firingGuardCollider;
 
-        private void Awake()
+        void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
             bulletCol = GetComponent<CircleCollider2D>();
@@ -36,7 +37,7 @@ namespace OneLastTime.AI
                 Physics2D.IgnoreCollision(bulletCol, firingGuardCollider, true);
             }
 
-            // Align rotation with travel direction
+            // rotate bullet to match flight direction
             float angle = Mathf.Atan2(travelDirection.y, travelDirection.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0f, 0f, angle);
 
@@ -44,37 +45,35 @@ namespace OneLastTime.AI
             Destroy(gameObject, lifetime);
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        void OnTriggerEnter2D(Collider2D other)
         {
             HandleCollision(other);
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        void OnCollisionEnter2D(Collision2D collision)
         {
             HandleCollision(collision.collider);
         }
 
-        private void HandleCollision(Collider2D other)
+        void HandleCollision(Collider2D other)
         {
             if (hasHit) return;
             if (other == firingGuardCollider) return;
 
-            // Check if stealth cover
-            var cover = other.GetComponent<OneLastTime.Interaction.StealthCover>() ?? other.GetComponentInParent<OneLastTime.Interaction.StealthCover>();
+            // check if player is safe behind cover
+            var cover = other.GetComponent<StealthCover>() ?? other.GetComponentInParent<StealthCover>();
             if (cover != null)
             {
                 if (cover.IsPlayerHidden)
                 {
-                    // Player is hidden behind cover: bullet safely absorbed
                     hasHit = true;
                     DestroyBullet();
                     return;
                 }
-                // Player is NOT hidden: bullet passes through the cover trigger zone to reach target
                 return;
             }
 
-            // Check if player hit
+            // hit player
             var health = other.GetComponent<PlayerHealth>() ?? other.GetComponentInParent<PlayerHealth>();
             if (health == null && (other.CompareTag("Player") || other.name.IndexOf("player", System.StringComparison.OrdinalIgnoreCase) >= 0))
             {
@@ -89,21 +88,17 @@ namespace OneLastTime.AI
                 return;
             }
 
-            if (other.isTrigger)
-            {
-                // Ignore non-player triggers (interaction zones, prompt triggers, etc.)
-                return;
-            }
+            // ignore other trigger zones
+            if (other.isTrigger) return;
 
-            // Hit solid wall or obstacle
+            // hit wall or floor
             hasHit = true;
             DestroyBullet();
         }
 
-        private void DestroyBullet()
+        void DestroyBullet()
         {
             rb.velocity = Vector2.zero;
-            // Detach trail so it fades out smoothly
             var trail = GetComponentInChildren<TrailRenderer>();
             if (trail != null)
             {

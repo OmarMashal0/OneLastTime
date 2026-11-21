@@ -10,22 +10,16 @@ namespace OneLastTime.Interaction
     public class DoorTeleport : MonoBehaviour
     {
         [Header("Teleport Target")]
-        [Tooltip("The Transform where the player will be teleported")]
         [SerializeField] private Transform destination;
 
         [Header("Interaction")]
-        [Tooltip("Key to press when standing in front of the door")]
         [SerializeField] private KeyCode interactKey = KeyCode.E;
-
-        [Tooltip("Optional prompt GameObject (e.g. '[E] Enter') to show when near the door")]
         [SerializeField] private GameObject interactionPrompt;
 
         [Header("Player Scaling")]
-        [Tooltip("Scale multiplier for the player when teleported (e.g. 2 for 2x scale, 0 to leave unchanged)")]
         [SerializeField] private float targetPlayerScale = 2f;
 
         [Header("Camera Transition")]
-        [Tooltip("Update camera limits when entering this zone")]
         [SerializeField] private bool updateCameraLimits = true;
         [SerializeField] private float newMinX = -2.5f;
         [SerializeField] private float newMaxX = 20.0f;
@@ -37,11 +31,8 @@ namespace OneLastTime.Interaction
         [SerializeField] private float blackoutHoldTime = 0.15f;
 
         [Header("Door Open Animation")]
-        [Tooltip("SpriteRenderer displaying the door")]
         [SerializeField] private SpriteRenderer doorSpriteRenderer;
-        [Tooltip("Frames of the door opening sequence")]
         [SerializeField] private Sprite[] openFrames;
-        [Tooltip("Playback speed of the door opening animation in frames per second")]
         [SerializeField] private float openFrameRate = 12f;
 
         private bool isPlayerInZone;
@@ -55,7 +46,7 @@ namespace OneLastTime.Interaction
 
         private InteractableTarget interactableTarget;
 
-        private void Awake()
+        void Awake()
         {
             var col = GetComponent<Collider2D>();
             if (col != null) col.isTrigger = true;
@@ -100,9 +91,9 @@ namespace OneLastTime.Interaction
             StartCoroutine(TransitionRoutine());
         }
 
-        private void Update()
+        void Update()
         {
-            // If managed by InteractableTarget, skip direct input polling
+            // if handled by interactable target, do not double-check key
             if (interactableTarget != null) return;
 
             if (!isPlayerInZone || isTransitioning) return;
@@ -113,7 +104,7 @@ namespace OneLastTime.Interaction
             }
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        void OnTriggerEnter2D(Collider2D other)
         {
             if (IsPlayer(other))
             {
@@ -128,7 +119,7 @@ namespace OneLastTime.Interaction
             }
         }
 
-        private void OnTriggerExit2D(Collider2D other)
+        void OnTriggerExit2D(Collider2D other)
         {
             if (IsPlayer(other))
             {
@@ -140,19 +131,19 @@ namespace OneLastTime.Interaction
             }
         }
 
-        private IEnumerator TransitionRoutine()
+        IEnumerator TransitionRoutine()
         {
             if (destination == null || playerObj == null) yield break;
 
             isTransitioning = true;
             if (interactionPrompt != null) interactionPrompt.SetActive(false);
 
-            // 1. Freeze player
+            // freeze player movement
             if (playerMovement != null) playerMovement.canMove = false;
             var rb = playerObj.GetComponent<Rigidbody2D>() ?? playerObj.GetComponentInParent<Rigidbody2D>();
             if (rb != null) rb.velocity = Vector2.zero;
 
-            // 2. Play door opening animation if frames provided
+            // play door opening animation frames
             if (doorSpriteRenderer == null)
                 doorSpriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -167,7 +158,7 @@ namespace OneLastTime.Interaction
                 }
             }
 
-            // 3. Fade to black
+            // fade to black
             var fader = ScreenFader.Instance;
             if (fader != null)
             {
@@ -178,13 +169,13 @@ namespace OneLastTime.Interaction
                 yield return new WaitForSeconds(fadeDuration);
             }
 
-            // Reset door back to closed state behind the blackout
+            // reset door back to closed frame during blackout
             if (openFrames != null && openFrames.Length > 0 && doorSpriteRenderer != null)
             {
                 doorSpriteRenderer.sprite = openFrames[0];
             }
 
-            // 3. Teleport & scale player
+            // teleport and scale player
             if (targetPlayerScale > 0f)
             {
                 float facingSign = Mathf.Sign(playerObj.transform.localScale.x);
@@ -205,7 +196,7 @@ namespace OneLastTime.Interaction
                 rb.position = destination.position;
             }
 
-            // 4. Update Camera
+            // update camera boundaries
             var cam = Camera.main;
             if (cam != null)
             {
@@ -215,7 +206,6 @@ namespace OneLastTime.Interaction
                     if (updateCameraLimits)
                     {
                         float finalMaxX = newMaxX;
-                        // Only clamp to Museum_Right_Wall if teleporting into the upper museum corridor (-35 < Y < -15)
                         if (destination.position.y > -35f && destination.position.y < -15f)
                         {
                             var rightWall = GameObject.Find("Museum_Right_Wall");
@@ -236,27 +226,26 @@ namespace OneLastTime.Interaction
                 }
             }
 
-            // 5. Short pause in blackout
+            // hold blackout briefly
             if (blackoutHoldTime > 0f)
             {
                 yield return new WaitForSeconds(blackoutHoldTime);
             }
 
-            // 6. Fade back in
+            // fade back in
             if (fader != null)
             {
                 yield return fader.FadeFromBlack(fadeDuration);
             }
 
-            // 7. Unfreeze player
+            // restore player movement
             if (playerMovement != null) playerMovement.canMove = true;
             isTransitioning = false;
         }
 
-        private bool IsPlayer(Collider2D other)
+        bool IsPlayer(Collider2D other)
         {
             return other.CompareTag("Player") || other.name.IndexOf("player", System.StringComparison.OrdinalIgnoreCase) >= 0;
         }
     }
 }
-

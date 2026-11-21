@@ -8,8 +8,7 @@ namespace OneLastTime.Interaction
     {
         public static InteractionManager Instance { get; private set; }
 
-        [Header("Input Settings")]
-        [Tooltip("Key to trigger the active interaction")]
+        [Header("Input")]
         [SerializeField] private KeyCode interactKey = KeyCode.E;
 
         private static readonly List<InteractableTarget> registeredTargets = new List<InteractableTarget>();
@@ -33,7 +32,7 @@ namespace OneLastTime.Interaction
             }
         }
 
-        private void Awake()
+        void Awake()
         {
             if (Instance == null)
             {
@@ -45,7 +44,6 @@ namespace OneLastTime.Interaction
                 return;
             }
 
-            // Ensure all interactables in the active scene are registered
             var existing = FindObjectsOfType<InteractableTarget>();
             foreach (var t in existing)
             {
@@ -53,12 +51,12 @@ namespace OneLastTime.Interaction
             }
         }
 
-        private void Start()
+        void Start()
         {
             FindPlayer();
         }
 
-        private void FindPlayer()
+        void FindPlayer()
         {
             playerMovement = FindObjectOfType<PlayerMovement>();
             if (playerMovement != null)
@@ -75,7 +73,7 @@ namespace OneLastTime.Interaction
             }
         }
 
-        private void Update()
+        void Update()
         {
             if (playerTransform == null || playerMovement == null)
             {
@@ -83,8 +81,7 @@ namespace OneLastTime.Interaction
                 if (playerTransform == null) return;
             }
 
-            // Global block condition:
-            // Hide prompt during dialogue, scene transitions, or when player control is disabled
+            // hide prompts if player cannot move
             bool isControlDisabled = (playerMovement != null && !playerMovement.canMove);
             if (isControlDisabled)
             {
@@ -93,7 +90,7 @@ namespace OneLastTime.Interaction
                 return;
             }
 
-            // Evaluate in-range status with 2D horizontal/vertical hysteresis
+            // find nearest valid interactable
             Vector3 playerPos = playerTransform.position;
             InteractableTarget nearestTarget = null;
             float nearestDist = float.MaxValue;
@@ -114,10 +111,8 @@ namespace OneLastTime.Interaction
                     continue;
                 }
 
-                // Check in range with 2D bounds
                 bool inRange = target.CheckIsInRange(playerPos);
 
-                // If in range, select the nearest target
                 if (inRange)
                 {
                     float dist = target.GetInteractionDistance(playerPos);
@@ -131,7 +126,7 @@ namespace OneLastTime.Interaction
 
             currentFocusedTarget = nearestTarget;
 
-            // Show ONLY the nearest target's prompt, hide all others
+            // show prompt for closest target only
             for (int i = 0; i < registeredTargets.Count; i++)
             {
                 var target = registeredTargets[i];
@@ -139,7 +134,6 @@ namespace OneLastTime.Interaction
 
                 if (target == currentFocusedTarget)
                 {
-                    // Keep prompt anchored above target in world space
                     target.PromptView.transform.position = target.GetWorldPromptPosition();
                     target.PromptView.Show();
                 }
@@ -149,7 +143,7 @@ namespace OneLastTime.Interaction
                 }
             }
 
-            // Handle Interaction Input: single source of input handling
+            // trigger interaction when key pressed
             if (Input.GetKeyDown(interactKey))
             {
                 if (currentFocusedTarget != null && currentFocusedTarget.CanInteract())
@@ -165,7 +159,7 @@ namespace OneLastTime.Interaction
             }
         }
 
-        private void HideAllPrompts()
+        void HideAllPrompts()
         {
             for (int i = 0; i < registeredTargets.Count; i++)
             {

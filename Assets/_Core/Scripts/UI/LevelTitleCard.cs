@@ -33,7 +33,7 @@ namespace OneLastTime.UI
         private AudioSource audioSource;
         private Vector2 originalPosition;
 
-        private void Awake()
+        void Awake()
         {
             if (Instance == null)
             {
@@ -67,11 +67,10 @@ namespace OneLastTime.UI
             activeRoutine = StartCoroutine(TitleRoutine(string.IsNullOrEmpty(customText) ? defaultTitle : customText));
         }
 
-        private IEnumerator TitleRoutine(string text)
+        IEnumerator TitleRoutine(string text)
         {
             if (titleText != null)
             {
-                // Format nicely: split "Level 1 | The Return of The Greatest Samurai" into two stylish lines with Japanese crest flourish
                 if (text.Contains("|"))
                 {
                     string[] parts = text.Split('|');
@@ -92,7 +91,7 @@ namespace OneLastTime.UI
                 audioSource.PlayOneShot(soundEffect, soundVolume);
             }
 
-            // Phase 1: Fade In & Rise
+            // fade in and float up
             float elapsed = 0f;
             Vector2 startPos = originalPosition - new Vector2(0f, 25f);
             Vector3 startScale = new Vector3(0.92f, 0.92f, 1f);
@@ -101,7 +100,6 @@ namespace OneLastTime.UI
             {
                 elapsed += Time.deltaTime;
                 float t = Mathf.Clamp01(elapsed / fadeInDuration);
-                // Ease out cubic
                 float ease = 1f - Mathf.Pow(1f - t, 3f);
 
                 if (canvasGroup != null) canvasGroup.alpha = ease;
@@ -120,7 +118,7 @@ namespace OneLastTime.UI
                 containerRect.localScale = Vector3.one;
             }
 
-            // Phase 2: Hold with subtle ambient breathing float
+            // hold on screen
             elapsed = 0f;
             while (elapsed < displayDuration)
             {
@@ -133,14 +131,13 @@ namespace OneLastTime.UI
                 yield return null;
             }
 
-            // Phase 3: Fade Out with gentle ascent
+            // fade out
             elapsed = 0f;
             Vector2 endPos = originalPosition + new Vector2(0f, 20f);
             while (elapsed < fadeOutDuration)
             {
                 elapsed += Time.deltaTime;
                 float t = Mathf.Clamp01(elapsed / fadeOutDuration);
-                // Ease in quad
                 float ease = t * t;
 
                 if (canvasGroup != null) canvasGroup.alpha = 1f - ease;
@@ -157,4 +154,3 @@ namespace OneLastTime.UI
         }
     }
 }
-

@@ -5,27 +5,20 @@ namespace OneLastTime.Systems
 {
     public class CameraFollow : MonoBehaviour
     {
-        [Header("Target to Follow")]
-        [Tooltip("The GameObject for the camera to follow (e.g. Player_Ryu)")]
+        [Header("Target")]
         [SerializeField] private Transform target;
         public Transform Target { get => target; set => target = value; }
 
-        [Header("Camera Settings")]
-        [Tooltip("Offset relative to the player. Keep Z at -10 for 2D.")]
+        [Header("Settings")]
         [SerializeField] private Vector3 offset = new Vector3(0f, 1.2f, -10f);
-
-        [Tooltip("How smoothly the camera catches up to the target")]
         [Range(0.01f, 1f)]
         [SerializeField] private float smoothTime = 0.2f;
 
         [Header("Vertical Movement")]
-        [Tooltip("Set to false to completely stop the camera from bobbing up/down when jumping")]
         [SerializeField] private bool followY = true;
-        [Tooltip("Fixed Y position used when Follow Y is false")]
         [SerializeField] private float fixedY = 0f;
 
-        [Header("Camera Boundaries (Clamps)")]
-        [Tooltip("Enable to prevent the camera from moving beyond your level edges")]
+        [Header("Camera Boundaries")]
         [SerializeField] private bool useLimits = true;
         [SerializeField] private float minY = 0f;
         [SerializeField] private float maxY = 3f;
@@ -37,17 +30,15 @@ namespace OneLastTime.Systems
         public float MinY => minY;
         public float MaxY => maxY;
 
-        [Header("Zoom & Alignment")]
-        [Tooltip("Default unzoomed orthographic size used as baseline for bottom-alignment")]
+        [Header("Zoom")]
         [SerializeField] private float baseOrthoSize = 5.0f;
-        [Tooltip("When zooming, keep the bottom edge of the camera view aligned at the same world min Y")]
         [SerializeField] private bool keepBottomAlignedOnZoom = true;
 
         private Vector3 currentVelocity = Vector3.zero;
         private Camera cam;
         private Vector3 shakeOffset = Vector3.zero;
 
-        private void Awake()
+        void Awake()
         {
             cam = GetComponent<Camera>();
         }
@@ -102,8 +93,9 @@ namespace OneLastTime.Systems
             currentVelocity = Vector3.zero;
         }
 
-        private void Start()
+        void Start()
         {
+            // find player if target is unassigned
             if (target == null)
             {
                 var pm = FindObjectOfType<PlayerMovement>();
@@ -116,17 +108,18 @@ namespace OneLastTime.Systems
                 }
             }
 
+            // set initial boundaries depending on which floor player starts on
             if (target != null)
             {
                 if (target.position.y < -35f)
                 {
-                    // Target is in the lower floor / basement!
+                    // lower floor
                     SetLimits(-6.0f, 120.0f, -42.5f, -42.0f);
                     SnapToTarget();
                 }
                 else if (target.position.y < -15f)
                 {
-                    // Target is in the museum upper corridor! Calculate museum boundaries dynamically
+                    // first floor
                     float calculatedMaxX = 141.0f;
                     var rightWall = GameObject.Find("Museum_Right_Wall");
                     if (rightWall != null)
@@ -135,29 +128,27 @@ namespace OneLastTime.Systems
                         calculatedMaxX = rightWall.transform.position.x - halfWidth;
                     }
 
-                    // Respect whichever is larger: the calculated wall bound or any inspector/custom maxX
                     float targetMaxX = Mathf.Max(maxX, calculatedMaxX);
                     SetLimits(-1.0f, targetMaxX, -20.65f, -20.45f);
                     SnapToTarget();
                 }
                 else
                 {
-                    // Target is outside in the village!
+                    // outside village
                     SetLimits(0.0f, maxX, 0.0f, 3.0f);
                     SnapToTarget();
                 }
             }
         }
 
-        private void LateUpdate()
+        void LateUpdate()
         {
             if (target == null) return;
 
             float targetX = target.position.x + offset.x;
             float targetY = followY ? (target.position.y + offset.y) : fixedY;
 
-            // When zoomed, compensate camera Y downwards so the bottom of the viewport
-            // stays aligned with the same world min Y as without zoom.
+            // keep bottom of screen aligned when zooming
             float zoomYCompensation = 0f;
             if (keepBottomAlignedOnZoom && cam != null)
             {
@@ -168,7 +159,7 @@ namespace OneLastTime.Systems
             float effectiveMinY = minY + zoomYCompensation;
             float effectiveMaxY = maxY + zoomYCompensation;
 
-            // Clamp within level boundaries
+            // clamp position within boundaries
             if (useLimits)
             {
                 targetX = Mathf.Clamp(targetX, minX, maxX);
@@ -182,11 +173,11 @@ namespace OneLastTime.Systems
             transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref currentVelocity, smoothTime);
         }
 
-        private void OnDrawGizmosSelected()
+        void OnDrawGizmosSelected()
         {
             if (!useLimits) return;
 
-            // Draw visual boundary box in Scene view when Main Camera is selected
+            // visualize camera boundaries in editor
             Gizmos.color = Color.yellow;
             float width = maxX - minX;
             float height = maxY - minY;

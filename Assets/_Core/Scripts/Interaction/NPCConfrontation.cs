@@ -22,8 +22,7 @@ namespace OneLastTime.Interaction
         [SerializeField] private float normalOrthoSize = 5.0f;
         [SerializeField] private float zoomDuration = 0.5f;
 
-        [Header("Dialogue Content & Pacing")]
-        [Tooltip("The dialogue revealed word-by-word. The final entry triggers the special climax sound.")]
+        [Header("Dialogue Content")]
         [TextArea(2, 3)]
         [SerializeField] private string[] dialogueSteps = new string[]
         {
@@ -33,13 +32,10 @@ namespace OneLastTime.Interaction
             "\"One more whisper... and it's your...",
             "\"One more whisper... and it's your <color=#FF2A2A><size=115%><b>LAST.</b></size></color>\""
         };
-        [Tooltip("Pause duration in seconds after each step")]
         [SerializeField] private float[] stepPauses = new float[] { 0.35f, 0.35f, 0.65f, 0.45f, 1.6f };
 
-        [Header("Post-Interaction Replacement")]
-        [Tooltip("Scared NPCs prefab or GameObject to show in the same place after interaction ends")]
+        [Header("Replacement")]
         [SerializeField] private GameObject scaredNpcPrefab;
-        [Tooltip("Custom scale for the scared NPCs when spawned. Leave at 0 to use prefab's scale.")]
         [SerializeField] private Vector3 scaredNpcScale = new Vector3(0.163f, 0.163f, 1f);
 
         private bool isPlayerInZone;
@@ -55,7 +51,7 @@ namespace OneLastTime.Interaction
 
         private InteractableTarget interactableTarget;
 
-        private void Awake()
+        void Awake()
         {
             if (npcAnimator == null)
             {
@@ -100,9 +96,8 @@ namespace OneLastTime.Interaction
             StartCoroutine(ConfrontSequence());
         }
 
-        private void Update()
+        void Update()
         {
-            // If managed by InteractableTarget, skip direct input polling
             if (interactableTarget != null) return;
 
             if (!isPlayerInZone || hasTriggered) return;
@@ -113,7 +108,7 @@ namespace OneLastTime.Interaction
             }
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        void OnTriggerEnter2D(Collider2D other)
         {
             if (hasTriggered) return;
 
@@ -130,7 +125,7 @@ namespace OneLastTime.Interaction
             }
         }
 
-        private void OnTriggerExit2D(Collider2D other)
+        void OnTriggerExit2D(Collider2D other)
         {
             if (IsPlayer(other))
             {
@@ -142,17 +137,17 @@ namespace OneLastTime.Interaction
             }
         }
 
-        private IEnumerator ConfrontSequence()
+        IEnumerator ConfrontSequence()
         {
             hasTriggered = true;
             if (interactionPrompt != null) interactionPrompt.SetActive(false);
 
-            // 1. Freeze Ryu
+            // freeze player during cutscene
             if (playerMovement != null) playerMovement.canMove = false;
             var rb = playerObj.GetComponent<Rigidbody2D>() ?? playerObj.GetComponentInParent<Rigidbody2D>();
             if (rb != null) rb.velocity = Vector2.zero;
 
-            // 2. Face the villagers
+            // face npcs
             if (playerObj != null)
             {
                 float dir = Mathf.Sign(transform.position.x - playerObj.transform.position.x);
@@ -164,7 +159,7 @@ namespace OneLastTime.Interaction
                 }
             }
 
-            // 3. Immediately kill and disable gossip speech bubbles permanently
+            // hide background speech bubbles
             var proxBubble = GetComponent<NPCProximityBubble>();
             if (proxBubble != null)
             {
@@ -184,7 +179,6 @@ namespace OneLastTime.Interaction
                 }
             }
 
-            // Also search all child objects for any stray bubble objects and deactivate them
             for (int i = 0; i < transform.childCount; i++)
             {
                 var child = transform.GetChild(i);
@@ -196,7 +190,7 @@ namespace OneLastTime.Interaction
                 }
             }
 
-            // 4. Start Camera Zoom & Dark Vignette
+            // zoom in camera
             var cam = Camera.main;
             CameraFollow camFollow = cam != null ? cam.GetComponent<CameraFollow>() : null;
             var overlay = ConfrontationOverlay.Instance;
@@ -213,7 +207,7 @@ namespace OneLastTime.Interaction
 
             yield return new WaitForSeconds(0.3f);
 
-            // 5. Deliver line word-by-word with dramatic pacing
+            // type out dialogue line
             string[] steps = (dialogueSteps != null && dialogueSteps.Length > 0) ? dialogueSteps : new string[]
             {
                 "\"One...",
@@ -233,23 +227,23 @@ namespace OneLastTime.Interaction
                 yield return new WaitForSeconds(2.0f);
             }
 
-            // 6. Fade out subtitle & vignette
+            // fade out text and vignette
             if (overlay != null)
             {
                 StartCoroutine(overlay.FadeVignette(0f, 0.4f));
                 yield return overlay.FadeOutSubtitle(0.35f);
             }
 
-            // 7. Restore camera zoom
+            // zoom camera back to normal
             if (camFollow != null)
             {
                 yield return camFollow.ZoomTo(normalOrthoSize, zoomDuration);
             }
 
-            // 8. Unfreeze Ryu
+            // restore player movement
             if (playerMovement != null) playerMovement.canMove = true;
 
-            // 9. Put the new scared NPCs animation in the exact same place and remove previous whispering one
+            // spawn scared villagers in place
             if (scaredNpcPrefab != null)
             {
                 GameObject scaredNpc;
@@ -274,10 +268,9 @@ namespace OneLastTime.Interaction
             gameObject.SetActive(false);
         }
 
-        private bool IsPlayer(Collider2D other)
+        bool IsPlayer(Collider2D other)
         {
             return other.CompareTag("Player") || other.name.IndexOf("player", System.StringComparison.OrdinalIgnoreCase) >= 0;
         }
     }
 }
-

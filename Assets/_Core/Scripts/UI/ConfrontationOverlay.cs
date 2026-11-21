@@ -22,7 +22,7 @@ namespace OneLastTime.UI
         public AudioClip WordAppearClip { get => wordAppearClip; set => wordAppearClip = value; }
         public AudioClip WordFinalClimaxClip { get => wordFinalClimaxClip; set => wordFinalClimaxClip = value; }
 
-        private void Awake()
+        void Awake()
         {
             if (Instance == null)
             {
@@ -92,7 +92,6 @@ namespace OneLastTime.UI
 
                 bool isFinalWord = (i == steps.Length - 1);
 
-                // Play audio per step
                 if (audioSource != null)
                 {
                     if (isFinalWord)
@@ -107,7 +106,6 @@ namespace OneLastTime.UI
                     {
                         if (wordAppearClip != null)
                         {
-                            // Subtle pitch variation for organic typewriter hits
                             audioSource.pitch = Random.Range(0.96f, 1.04f);
                             audioSource.PlayOneShot(wordAppearClip, 0.85f);
                         }
@@ -143,4 +141,3 @@ namespace OneLastTime.UI
         }
     }
 }
-
