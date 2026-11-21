@@ -30,7 +30,7 @@ namespace OneLastTime.Systems
         [SerializeField] private float minY = -1f;
         [SerializeField] private float maxY = 3.5f;
         [SerializeField] private float minX = -2f;
-        [SerializeField] private float maxX = 85f;
+        [SerializeField] private float maxX = 151.85f;
 
         public float MinX => minX;
         public float MaxX => maxX;
@@ -118,8 +118,18 @@ namespace OneLastTime.Systems
 
             if (target != null && target.position.y < -15f)
             {
-                // Target is in the museum! Apply museum boundaries immediately
-                SetLimits(-2.5f, 54.0f, -20.65f, -20.45f);
+                // Target is in the museum! Calculate museum boundaries dynamically
+                float calculatedMaxX = 141.0f;
+                var rightWall = GameObject.Find("Museum_Right_Wall");
+                if (rightWall != null)
+                {
+                    float halfWidth = (cam != null && cam.orthographic) ? cam.orthographicSize * cam.aspect : 8.89f;
+                    calculatedMaxX = rightWall.transform.position.x - halfWidth;
+                }
+
+                // Respect whichever is larger: the calculated wall bound or any inspector/custom maxX
+                float targetMaxX = Mathf.Max(maxX, calculatedMaxX);
+                SetLimits(-2.5f, targetMaxX, -20.65f, -20.45f);
                 SnapToTarget();
             }
         }

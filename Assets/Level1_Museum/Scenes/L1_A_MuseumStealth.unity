@@ -19372,7 +19372,7 @@ MonoBehaviour:
   targetPlayerScale: 1.35
   updateCameraLimits: 1
   newMinX: -2.5
-  newMaxX: 141
+  newMaxX: 151.85
   newMinY: -20.65
   newMaxY: -20.45
   fadeDuration: 0.4
