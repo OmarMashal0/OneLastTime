@@ -8905,12 +8905,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: 67cdc11f5d27a1945939f72f93b9a9d6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0dcd82bf9bb55dc2896ff49b9360bf15, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 70.4375, y: 87.25}
+  m_Size: {x: 18.125, y: 20}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -8925,7 +8925,7 @@ Transform:
   m_GameObject: {fileID: 587755974}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -9.53, y: -43.67, z: 0}
-  m_LocalScale: {x: 0.07390236, y: 0.073251985, z: 0.07857}
+  m_LocalScale: {x: 0.28717, y: 0.3195, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 880000511}
@@ -13994,7 +13994,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 45, y: 65}
+  m_Size: {x: 12, y: 15}
   m_EdgeRadius: 0
 --- !u!114 &880000502
 MonoBehaviour:
@@ -14019,6 +14019,16 @@ MonoBehaviour:
   newMaxY: -42
   fadeDuration: 0.4
   blackoutHoldTime: 0.15
+  doorSpriteRenderer: {fileID: 1839510681}
+  openFrames:
+  - {fileID: 21300000, guid: bc9b5e08f8d2589daae1aacc5c1d2818, type: 3}
+  - {fileID: 21300000, guid: 3172bbf5556853529da01bb7062c39e3, type: 3}
+  - {fileID: 21300000, guid: 2eebaab042f757c2bc5a103dcc372771, type: 3}
+  - {fileID: 21300000, guid: 33ab4b058d0a58bfbc47225f9d85e8e3, type: 3}
+  - {fileID: 21300000, guid: 91db3a885f1956d99106898a85e9c4e2, type: 3}
+  - {fileID: 21300000, guid: 0dcd82bf9bb55dc2896ff49b9360bf15, type: 3}
+  openFrameRate: 10
+
 --- !u!114 &880000503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14076,7 +14086,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 880000510}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -25, z: 0}
+  m_LocalPosition: {x: 0, y: -5.7277, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -25034,12 +25044,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 67cdc11f5d27a1945939f72f93b9a9d6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bc9b5e08f8d2589daae1aacc5c1d2818, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 70.4375, y: 87.25}
+  m_Size: {x: 18.125, y: 20}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -25054,7 +25064,7 @@ Transform:
   m_GameObject: {fileID: 1839510680}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 114.11, y: -21.11, z: 0}
-  m_LocalScale: {x: 0.07390236, y: 0.073251985, z: 0.07857}
+  m_LocalScale: {x: 0.28717, y: 0.3195, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 625586528}

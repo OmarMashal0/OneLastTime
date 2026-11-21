@@ -36,6 +36,14 @@ namespace OneLastTime.Interaction
         [SerializeField] private float fadeDuration = 0.4f;
         [SerializeField] private float blackoutHoldTime = 0.15f;
 
+        [Header("Door Open Animation")]
+        [Tooltip("SpriteRenderer displaying the door")]
+        [SerializeField] private SpriteRenderer doorSpriteRenderer;
+        [Tooltip("Frames of the door opening sequence")]
+        [SerializeField] private Sprite[] openFrames;
+        [Tooltip("Playback speed of the door opening animation in frames per second")]
+        [SerializeField] private float openFrameRate = 12f;
+
         private bool isPlayerInZone;
         private GameObject playerObj;
         private PlayerMovement playerMovement;
@@ -51,6 +59,9 @@ namespace OneLastTime.Interaction
         {
             var col = GetComponent<Collider2D>();
             if (col != null) col.isTrigger = true;
+
+            if (doorSpriteRenderer == null)
+                doorSpriteRenderer = GetComponent<SpriteRenderer>();
 
             if (interactionPrompt != null)
                 interactionPrompt.SetActive(false);
@@ -138,7 +149,18 @@ namespace OneLastTime.Interaction
             var rb = playerObj.GetComponent<Rigidbody2D>() ?? playerObj.GetComponentInParent<Rigidbody2D>();
             if (rb != null) rb.velocity = Vector2.zero;
 
-            // 2. Fade to black
+            // 2. Play door opening animation if frames provided
+            if (openFrames != null && openFrames.Length > 0 && doorSpriteRenderer != null)
+            {
+                float delayPerFrame = 1f / Mathf.Max(1f, openFrameRate);
+                for (int i = 0; i < openFrames.Length; i++)
+                {
+                    doorSpriteRenderer.sprite = openFrames[i];
+                    yield return new WaitForSeconds(delayPerFrame);
+                }
+            }
+
+            // 3. Fade to black
             var fader = ScreenFader.Instance;
             if (fader != null)
             {
