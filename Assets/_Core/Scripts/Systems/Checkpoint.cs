@@ -22,13 +22,27 @@ namespace OneLastTime.Systems
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag("Player") || other.name.IndexOf("player", System.StringComparison.OrdinalIgnoreCase) >= 0)
+            if (IsPlayer(other))
             {
                 if (CheckpointManager.Instance != null)
                 {
                     CheckpointManager.Instance.SetCheckpoint(this);
+                    Debug.Log($"[Checkpoint] Activated checkpoint '{gameObject.name}' at {SpawnPosition}");
                 }
             }
+        }
+
+        private bool IsPlayer(Collider2D other)
+        {
+            if (other == null) return false;
+            if (other.CompareTag("Player")) return true;
+            if (other.transform.root != null && other.transform.root.CompareTag("Player")) return true;
+            if (other.name.IndexOf("player", System.StringComparison.OrdinalIgnoreCase) >= 0) return true;
+            if (other.name.IndexOf("ryu", System.StringComparison.OrdinalIgnoreCase) >= 0) return true;
+            if (other.transform.root != null && (other.transform.root.name.IndexOf("player", System.StringComparison.OrdinalIgnoreCase) >= 0 || other.transform.root.name.IndexOf("ryu", System.StringComparison.OrdinalIgnoreCase) >= 0)) return true;
+            if (other.GetComponentInParent<OneLastTime.Player.PlayerMovement>() != null) return true;
+            if (other.GetComponentInParent<OneLastTime.Player.PlayerHealth>() != null) return true;
+            return false;
         }
 
         private void OnDrawGizmosSelected()

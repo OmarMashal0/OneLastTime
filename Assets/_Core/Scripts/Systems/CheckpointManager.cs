@@ -114,12 +114,20 @@ namespace OneLastTime.Systems
                     }
                 }
 
-                Transform rootPlayer = playerObj.transform.parent != null && playerObj.transform.parent.name.Contains("Player")
-                    ? playerObj.transform.parent
-                    : playerObj.transform;
-
-                rootPlayer.position = spawnPos;
+                Transform rootPlayer = playerObj.transform.root != null ? playerObj.transform.root : playerObj.transform;
+                if (rootPlayer != null && (rootPlayer.name.IndexOf("ryu", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    rootPlayer.name.IndexOf("player", System.StringComparison.OrdinalIgnoreCase) >= 0))
+                {
+                    rootPlayer.position = spawnPos;
+                }
                 playerObj.transform.position = spawnPos;
+
+                var rb2d = playerObj.GetComponent<Rigidbody2D>();
+                if (rb2d != null)
+                {
+                    rb2d.velocity = Vector2.zero;
+                    rb2d.position = spawnPos;
+                }
             }
 
             // 5. Restore player health, animation & movement
