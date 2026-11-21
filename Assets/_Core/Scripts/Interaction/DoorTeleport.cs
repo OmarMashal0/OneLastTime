@@ -63,6 +63,9 @@ namespace OneLastTime.Interaction
             if (doorSpriteRenderer == null)
                 doorSpriteRenderer = GetComponent<SpriteRenderer>();
 
+            if (openFrames != null && openFrames.Length > 0 && doorSpriteRenderer != null)
+                doorSpriteRenderer.sprite = openFrames[0];
+
             if (interactionPrompt != null)
                 interactionPrompt.SetActive(false);
 
@@ -150,12 +153,16 @@ namespace OneLastTime.Interaction
             if (rb != null) rb.velocity = Vector2.zero;
 
             // 2. Play door opening animation if frames provided
+            if (doorSpriteRenderer == null)
+                doorSpriteRenderer = GetComponent<SpriteRenderer>();
+
             if (openFrames != null && openFrames.Length > 0 && doorSpriteRenderer != null)
             {
                 float delayPerFrame = 1f / Mathf.Max(1f, openFrameRate);
                 for (int i = 0; i < openFrames.Length; i++)
                 {
-                    doorSpriteRenderer.sprite = openFrames[i];
+                    if (openFrames[i] != null)
+                        doorSpriteRenderer.sprite = openFrames[i];
                     yield return new WaitForSeconds(delayPerFrame);
                 }
             }
@@ -169,6 +176,12 @@ namespace OneLastTime.Interaction
             else
             {
                 yield return new WaitForSeconds(fadeDuration);
+            }
+
+            // Reset door back to closed state behind the blackout
+            if (openFrames != null && openFrames.Length > 0 && doorSpriteRenderer != null)
+            {
+                doorSpriteRenderer.sprite = openFrames[0];
             }
 
             // 3. Teleport & scale player
