@@ -219,6 +219,13 @@ namespace OneLastTime.Interaction
             Vector3 targetScale = originalScale * hiddenScaleMultiplier;
             if (transitionRoutine != null) StopCoroutine(transitionRoutine);
             transitionRoutine = StartCoroutine(AnimateTransition(targetScale, shadowColor));
+
+            // apply hiding effect to pet companion
+            var pet = FindObjectOfType<OneLastTime.Pet.PetFollower>();
+            if (pet != null)
+            {
+                pet.SetHiding(true, shadowColor, hiddenScaleMultiplier, transitionDuration);
+            }
         }
 
         void ExitHiding()
@@ -267,6 +274,21 @@ namespace OneLastTime.Interaction
             restoreScale.x = Mathf.Abs(originalScale.x) * (currentSign == 0 ? 1 : currentSign);
             if (transitionRoutine != null) StopCoroutine(transitionRoutine);
             transitionRoutine = StartCoroutine(AnimateTransition(restoreScale, originalColor));
+
+            // restore pet companion
+            var pet = FindObjectOfType<OneLastTime.Pet.PetFollower>();
+            if (pet != null)
+            {
+                pet.SetHiding(false, originalColor, 1f, transitionDuration);
+            }
+        }
+
+        void OnDisable()
+        {
+            if (IsPlayerHidden)
+            {
+                ExitHiding();
+            }
         }
 
         void ShowPrompt()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using OneLastTime.Interaction;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -236,6 +237,45 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private readonly RaycastHit2D[] wallHitBuffer = new RaycastHit2D[8];
+
+    private bool IsValidWallCollider(Collider2D c)
+    {
+        if (c == null || c.gameObject == gameObject || c.isTrigger) return false;
+        // ignore colliders marked with no wall slide or non-wall props like props (2)_4
+        if (c.GetComponent<NoWallSlide>() != null || c.GetComponentInParent<NoWallSlide>() != null) return false;
+        if (c.name.IndexOf("Props (2)_4", System.StringComparison.OrdinalIgnoreCase) >= 0) return false;
+        return true;
+    }
+
+    private RaycastHit2D RaycastWall(Vector2 origin, Vector2 direction, float checkDist, float vOffset)
+    {
+        RaycastHit2D hit = RaycastValidWall(origin, direction, checkDist);
+        if (hit.collider == null)
+        {
+            hit = RaycastValidWall(origin + Vector2.up * vOffset, direction, checkDist);
+            if (hit.collider == null)
+            {
+                hit = RaycastValidWall(origin + Vector2.down * vOffset, direction, checkDist);
+            }
+        }
+        return hit;
+    }
+
+    private RaycastHit2D RaycastValidWall(Vector2 rayOrigin, Vector2 direction, float distance)
+    {
+        int hitCount = Physics2D.RaycastNonAlloc(rayOrigin, direction, wallHitBuffer, distance, whatIsGround);
+        for (int i = 0; i < hitCount; i++)
+        {
+            Collider2D hitCol = wallHitBuffer[i].collider;
+            if (IsValidWallCollider(hitCol))
+            {
+                return wallHitBuffer[i];
+            }
+        }
+        return default;
+    }
+
     void CheckWall()
     {
         if (grounded)
@@ -252,29 +292,13 @@ public class PlayerMovement : MonoBehaviour
         float vOffset = (col != null) ? (col.bounds.extents.y * 0.5f) : 0.5f;
 
         // check right side
-        RaycastHit2D hitRight = Physics2D.Raycast(origin, Vector2.right, checkDist, whatIsGround);
-        if (hitRight.collider == null || hitRight.collider.gameObject == gameObject || hitRight.collider.isTrigger)
-        {
-            hitRight = Physics2D.Raycast(origin + Vector2.up * vOffset, Vector2.right, checkDist, whatIsGround);
-            if (hitRight.collider == null || hitRight.collider.gameObject == gameObject || hitRight.collider.isTrigger)
-            {
-                hitRight = Physics2D.Raycast(origin + Vector2.down * vOffset, Vector2.right, checkDist, whatIsGround);
-            }
-        }
+        RaycastHit2D hitRight = RaycastWall(origin, Vector2.right, checkDist, vOffset);
 
         // check left side
-        RaycastHit2D hitLeft = Physics2D.Raycast(origin, Vector2.left, checkDist, whatIsGround);
-        if (hitLeft.collider == null || hitLeft.collider.gameObject == gameObject || hitLeft.collider.isTrigger)
-        {
-            hitLeft = Physics2D.Raycast(origin + Vector2.up * vOffset, Vector2.left, checkDist, whatIsGround);
-            if (hitLeft.collider == null || hitLeft.collider.gameObject == gameObject || hitLeft.collider.isTrigger)
-            {
-                hitLeft = Physics2D.Raycast(origin + Vector2.down * vOffset, Vector2.left, checkDist, whatIsGround);
-            }
-        }
+        RaycastHit2D hitLeft = RaycastWall(origin, Vector2.left, checkDist, vOffset);
 
-        bool rightValid = hitRight.collider != null && hitRight.collider.gameObject != gameObject && !hitRight.collider.isTrigger;
-        bool leftValid = hitLeft.collider != null && hitLeft.collider.gameObject != gameObject && !hitLeft.collider.isTrigger;
+        bool rightValid = hitRight.collider != null;
+        bool leftValid = hitLeft.collider != null;
 
         if (rightValid)
         {

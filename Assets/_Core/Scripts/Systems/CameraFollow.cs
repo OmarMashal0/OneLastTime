@@ -35,15 +35,42 @@ namespace OneLastTime.Systems
         [SerializeField] private bool keepBottomAlignedOnZoom = true;
 
         [Header("Trench Zone")]
+        [SerializeField] private bool trenchZoneEnabled = false;
         [SerializeField] private float trenchStartX = 53.0f;
         [SerializeField] private float trenchEndX = 85.71f;
         [SerializeField] private float trenchTriggerY = -44.0f;
         [SerializeField] private float trenchMinY = -50.5f;
         [SerializeField] private float trenchYOffset = -1.0f;
 
+        public bool TrenchZoneEnabled { get => trenchZoneEnabled; set => trenchZoneEnabled = value; }
+        public void SetTrenchZoneEnabled(bool enabled) => trenchZoneEnabled = enabled;
+
         private Vector3 currentVelocity = Vector3.zero;
         private Camera cam;
         private Vector3 shakeOffset = Vector3.zero;
+        private Transform savedTarget;
+        private bool isFocusing = false;
+
+        public void FocusOnTarget(Transform focusTarget)
+        {
+            if (focusTarget == null) return;
+            if (!isFocusing)
+            {
+                savedTarget = target;
+                isFocusing = true;
+            }
+            target = focusTarget;
+        }
+
+        public void ClearFocus()
+        {
+            if (isFocusing && savedTarget != null)
+            {
+                target = savedTarget;
+                savedTarget = null;
+            }
+            isFocusing = false;
+        }
 
         void Awake()
         {
@@ -166,8 +193,8 @@ namespace OneLastTime.Systems
             float effectiveMinY = minY + zoomYCompensation;
             float effectiveMaxY = maxY + zoomYCompensation;
 
-            // lower floor trench camera adjustment between trap door and exit jump
-            if (target.position.y < trenchTriggerY && target.position.x >= trenchStartX && target.position.x <= trenchEndX)
+            // lower floor trench camera adjustment between trap door and exit jump (only active after interact)
+            if (trenchZoneEnabled && target.position.y < trenchTriggerY && target.position.x >= trenchStartX && target.position.x <= trenchEndX)
             {
                 effectiveMinY = trenchMinY + zoomYCompensation;
                 targetY += trenchYOffset;
