@@ -34,21 +34,22 @@ namespace OneLastTime.UI
             {
                 badgeImage = GetComponentInChildren<Image>(true);
             }
-
-            // keep hidden until player inspects the sword case
-            if (badgeImage != null && !badgeImage.gameObject.activeSelf)
-            {
-                badgeImage.gameObject.SetActive(false);
-            }
         }
 
         public void ShowBadge(int keys = 0)
         {
             currentKeys = Mathf.Clamp(keys, 0, 2);
+
+            if (badgeImage == null)
+            {
+                badgeImage = GetComponentInChildren<Image>(true);
+            }
+
             UpdateSprite();
 
             if (badgeImage != null)
             {
+                badgeImage.enabled = true;
                 badgeImage.gameObject.SetActive(true);
             }
             gameObject.SetActive(true);
@@ -72,3 +73,4 @@ namespace OneLastTime.UI
         }
     }
 }
+

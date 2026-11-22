@@ -34,6 +34,13 @@ namespace OneLastTime.Systems
         [SerializeField] private float baseOrthoSize = 5.0f;
         [SerializeField] private bool keepBottomAlignedOnZoom = true;
 
+        [Header("Trench Zone")]
+        [SerializeField] private float trenchStartX = 53.0f;
+        [SerializeField] private float trenchEndX = 85.71f;
+        [SerializeField] private float trenchTriggerY = -44.0f;
+        [SerializeField] private float trenchMinY = -50.5f;
+        [SerializeField] private float trenchYOffset = -1.0f;
+
         private Vector3 currentVelocity = Vector3.zero;
         private Camera cam;
         private Vector3 shakeOffset = Vector3.zero;
@@ -158,6 +165,13 @@ namespace OneLastTime.Systems
             targetY += zoomYCompensation;
             float effectiveMinY = minY + zoomYCompensation;
             float effectiveMaxY = maxY + zoomYCompensation;
+
+            // lower floor trench camera adjustment between trap door and exit jump
+            if (target.position.y < trenchTriggerY && target.position.x >= trenchStartX && target.position.x <= trenchEndX)
+            {
+                effectiveMinY = trenchMinY + zoomYCompensation;
+                targetY += trenchYOffset;
+            }
 
             // clamp position within boundaries
             if (useLimits)

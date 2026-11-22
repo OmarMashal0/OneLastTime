@@ -25,6 +25,9 @@ namespace OneLastTime.Interaction
         [SerializeField] private float normalOrthoSize = 5.0f;
         [SerializeField] private float zoomDuration = 0.4f;
 
+        [Header("UI Reference")]
+        [SerializeField] private KeyCollectionHUD keyHUD;
+
         private bool playerInRange;
         private bool isInspecting;
         private Transform playerTransform;
@@ -46,6 +49,8 @@ namespace OneLastTime.Interaction
             }
 
             HidePrompt(true);
+
+            keyHUD = FindKeyHUD();
         }
 
         void Start()
@@ -108,6 +113,8 @@ namespace OneLastTime.Interaction
             isInspecting = true;
             HidePrompt(true);
 
+            keyHUD = FindKeyHUD();
+
             // freeze player movement
             if (playerMovement != null) playerMovement.canMove = false;
             if (playerTransform != null)
@@ -132,10 +139,10 @@ namespace OneLastTime.Interaction
             }
 
             // show key badge on left side of screen
-            var hud = KeyCollectionHUD.Instance;
-            if (hud != null)
+            if (keyHUD != null)
             {
-                hud.ShowBadge(0);
+                keyHUD.gameObject.SetActive(true);
+                keyHUD.ShowBadge(keyHUD.CurrentKeys);
             }
 
             // wait for read duration or player press
@@ -215,5 +222,33 @@ namespace OneLastTime.Interaction
         {
             return col.CompareTag("Player") || col.name.IndexOf("player", System.StringComparison.OrdinalIgnoreCase) >= 0;
         }
+
+        private KeyCollectionHUD FindKeyHUD()
+        {
+            if (keyHUD != null) return keyHUD;
+            if (KeyCollectionHUD.Instance != null) return KeyCollectionHUD.Instance;
+
+            // search under Cutscene_Canvas which is always active
+            var canvas = GameObject.Find("Cutscene_Canvas");
+            if (canvas != null)
+            {
+                var hudTrans = canvas.transform.Find("KeyCollection_HUD");
+                if (hudTrans != null)
+                {
+                    keyHUD = hudTrans.GetComponent<KeyCollectionHUD>();
+                    if (keyHUD != null) return keyHUD;
+                }
+            }
+
+            var all = FindObjectsOfType<KeyCollectionHUD>(true);
+            if (all != null && all.Length > 0)
+            {
+                keyHUD = all[0];
+                return keyHUD;
+            }
+
+            return null;
+        }
     }
 }
+

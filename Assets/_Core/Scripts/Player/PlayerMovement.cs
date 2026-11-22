@@ -31,6 +31,12 @@ public class PlayerMovement : MonoBehaviour
     public float coyoteTime = 0.15f;
     public float jumpBufferTime = 0.2f;
 
+    [Header("Wall Mechanics")]
+    public float wallSlideSpeed = 2.5f;
+    public Vector2 wallJumpForce = new Vector2(9.5f, 14.5f);
+    public float wallJumpDuration = 0.2f;
+    public float wallCheckDistance = 0.2f;
+
     public bool canMove = true;
     public bool controlsInverted = false;
 
@@ -41,6 +47,14 @@ public class PlayerMovement : MonoBehaviour
     private float moveInput;
     private float coyoteCounter;
     private float jumpBufferCounter;
+
+    private bool isTouchingWall;
+    private int wallDirection;
+    private bool isWallSliding;
+    private float wallJumpTimer;
+
+    public bool IsTouchingWall => isTouchingWall;
+    public bool IsWallSliding => isWallSliding;
 
     private bool isSneaking;
     public bool IsSneaking => isSneaking;
@@ -96,6 +110,12 @@ public class PlayerMovement : MonoBehaviour
             coyoteCounter -= Time.deltaTime;
         }
 
+        // wall jump timer countdown
+        if (wallJumpTimer > 0f)
+        {
+            wallJumpTimer -= Time.deltaTime;
+        }
+
         if (anim != null && rb != null)
         {
             float animSpeed = (isOnSlope && grounded) ? rb.velocity.magnitude : Mathf.Abs(rb.velocity.x);
@@ -103,6 +123,8 @@ public class PlayerMovement : MonoBehaviour
             anim.SetFloat("jumpHeight", rb.velocity.y);
             anim.SetBool("grounded", grounded);
             anim.SetBool("isWalking", isSneaking && animSpeed > 0.1f);
+            anim.SetBool("isWallSliding", isWallSliding);
+            anim.SetBool("isWallContact", isTouchingWall && !isWallSliding && !grounded);
         }
     }
 
@@ -111,6 +133,7 @@ public class PlayerMovement : MonoBehaviour
         if (rb == null) return;
 
         CheckGrounded();
+        CheckWall();
 
         if (canMove)
         {
@@ -118,13 +141,36 @@ public class PlayerMovement : MonoBehaviour
             float targetSpeed = moveInput * currentMaxSpeed;
             float rate = (moveInput != 0f) ? acceleration : deceleration;
 
-            if (jumpBufferCounter > 0f && coyoteCounter > 0f)
+            // normal jump or wall jump
+            if (jumpBufferCounter > 0f)
             {
-                rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
-                jumpBufferCounter = 0f;
-                coyoteCounter = 0f;
-                grounded = false;
-                isOnSlope = false;
+                if (coyoteCounter > 0f)
+                {
+                    rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
+                    jumpBufferCounter = 0f;
+                    coyoteCounter = 0f;
+                    grounded = false;
+                    isOnSlope = false;
+                }
+                else if (isTouchingWall && !grounded)
+                {
+                    // wall jump pushes up and away from the wall
+                    wallJumpTimer = wallJumpDuration;
+                    rb.velocity = new Vector2(-wallDirection * wallJumpForce.x, wallJumpForce.y);
+                    jumpBufferCounter = 0f;
+                    grounded = false;
+                    isWallSliding = false;
+
+                    // face jump direction
+                    Vector3 s = transform.localScale;
+                    s.x = -Mathf.Abs(s.x) * wallDirection;
+                    transform.localScale = s;
+
+                    if (anim != null)
+                    {
+                        anim.SetTrigger("wallJump");
+                    }
+                }
             }
             else if (grounded && isOnSlope)
             {
@@ -143,28 +189,124 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                float newX = Mathf.MoveTowards(rb.velocity.x, targetSpeed, rate * Time.fixedDeltaTime);
-                rb.velocity = new Vector2(newX, rb.velocity.y);
-
-                // faster fall and variable jump height
-                bool jumpHeld = Input.GetButton("Jump") || Input.GetKey(KeyCode.Space);
-                if (rb.velocity.y < 0)
+                // carry wall jump impulse before restoring horizontal steering
+                if (wallJumpTimer <= 0f)
                 {
-                    rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1f) * Time.fixedDeltaTime;
+                    float newX = Mathf.MoveTowards(rb.velocity.x, targetSpeed, rate * Time.fixedDeltaTime);
+                    rb.velocity = new Vector2(newX, rb.velocity.y);
                 }
-                else if (rb.velocity.y > 0 && !jumpHeld)
+
+                if (isWallSliding)
                 {
-                    rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1f) * Time.fixedDeltaTime;
+                    // gently slide down the wall
+                    if (rb.velocity.y < -wallSlideSpeed)
+                    {
+                        rb.velocity = new Vector2(rb.velocity.x, -wallSlideSpeed);
+                    }
+                }
+                else
+                {
+                    // faster fall and variable jump height
+                    bool jumpHeld = Input.GetButton("Jump") || Input.GetKey(KeyCode.Space);
+                    if (rb.velocity.y < 0)
+                    {
+                        rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1f) * Time.fixedDeltaTime;
+                    }
+                    else if (rb.velocity.y > 0 && !jumpHeld)
+                    {
+                        rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1f) * Time.fixedDeltaTime;
+                    }
                 }
             }
 
-            // flip sprite based on movement direction
-            if (moveInput != 0f)
+            // flip sprite based on movement or wall contact
+            if (isTouchingWall && !grounded && wallJumpTimer <= 0f)
+            {
+                // when on a right wall face left, when on a left wall face right
+                Vector3 s = transform.localScale;
+                s.x = -Mathf.Abs(s.x) * wallDirection;
+                transform.localScale = s;
+            }
+            else if (moveInput != 0f && wallJumpTimer <= 0f)
             {
                 Vector3 s = transform.localScale;
                 s.x = Mathf.Abs(s.x) * Mathf.Sign(moveInput);
                 transform.localScale = s;
             }
+        }
+    }
+
+    void CheckWall()
+    {
+        if (grounded)
+        {
+            isTouchingWall = false;
+            wallDirection = 0;
+            isWallSliding = false;
+            return;
+        }
+
+        Vector2 origin = (col != null) ? (Vector2)col.bounds.center : (Vector2)transform.position;
+        float halfWidth = (col != null) ? col.bounds.extents.x : 0.425f;
+        float checkDist = halfWidth + wallCheckDistance;
+        float vOffset = (col != null) ? (col.bounds.extents.y * 0.5f) : 0.5f;
+
+        // check right side
+        RaycastHit2D hitRight = Physics2D.Raycast(origin, Vector2.right, checkDist, whatIsGround);
+        if (hitRight.collider == null || hitRight.collider.gameObject == gameObject || hitRight.collider.isTrigger)
+        {
+            hitRight = Physics2D.Raycast(origin + Vector2.up * vOffset, Vector2.right, checkDist, whatIsGround);
+            if (hitRight.collider == null || hitRight.collider.gameObject == gameObject || hitRight.collider.isTrigger)
+            {
+                hitRight = Physics2D.Raycast(origin + Vector2.down * vOffset, Vector2.right, checkDist, whatIsGround);
+            }
+        }
+
+        // check left side
+        RaycastHit2D hitLeft = Physics2D.Raycast(origin, Vector2.left, checkDist, whatIsGround);
+        if (hitLeft.collider == null || hitLeft.collider.gameObject == gameObject || hitLeft.collider.isTrigger)
+        {
+            hitLeft = Physics2D.Raycast(origin + Vector2.up * vOffset, Vector2.left, checkDist, whatIsGround);
+            if (hitLeft.collider == null || hitLeft.collider.gameObject == gameObject || hitLeft.collider.isTrigger)
+            {
+                hitLeft = Physics2D.Raycast(origin + Vector2.down * vOffset, Vector2.left, checkDist, whatIsGround);
+            }
+        }
+
+        bool rightValid = hitRight.collider != null && hitRight.collider.gameObject != gameObject && !hitRight.collider.isTrigger;
+        bool leftValid = hitLeft.collider != null && hitLeft.collider.gameObject != gameObject && !hitLeft.collider.isTrigger;
+
+        if (rightValid)
+        {
+            isTouchingWall = true;
+            wallDirection = 1;
+        }
+        else if (leftValid)
+        {
+            isTouchingWall = true;
+            wallDirection = -1;
+        }
+        else
+        {
+            isTouchingWall = false;
+            wallDirection = 0;
+            isWallSliding = false;
+        }
+
+        if (isTouchingWall)
+        {
+            if (rb.velocity.y <= 0.1f)
+            {
+                isWallSliding = true;
+            }
+            else
+            {
+                isWallSliding = false;
+            }
+        }
+        else
+        {
+            isWallSliding = false;
         }
     }
 
