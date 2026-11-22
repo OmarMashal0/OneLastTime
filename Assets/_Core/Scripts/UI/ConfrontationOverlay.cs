@@ -122,6 +122,13 @@ namespace OneLastTime.UI
             }
         }
 
+        public void ShowDirectSubtitle(string text)
+        {
+            if (subtitleText == null || subtitleCanvasGroup == null) return;
+            subtitleText.text = text;
+            subtitleCanvasGroup.alpha = 1f;
+        }
+
         public IEnumerator FadeOutSubtitle(float duration)
         {
             if (subtitleCanvasGroup == null) yield break;
