@@ -66,15 +66,42 @@ namespace OneLastTime.Interaction
         {
             FindPlayer();
 
+            if (IsKeyCollected())
+            {
+                DisableInteractionPermanently();
+            }
+
             if (spriteRenderer != null && animationFrames != null && animationFrames.Length > 0)
             {
                 spriteRenderer.sprite = pieceTaken ? animationFrames[animationFrames.Length - 1] : animationFrames[0];
             }
         }
 
+        public void DisableInteractionPermanently()
+        {
+            playerInRange = false;
+            HidePrompt(true);
+            var col = GetComponent<Collider2D>();
+            if (col != null) col.enabled = false;
+        }
+
+        private bool IsKeyCollected()
+        {
+            if (KeyCollectionHUD.Instance != null && KeyCollectionHUD.Instance.HasKey) return true;
+            var drawer = FindObjectOfType<PuzzleDrawer>();
+            if (drawer != null && drawer.KeyCollected) return true;
+            return false;
+        }
+
         void Update()
         {
             if (isInteracting) return;
+
+            if (IsKeyCollected())
+            {
+                DisableInteractionPermanently();
+                return;
+            }
 
             if (playerTransform == null)
             {
@@ -104,7 +131,7 @@ namespace OneLastTime.Interaction
 
         void OnTriggerEnter2D(Collider2D other)
         {
-            if (isInteracting) return;
+            if (isInteracting || IsKeyCollected()) return;
             if (IsPlayer(other))
             {
                 playerInRange = true;
@@ -124,6 +151,12 @@ namespace OneLastTime.Interaction
 
         IEnumerator InteractSequence()
         {
+            if (IsKeyCollected())
+            {
+                DisableInteractionPermanently();
+                yield break;
+            }
+
             isInteracting = true;
             HidePrompt(true);
 

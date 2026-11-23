@@ -50,6 +50,8 @@ namespace OneLastTime.Systems
         private Vector3 shakeOffset = Vector3.zero;
         private Transform savedTarget;
         private bool isFocusing = false;
+        private Vector3 focusOffset = Vector3.zero;
+        private bool hasCustomFocusOffset = false;
 
         public void FocusOnTarget(Transform focusTarget)
         {
@@ -60,6 +62,20 @@ namespace OneLastTime.Systems
                 isFocusing = true;
             }
             target = focusTarget;
+            hasCustomFocusOffset = false;
+        }
+
+        public void FocusOnTarget(Transform focusTarget, Vector3 customOffset)
+        {
+            if (focusTarget == null) return;
+            if (!isFocusing)
+            {
+                savedTarget = target;
+                isFocusing = true;
+            }
+            target = focusTarget;
+            focusOffset = customOffset;
+            hasCustomFocusOffset = true;
         }
 
         public void ClearFocus()
@@ -70,6 +86,8 @@ namespace OneLastTime.Systems
                 savedTarget = null;
             }
             isFocusing = false;
+            focusOffset = Vector3.zero;
+            hasCustomFocusOffset = false;
         }
 
         void Awake()
@@ -179,34 +197,50 @@ namespace OneLastTime.Systems
         {
             if (target == null) return;
 
-            float targetX = target.position.x + offset.x;
-            float targetY = followY ? (target.position.y + offset.y) : fixedY;
+            float targetX;
+            float targetY;
 
-            // keep bottom of screen aligned when zooming
-            float zoomYCompensation = 0f;
-            if (keepBottomAlignedOnZoom && cam != null)
+            if (isFocusing && hasCustomFocusOffset)
             {
-                zoomYCompensation = -(baseOrthoSize - cam.orthographicSize);
-            }
+                targetX = target.position.x + focusOffset.x;
+                targetY = target.position.y + focusOffset.y;
 
-            targetY += zoomYCompensation;
-            float effectiveMinY = minY + zoomYCompensation;
-            float effectiveMaxY = maxY + zoomYCompensation;
-
-            // lower floor trench camera adjustment between trap door and exit jump (only active after interact)
-            if (trenchZoneEnabled && target.position.y < trenchTriggerY && target.position.x >= trenchStartX && target.position.x <= trenchEndX)
-            {
-                effectiveMinY = trenchMinY + zoomYCompensation;
-                targetY += trenchYOffset;
-            }
-
-            // clamp position within boundaries
-            if (useLimits)
-            {
-                targetX = Mathf.Clamp(targetX, minX, maxX);
-                if (followY)
+                if (useLimits)
                 {
-                    targetY = Mathf.Clamp(targetY, effectiveMinY, effectiveMaxY);
+                    targetX = Mathf.Clamp(targetX, minX, maxX);
+                }
+            }
+            else
+            {
+                targetX = target.position.x + offset.x;
+                targetY = followY ? (target.position.y + offset.y) : fixedY;
+
+                // keep bottom of screen aligned when zooming
+                float zoomYCompensation = 0f;
+                if (keepBottomAlignedOnZoom && cam != null)
+                {
+                    zoomYCompensation = -(baseOrthoSize - cam.orthographicSize);
+                }
+
+                targetY += zoomYCompensation;
+                float effectiveMinY = minY + zoomYCompensation;
+                float effectiveMaxY = maxY + zoomYCompensation;
+
+                // lower floor trench camera adjustment between trap door and exit jump (only active after interact)
+                if (trenchZoneEnabled && target.position.y < trenchTriggerY && target.position.x >= trenchStartX && target.position.x <= trenchEndX)
+                {
+                    effectiveMinY = trenchMinY + zoomYCompensation;
+                    targetY += trenchYOffset;
+                }
+
+                // clamp position within boundaries
+                if (useLimits)
+                {
+                    targetX = Mathf.Clamp(targetX, minX, maxX);
+                    if (followY)
+                    {
+                        targetY = Mathf.Clamp(targetY, effectiveMinY, effectiveMaxY);
+                    }
                 }
             }
 

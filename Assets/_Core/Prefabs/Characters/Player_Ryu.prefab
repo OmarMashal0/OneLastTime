@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7475819811607952831}
   - component: {fileID: 7475819811607952824}
   - component: {fileID: 728553992813147529}
+  - component: {fileID: 7475819811607952832}
   m_Layer: 0
   m_Name: player_ryu
   m_TagString: Untagged
@@ -237,3 +238,58 @@ Transform:
   m_Father: {fileID: 7475819811607952819}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7475819811607952832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7475819811607952818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b92365cf01ef4d75cca31c061ca09002, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attacksUnlocked: 0
+  groundAttackKey: 106
+  airAttackKey: 107
+  attack1Frames:
+  - {fileID: 1000548794, guid: 5336482177b6f2b4da223fd70e0c5bed, type: 3}
+  - {fileID: 1000108389, guid: 5336482177b6f2b4da223fd70e0c5bed, type: 3}
+  - {fileID: 1000280419, guid: 5336482177b6f2b4da223fd70e0c5bed, type: 3}
+  - {fileID: 1000003475, guid: 5336482177b6f2b4da223fd70e0c5bed, type: 3}
+  - {fileID: 1000008720, guid: 5336482177b6f2b4da223fd70e0c5bed, type: 3}
+  - {fileID: 1000574030, guid: 5336482177b6f2b4da223fd70e0c5bed, type: 3}
+  - {fileID: 1000375988, guid: 5336482177b6f2b4da223fd70e0c5bed, type: 3}
+  attack2Frames:
+  - {fileID: 1000152911, guid: 0f435225a1f95e940b6bf910baa071f1, type: 3}
+  - {fileID: 1000716791, guid: 0f435225a1f95e940b6bf910baa071f1, type: 3}
+  - {fileID: 1000163005, guid: 0f435225a1f95e940b6bf910baa071f1, type: 3}
+  - {fileID: 1000336221, guid: 0f435225a1f95e940b6bf910baa071f1, type: 3}
+  - {fileID: 1000405180, guid: 0f435225a1f95e940b6bf910baa071f1, type: 3}
+  - {fileID: 1000262367, guid: 0f435225a1f95e940b6bf910baa071f1, type: 3}
+  - {fileID: 1000870408, guid: 0f435225a1f95e940b6bf910baa071f1, type: 3}
+  attack3Frames:
+  - {fileID: 1000793188, guid: 22bd254a13fdc5447a0d9b8f3ef04241, type: 3}
+  - {fileID: 1000381932, guid: 22bd254a13fdc5447a0d9b8f3ef04241, type: 3}
+  - {fileID: 1000867963, guid: 22bd254a13fdc5447a0d9b8f3ef04241, type: 3}
+  - {fileID: 1000270054, guid: 22bd254a13fdc5447a0d9b8f3ef04241, type: 3}
+  - {fileID: 1000811827, guid: 22bd254a13fdc5447a0d9b8f3ef04241, type: 3}
+  - {fileID: 1000421224, guid: 22bd254a13fdc5447a0d9b8f3ef04241, type: 3}
+  airAttackFrames:
+  - {fileID: 1000136805, guid: b0a69f9dface5f54eb99733f5ccd03b4, type: 3}
+  - {fileID: 1000100981, guid: b0a69f9dface5f54eb99733f5ccd03b4, type: 3}
+  - {fileID: 1000883560, guid: b0a69f9dface5f54eb99733f5ccd03b4, type: 3}
+  - {fileID: 1000526056, guid: b0a69f9dface5f54eb99733f5ccd03b4, type: 3}
+  - {fileID: 1000810371, guid: b0a69f9dface5f54eb99733f5ccd03b4, type: 3}
+  - {fileID: 1000717478, guid: b0a69f9dface5f54eb99733f5ccd03b4, type: 3}
+  frameDuration: 0.065
+  comboResetDuration: 0.45
+  attackOffset: {x: 0.9, y: 0}
+  attackRadius: 1.1
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  attack1Impulse: 0
+  attack2Impulse: 0
+  attack3Impulse: 0

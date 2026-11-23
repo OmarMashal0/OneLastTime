@@ -17,6 +17,7 @@ namespace OneLastTime.UI
         [SerializeField] private int currentKeys = 0;
 
         public int CurrentKeys => currentKeys;
+        public bool HasKey => currentKeys >= 1;
 
         void Awake()
         {
@@ -38,7 +39,7 @@ namespace OneLastTime.UI
 
         public void ShowBadge(int keys = 0)
         {
-            currentKeys = Mathf.Clamp(keys, 0, 2);
+            currentKeys = Mathf.Clamp(keys, 0, 1);
 
             if (badgeImage == null)
             {
@@ -57,11 +58,27 @@ namespace OneLastTime.UI
 
         public void SetKeys(int keys)
         {
-            currentKeys = Mathf.Clamp(keys, 0, 2);
+            currentKeys = Mathf.Clamp(keys, 0, 1);
             UpdateSprite();
         }
 
-        void UpdateSprite()
+        public void AddKey()
+        {
+            currentKeys = 1;
+            if (badgeImage == null)
+            {
+                badgeImage = GetComponentInChildren<Image>(true);
+            }
+            UpdateSprite();
+            if (badgeImage != null)
+            {
+                badgeImage.enabled = true;
+                badgeImage.gameObject.SetActive(true);
+            }
+            gameObject.SetActive(true);
+        }
+
+        public void UpdateSprite()
         {
             if (badgeImage != null && badgeSprites != null && badgeSprites.Length > currentKeys)
             {

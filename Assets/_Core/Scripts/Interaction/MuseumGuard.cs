@@ -1,11 +1,12 @@
 using System.Collections;
 using UnityEngine;
+using OneLastTime.Combat;
 using OneLastTime.Player;
 
 namespace OneLastTime.Enemies
 {
     [RequireComponent(typeof(SpriteRenderer), typeof(Animator))]
-    public class MuseumGuard : MonoBehaviour
+    public class MuseumGuard : MonoBehaviour, IDamageable
     {
         public enum GuardState
         {
@@ -15,12 +16,14 @@ namespace OneLastTime.Enemies
             AlertNotice,
             Aiming,
             Shooting,
-            Cooldown
+            Cooldown,
+            Surrendered
         }
 
         [Header("Sleeping Behavior")]
         [SerializeField] private bool isSleeping = false;
         [SerializeField] private float hearingRadius = 5.5f;
+        [SerializeField] private bool wakeForSwordPickupOnly;
 
         [Header("Patrol Endpoints")]
         [SerializeField] private Transform endpointA;
@@ -40,6 +43,12 @@ namespace OneLastTime.Enemies
         [SerializeField] private Transform muzzlePoint;
         [SerializeField] private GameObject bulletPrefab;
 
+        [Header("Surrender Animation")]
+        [SerializeField] private Sprite[] surrenderSprites;
+        [SerializeField] private float surrenderFrameRate = 8f;
+        [SerializeField] private Sprite surrenderSizeReference;
+        private Sprite activeSurrenderSprite;
+
         [Header("Audio")]
         [SerializeField] private AudioClip gunshotSound;
         [Range(0f, 1f)]
@@ -57,11 +66,19 @@ namespace OneLastTime.Enemies
         private float pauseTimer;
         private float originalScaleX;
         private Coroutine alertRoutine;
+        private Coroutine swordPickupReaction;
         private bool initialIsSleeping;
 
         private Transform playerTransform;
 
+        [Header("Health & Damage")]
+        [SerializeField] private int maxHealth = 3;
+        private int currentHealth = 3;
+        private bool isDead = false;
+
+        public bool IsDead => isDead;
         public GuardState CurrentState => currentState;
+        public bool IsReactingToSwordPickup => swordPickupReaction != null;
 
         void Awake()
         {
@@ -154,9 +171,16 @@ namespace OneLastTime.Enemies
 
         void Update()
         {
+            if (isDead) return;
+
             if (playerTransform == null)
             {
                 FindPlayer();
+            }
+
+            if (currentState == GuardState.Surrendered)
+            {
+                return;
             }
 
             if (currentState == GuardState.Sleeping)
@@ -238,9 +262,189 @@ namespace OneLastTime.Enemies
 
         public void WakeUpAndAlert()
         {
-            if (currentState != GuardState.Sleeping) return;
+            if (wakeForSwordPickupOnly || currentState != GuardState.Sleeping) return;
             if (alertRoutine != null) StopCoroutine(alertRoutine);
             alertRoutine = StartCoroutine(WakeUpAndShootRoutine());
+        }
+
+        public void ReactToSwordPickup(Transform player)
+        {
+            if (isDead || currentState == GuardState.Surrendered || swordPickupReaction != null) return;
+            if (alertRoutine != null) StopCoroutine(alertRoutine);
+            alertRoutine = null;
+            playerTransform = player;
+            swordPickupReaction = StartCoroutine(SwordPickupReaction());
+        }
+
+        IEnumerator SwordPickupReaction()
+        {
+            bool wasSleeping = currentState == GuardState.Sleeping;
+            currentState = GuardState.AlertNotice;
+            isSleeping = false;
+
+            if (playerTransform != null)
+            {
+                SetFacingDirection(playerTransform.position.x < transform.position.x ? -1 : 1);
+            }
+
+            if (visionCone != null) visionCone.gameObject.SetActive(false);
+
+            anim.ResetTrigger("wakeUp");
+            anim.ResetTrigger("notice");
+            anim.ResetTrigger("aim");
+            anim.ResetTrigger("shoot");
+            anim.ResetTrigger("returnToPatrol");
+            anim.SetBool("isSleeping", false);
+            anim.SetBool("isWalking", false);
+            if (wasSleeping)
+            {
+                anim.Play("WakeUp", 0, 0f);
+                yield return new WaitForSeconds(0.6f);
+            }
+
+            if (visionCone != null)
+            {
+                visionCone.SetAlert(false);
+                visionCone.gameObject.SetActive(true);
+            }
+
+            anim.Play("Notice", 0, 0f);
+            yield return new WaitForSeconds(0.6f);
+
+            currentState = GuardState.Aiming;
+            anim.Play("Aim", 0, 0f);
+            if (visionCone != null) visionCone.SetAlert(true);
+            yield return new WaitForSeconds(0.75f);
+            swordPickupReaction = null;
+        }
+
+        public IEnumerator FireSwordPickupShot()
+        {
+            if (isDead || currentState != GuardState.Aiming) yield break;
+
+            currentState = GuardState.Shooting;
+            anim.Play("Shoot", 0, 0f);
+            if (gunshotSound == null) yield break;
+
+            Vector3 shotPosition = transform.position;
+            AudioSource.PlayClipAtPoint(gunshotSound, shotPosition, soundVolume);
+            yield return new WaitForSecondsRealtime(0.19f);
+            AudioSource.PlayClipAtPoint(gunshotSound, shotPosition, soundVolume * 0.42f);
+            yield return new WaitForSecondsRealtime(0.25f);
+            AudioSource.PlayClipAtPoint(gunshotSound, shotPosition, soundVolume * 0.17f);
+            yield return new WaitForSecondsRealtime(gunshotSound.length);
+        }
+
+        public void Surrender(Sprite[] overrideFrames = null)
+        {
+            if (currentState == GuardState.Surrendered || isDead) return;
+
+            if (alertRoutine != null)
+            {
+                StopCoroutine(alertRoutine);
+                alertRoutine = null;
+            }
+
+            StopAllCoroutines();
+            swordPickupReaction = null;
+
+            currentState = GuardState.Surrendered;
+            isSleeping = false;
+
+            if (visionCone != null)
+            {
+                visionCone.SetAlert(false);
+                visionCone.gameObject.SetActive(false);
+            }
+
+            if (overrideFrames != null && overrideFrames.Length > 0)
+            {
+                surrenderSprites = overrideFrames;
+            }
+
+            // disable animator to take direct control over sprite rendering
+            if (anim != null)
+            {
+                anim.enabled = false;
+            }
+
+            if (playerTransform == null) FindPlayer();
+            if (playerTransform != null)
+            {
+                float dirToPlayer = Mathf.Sign(playerTransform.position.x - transform.position.x);
+                if (dirToPlayer != 0) SetFacingDirection((int)dirToPlayer);
+            }
+
+            StartCoroutine(SurrenderAnimationRoutine());
+        }
+
+        IEnumerator SurrenderAnimationRoutine()
+        {
+            // load surrender sprites if not assigned
+            if (surrenderSprites == null || surrenderSprites.Length == 0)
+            {
+                var allSprites = Resources.FindObjectsOfTypeAll<Sprite>();
+                if (allSprites != null)
+                {
+                    var list = new System.Collections.Generic.List<Sprite>();
+                    for (int i = 0; i < 4; i++)
+                    {
+                        var s = System.Array.Find(allSprites, sp => sp != null && sp.name == "guard_surrender_" + i);
+                        if (s != null) list.Add(s);
+                    }
+                    if (list.Count > 0) surrenderSprites = list.ToArray();
+                }
+            }
+
+            if (surrenderSprites == null || surrenderSprites.Length == 0)
+            {
+                yield break;
+            }
+
+            if (surrenderSizeReference != null && surrenderSprites[0] != null)
+            {
+                // Match the standing sprite even if Unity imports the surrender sheet at a different PPU.
+                float scale = surrenderSizeReference.rect.height / surrenderSizeReference.pixelsPerUnit
+                    * surrenderSprites[0].pixelsPerUnit / surrenderSprites[0].rect.height;
+                Vector3 localScale = transform.localScale;
+                transform.localScale = new Vector3(localScale.x * scale, localScale.y * scale, localScale.z);
+
+                if (guardCol is CapsuleCollider2D capsule)
+                {
+                    capsule.size /= scale;
+                    capsule.offset /= scale;
+                }
+            }
+
+            // instantly set to first frame so aiming sprite is removed immediately
+            activeSurrenderSprite = surrenderSprites[0];
+            if (sr != null)
+            {
+                sr.sprite = activeSurrenderSprite;
+            }
+
+            float frameDelay = 1f / Mathf.Max(surrenderFrameRate, 1f);
+
+            // play through frames 0 to last
+            for (int i = 0; i < surrenderSprites.Length; i++)
+            {
+                activeSurrenderSprite = surrenderSprites[i];
+                if (sr != null && activeSurrenderSprite != null)
+                {
+                    sr.sprite = activeSurrenderSprite;
+                }
+                yield return new WaitForSeconds(frameDelay);
+            }
+
+            // hold the last surrender frame (hands raised)
+            if (surrenderSprites.Length > 0)
+            {
+                activeSurrenderSprite = surrenderSprites[surrenderSprites.Length - 1];
+                if (sr != null)
+                {
+                    sr.sprite = activeSurrenderSprite;
+                }
+            }
         }
 
         IEnumerator WakeUpAndShootRoutine()
@@ -431,6 +635,14 @@ namespace OneLastTime.Enemies
 
         public void ResetGuard()
         {
+            if (currentState == GuardState.Surrendered) return;
+
+            if (swordPickupReaction != null)
+            {
+                StopCoroutine(swordPickupReaction);
+                swordPickupReaction = null;
+            }
+
             if (alertRoutine != null)
             {
                 StopCoroutine(alertRoutine);
@@ -477,6 +689,97 @@ namespace OneLastTime.Enemies
                     anim.SetTrigger("returnToPatrol");
                     anim.SetBool("isWalking", false);
                 }
+            }
+        }
+
+        public void TakeDamage(int damage)
+        {
+            if (isDead) return;
+
+            currentHealth -= damage;
+
+            // wake up if sleeping
+            if (isSleeping)
+            {
+                isSleeping = false;
+                WakeUpAndAlert();
+            }
+
+            StartCoroutine(DamageFeedbackRoutine());
+
+            if (currentHealth <= 0)
+            {
+                Die();
+            }
+        }
+
+        IEnumerator DamageFeedbackRoutine()
+        {
+            if (sr == null) yield break;
+            Color original = sr.color;
+            sr.color = new Color(1f, 0.3f, 0.3f, 1f);
+            yield return new WaitForSeconds(0.12f);
+            if (sr != null && !isDead)
+            {
+                sr.color = original;
+            }
+        }
+
+        void Die()
+        {
+            isDead = true;
+            if (alertRoutine != null) StopCoroutine(alertRoutine);
+            if (swordPickupReaction != null)
+            {
+                StopCoroutine(swordPickupReaction);
+                swordPickupReaction = null;
+            }
+
+            if (visionCone != null)
+            {
+                visionCone.gameObject.SetActive(false);
+            }
+
+            if (guardCol != null)
+            {
+                guardCol.enabled = false;
+            }
+
+            StartCoroutine(DieRoutine());
+        }
+
+        IEnumerator DieRoutine()
+        {
+            if (sr != null)
+            {
+                sr.color = new Color(1f, 0.2f, 0.2f, 1f);
+            }
+
+            float elapsed = 0f;
+            float duration = 0.45f;
+
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                float t = elapsed / duration;
+                if (sr != null)
+                {
+                    Color c = sr.color;
+                    c.a = Mathf.Lerp(1f, 0f, t);
+                    sr.color = c;
+                }
+                yield return null;
+            }
+
+            gameObject.SetActive(false);
+        }
+
+        void LateUpdate()
+        {
+            // enforce surrender sprite in case animator or other systems attempt override
+            if (currentState == GuardState.Surrendered && activeSurrenderSprite != null && sr != null)
+            {
+                sr.sprite = activeSurrenderSprite;
             }
         }
 

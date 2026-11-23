@@ -108,10 +108,10 @@ TextureImporter:
       name: PuzzleInventorySlot_Empty
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 887
-        height: 887
+        x: 139
+        y: 105
+        width: 700
+        height: 700
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -129,10 +129,10 @@ TextureImporter:
       name: PuzzleInventorySlot_Full
       rect:
         serializedVersion: 2
-        x: 887
-        y: 0
-        width: 887
-        height: 887
+        x: 934
+        y: 105
+        width: 700
+        height: 700
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

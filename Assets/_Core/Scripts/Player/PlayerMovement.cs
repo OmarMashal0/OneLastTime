@@ -56,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool IsTouchingWall => isTouchingWall;
     public bool IsWallSliding => isWallSliding;
+    public bool IsGrounded => grounded;
 
     private bool isSneaking;
     public bool IsSneaking => isSneaking;
@@ -78,6 +79,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.gravityScale = 3f;
             }
+        }
+
+        if (GetComponent<OneLastTime.Player.PlayerAttack>() == null)
+        {
+            gameObject.AddComponent<OneLastTime.Player.PlayerAttack>();
         }
     }
 
@@ -124,8 +130,9 @@ public class PlayerMovement : MonoBehaviour
             anim.SetFloat("jumpHeight", rb.velocity.y);
             anim.SetBool("grounded", grounded);
             anim.SetBool("isWalking", isSneaking && animSpeed > 0.1f);
-            anim.SetBool("isWallSliding", isWallSliding);
-            anim.SetBool("isWallContact", isTouchingWall && !isWallSliding && !grounded);
+            bool showWallPose = canMove && wallJumpTimer <= 0f;
+            anim.SetBool("isWallSliding", showWallPose && isWallSliding);
+            anim.SetBool("isWallContact", showWallPose && isTouchingWall && !isWallSliding && !grounded);
         }
     }
 
