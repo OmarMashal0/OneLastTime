@@ -1,0 +1,399 @@
+fileFormatVersion: 2
+guid: adb516a48c7c48a4db4815ce50e55f5d
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 0
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 220
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Mossy Log 1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 592
+        width: 443
+        height: 295
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5694915}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bd6828c6f73b07f0800000000000000
+      internalID: -645360588537958991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mossy Log 2
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 592
+        width: 443
+        height: 295
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5694915}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 282f9837ab98d6d90800000000000000
+      internalID: -7102869603398061438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mossy Log 3
+      rect:
+        serializedVersion: 2
+        x: 887
+        y: 592
+        width: 443
+        height: 295
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5694915}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e748e030f6bfb070800000000000000
+      internalID: 8124413395528599523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mossy Log 4
+      rect:
+        serializedVersion: 2
+        x: 1330
+        y: 592
+        width: 443
+        height: 295
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5694915}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85602dac70877b830800000000000000
+      internalID: 4086867161724880472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mossy Log 5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 296
+        width: 443
+        height: 295
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5694915}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ecb9254cb8b94790800000000000000
+      internalID: -7545296581928829726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mossy Log 6
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 296
+        width: 443
+        height: 295
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5694915}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 500e6c00f7b105350800000000000000
+      internalID: 6003328535572701189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mossy Log 7
+      rect:
+        serializedVersion: 2
+        x: 887
+        y: 296
+        width: 443
+        height: 295
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5694915}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b9283246d71ce2b0800000000000000
+      internalID: -5554038031453247050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mossy Log 8
+      rect:
+        serializedVersion: 2
+        x: 1330
+        y: 296
+        width: 443
+        height: 295
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5694915}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d929327f3060700b0800000000000000
+      internalID: -5762630584096288099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mossy Log 9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1
+        width: 443
+        height: 295
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5694915}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3f0ad31cc90596a0800000000000000
+      internalID: -6443232919772590274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mossy Log 10
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 1
+        width: 443
+        height: 295
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5694915}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a64fa71d108141800800000000000000
+      internalID: 582116647926166634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mossy Log 11
+      rect:
+        serializedVersion: 2
+        x: 887
+        y: 1
+        width: 443
+        height: 295
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5694915}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1e63c5726c593bd0800000000000000
+      internalID: -2649985327778533858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mossy Log 12
+      rect:
+        serializedVersion: 2
+        x: 1330
+        y: 1
+        width: 443
+        height: 295
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5694915}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fc146f6c7933e8a0800000000000000
+      internalID: -6277110249016779528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Mossy Log 7: -5554038031453247050
+      Mossy Log 2: -7102869603398061438
+      Mossy Log 10: 582116647926166634
+      Mossy Log 8: -5762630584096288099
+      Mossy Log 12: -6277110249016779528
+      Mossy Log 9: -6443232919772590274
+      Mossy Log 4: 4086867161724880472
+      Mossy Log 11: -2649985327778533858
+      Mossy Log 6: 6003328535572701189
+      Mossy Log 1: -645360588537958991
+      Mossy Log 3: 8124413395528599523
+      Mossy Log 5: -7545296581928829726
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

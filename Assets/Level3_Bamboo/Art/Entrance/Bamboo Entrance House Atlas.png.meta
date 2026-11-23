@@ -1,0 +1,531 @@
+fileFormatVersion: 2
+guid: c521ceff792f97f498f66c84398e73e9
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 130
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: House
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 516
+        width: 953
+        height: 493
+      alignment: 9
+      pivot: {x: 0.4995, y: 0.0041}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53256f5df1823a400800000000000000
+      internalID: 334154914554335797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lantern 0
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 293
+        width: 91
+        height: 174
+      alignment: 9
+      pivot: {x: 0.6538, y: 0.9885}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ad041b8bd1043b60800000000000000
+      internalID: 7724801303290056096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lantern 1
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 295
+        width: 84
+        height: 172
+      alignment: 9
+      pivot: {x: 0.4821, y: 0.9884}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e7daf704dc71dfa0800000000000000
+      internalID: -5777699596830844959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lantern 2
+      rect:
+        serializedVersion: 2
+        x: 552
+        y: 295
+        width: 86
+        height: 172
+      alignment: 9
+      pivot: {x: 0.5058, y: 0.9884}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc1781de8ebbf5a90800000000000000
+      internalID: -7322927859996528177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lantern 3
+      rect:
+        serializedVersion: 2
+        x: 738
+        y: 295
+        width: 87
+        height: 172
+      alignment: 9
+      pivot: {x: 0.4368, y: 0.9884}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a761be8b1d006d670800000000000000
+      internalID: 8563032642242156154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lantern 4
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 293
+        width: 90
+        height: 174
+      alignment: 9
+      pivot: {x: 0.3944, y: 0.9885}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 414f5ad50fee8bd30800000000000000
+      internalID: 4447567348159083540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lantern 5
+      rect:
+        serializedVersion: 2
+        x: 1104
+        y: 295
+        width: 83
+        height: 173
+      alignment: 9
+      pivot: {x: 0.512, y: 0.9884}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2becc71d486852230800000000000000
+      internalID: 3613442181043113650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lantern Bracket
+      rect:
+        serializedVersion: 2
+        x: 1277
+        y: 303
+        width: 145
+        height: 131
+      alignment: 9
+      pivot: {x: 0.069, y: 0.7252}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47e2e9b5c70703d90800000000000000
+      internalID: -7120067331457405324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Curtain Left 0
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 60
+        width: 83
+        height: 143
+      alignment: 9
+      pivot: {x: 0.5181, y: 0.986}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21b68a7abd4417760800000000000000
+      internalID: 7453814568476240658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Curtain Left 1
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 61
+        width: 95
+        height: 142
+      alignment: 9
+      pivot: {x: 0.4158, y: 0.9859}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91d6d34967ecb1470800000000000000
+      internalID: 8366507741459344665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Curtain Left 2
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 60
+        width: 102
+        height: 143
+      alignment: 9
+      pivot: {x: 0.3971, y: 0.986}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e0fab693537d0a50800000000000000
+      internalID: 6488969440959066343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Curtain Middle 0
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 57
+        width: 82
+        height: 146
+      alignment: 9
+      pivot: {x: 0.5061, y: 0.9863}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03950d72aae11fde0800000000000000
+      internalID: -1301225101172123344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Curtain Middle 1
+      rect:
+        serializedVersion: 2
+        x: 593
+        y: 57
+        width: 96
+        height: 146
+      alignment: 9
+      pivot: {x: 0.4792, y: 0.9863}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af70aa009ac687f60800000000000000
+      internalID: 8032289408531695610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Curtain Middle 2
+      rect:
+        serializedVersion: 2
+        x: 708
+        y: 53
+        width: 93
+        height: 150
+      alignment: 9
+      pivot: {x: 0.4785, y: 0.9867}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12647dd8449fffb60800000000000000
+      internalID: 7782212753952294433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Curtain Right 0
+      rect:
+        serializedVersion: 2
+        x: 911
+        y: 57
+        width: 72
+        height: 146
+      alignment: 9
+      pivot: {x: 0.5, y: 0.9863}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 818a36c86fec722f0800000000000000
+      internalID: -997601234126657512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Curtain Right 1
+      rect:
+        serializedVersion: 2
+        x: 1011
+        y: 58
+        width: 91
+        height: 145
+      alignment: 9
+      pivot: {x: 0.3956, y: 0.9862}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16c48b05ceaa71040800000000000000
+      internalID: 4618347874834992225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Curtain Right 2
+      rect:
+        serializedVersion: 2
+        x: 1112
+        y: 57
+        width: 102
+        height: 146
+      alignment: 9
+      pivot: {x: 0.3676, y: 0.9863}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b6776723497bc2c0800000000000000
+      internalID: -4410298080748407115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Curtain Rod
+      rect:
+        serializedVersion: 2
+        x: 1251
+        y: 142
+        width: 247
+        height: 29
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a87d2f7ae34c7440800000000000000
+      internalID: 4934893966126315686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Curtain Right 2: -4410298080748407115
+      Curtain Right 1: 4618347874834992225
+      Lantern 3: 8563032642242156154
+      Curtain Right 0: -997601234126657512
+      House: 334154914554335797
+      Lantern Bracket: -7120067331457405324
+      Lantern 4: 4447567348159083540
+      Curtain Middle 1: 8032289408531695610
+      Curtain Left 1: 8366507741459344665
+      Curtain Left 2: 6488969440959066343
+      Curtain Middle 0: -1301225101172123344
+      Lantern 5: 3613442181043113650
+      Curtain Rod: 4934893966126315686
+      Lantern 2: -7322927859996528177
+      Curtain Middle 2: 7782212753952294433
+      Lantern 0: 7724801303290056096
+      Lantern 1: -5777699596830844959
+      Curtain Left 0: 7453814568476240658
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

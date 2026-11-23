@@ -1,0 +1,531 @@
+fileFormatVersion: 2
+guid: f359c3c5f0edabd468d9ba89d959a20d
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 256
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Snail 0
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 624
+        width: 123
+        height: 75
+      alignment: 9
+      pivot: {x: 0.4348, y: 0.0267}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4dcf98b2611fc2170800000000000000
+      internalID: 8155158102783163604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Snail 1
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 624
+        width: 129
+        height: 75
+      alignment: 9
+      pivot: {x: 0.4496, y: 0.0267}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92b33bbcbd851bee0800000000000000
+      internalID: -1247117920766313687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Snail 2
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 624
+        width: 138
+        height: 75
+      alignment: 9
+      pivot: {x: 0.4482, y: 0.0267}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22cb0b9cb60b8a740800000000000000
+      internalID: 5163570949772065826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Snail 3
+      rect:
+        serializedVersion: 2
+        x: 675
+        y: 624
+        width: 140
+        height: 75
+      alignment: 9
+      pivot: {x: 0.4517, y: 0.0267}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f10719442406c80e0800000000000000
+      internalID: -2266330674739711969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Snail 4
+      rect:
+        serializedVersion: 2
+        x: 892
+        y: 625
+        width: 131
+        height: 75
+      alignment: 9
+      pivot: {x: 0.4197, y: 0.0267}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63871cbab16a76a00800000000000000
+      internalID: 749750500756387894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Snail 5
+      rect:
+        serializedVersion: 2
+        x: 1109
+        y: 626
+        width: 127
+        height: 73
+      alignment: 9
+      pivot: {x: 0.4195, y: 0.0274}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba689a484078e2f90800000000000000
+      internalID: -6976490319274998101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Luna Moth 0
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 406
+        width: 200
+        height: 163
+      alignment: 9
+      pivot: {x: 0.5137, y: 0.7055}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a3b656e361b839e0800000000000000
+      internalID: -1641367021552225368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Luna Moth 1
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 407
+        width: 203
+        height: 161
+      alignment: 9
+      pivot: {x: 0.5697, y: 0.7019}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 458af998eab3b44b0800000000000000
+      internalID: -5455200902809933740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Luna Moth 2
+      rect:
+        serializedVersion: 2
+        x: 489
+        y: 407
+        width: 86
+        height: 164
+      alignment: 9
+      pivot: {x: 0.497, y: 0.7073}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a80b7d894ede50520800000000000000
+      internalID: 2667799920359485578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Luna Moth 3
+      rect:
+        serializedVersion: 2
+        x: 659
+        y: 409
+        width: 165
+        height: 160
+      alignment: 9
+      pivot: {x: 0.4941, y: 0.7}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b61009a709cbdac00800000000000000
+      internalID: 913593628143649131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Luna Moth 4
+      rect:
+        serializedVersion: 2
+        x: 852
+        y: 406
+        width: 211
+        height: 161
+      alignment: 9
+      pivot: {x: 0.4975, y: 0.7019}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 140fb86e9fc3c6b60800000000000000
+      internalID: 7740628903555493953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Luna Moth 5
+      rect:
+        serializedVersion: 2
+        x: 1095
+        y: 407
+        width: 151
+        height: 165
+      alignment: 9
+      pivot: {x: 0.4964, y: 0.7091}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9de5db0ce51c1b620800000000000000
+      internalID: 2788222257023770329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fox Walk 0
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 240
+        width: 205
+        height: 135
+      alignment: 9
+      pivot: {x: 0.6481, y: 0.0148}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93db05abca9d52b60800000000000000
+      internalID: 7720816472080039225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fox Walk 1
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 241
+        width: 198
+        height: 134
+      alignment: 9
+      pivot: {x: 0.647, y: 0.0149}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d2866ad783cadbe0800000000000000
+      internalID: -1451632941621411111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fox Walk 2
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 242
+        width: 199
+        height: 133
+      alignment: 9
+      pivot: {x: 0.6398, y: 0.015}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70156ab4076f46b40800000000000000
+      internalID: 5432738012681621767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fox Walk 3
+      rect:
+        serializedVersion: 2
+        x: 643
+        y: 240
+        width: 203
+        height: 135
+      alignment: 9
+      pivot: {x: 0.6326, y: 0.0148}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a2681415ac62c6d0800000000000000
+      internalID: -2971693347848559960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fox Walk 4
+      rect:
+        serializedVersion: 2
+        x: 854
+        y: 241
+        width: 202
+        height: 135
+      alignment: 9
+      pivot: {x: 0.6305, y: 0.0148}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 487dcc4f9b8d62950800000000000000
+      internalID: 6424060211678205828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fox Walk 5
+      rect:
+        serializedVersion: 2
+        x: 1065
+        y: 240
+        width: 204
+        height: 135
+      alignment: 9
+      pivot: {x: 0.6517, y: 0.0148}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c2ca64a1de567730800000000000000
+      internalID: 3996485973837529798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Fox Walk 3: -2971693347848559960
+      Snail 3: -2266330674739711969
+      Luna Moth 5: 2788222257023770329
+      Fox Walk 5: 3996485973837529798
+      Luna Moth 3: 913593628143649131
+      Fox Walk 2: 5432738012681621767
+      Luna Moth 4: 7740628903555493953
+      Snail 4: 749750500756387894
+      Luna Moth 2: 2667799920359485578
+      Luna Moth 0: -1641367021552225368
+      Fox Walk 1: -1451632941621411111
+      Snail 0: 8155158102783163604
+      Luna Moth 1: -5455200902809933740
+      Snail 1: -1247117920766313687
+      Fox Walk 0: 7720816472080039225
+      Snail 5: -6976490319274998101
+      Fox Walk 4: 6424060211678205828
+      Snail 2: 5163570949772065826
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
