@@ -25,6 +25,7 @@ public class LevelTitleFade : MonoBehaviour
 
     [Header("Title panel")]
     public CanvasGroup titleGroup;
+    public TitleDissolve[] lettering;
     public RectTransform titlePanel;
     public RectTransform bambooLeft;
     public RectTransform bambooRight;
@@ -76,6 +77,7 @@ public class LevelTitleFade : MonoBehaviour
 
     private IEnumerator PlayTitle()
     {
+        titleParticles.gameObject.SetActive(true);
         float total = fadeInSeconds + holdSeconds + fadeOutSeconds;
         float time = 0f;
         while (time < total)
@@ -88,11 +90,15 @@ public class LevelTitleFade : MonoBehaviour
             float fadeOut = Mathf.SmoothStep(0f, 1f, (time - fadeInSeconds - holdSeconds) / fadeOutSeconds);
             float visible = fadeIn * (1f - fadeOut);
 
-            titleGroup.alpha = visible;
+            titleGroup.alpha = fadeIn;
+            foreach (TitleDissolve image in lettering)
+                image.SetProgress(fadeOut);
             titlePanel.localScale = Vector3.one * (0.97f + 0.03f * fadeIn + 0.01f * fadeOut);
             SetBlur(visible * blurStrength);
             // The leaves and flecks only show once the title starts to fade (the group fades them out too).
-            titleParticles.alpha = Mathf.Clamp01(fadeOut * 5f);
+            titleParticles.alpha = Mathf.Clamp01(fadeOut * 5f) * (1f - fadeOut);
+            bambooLeft.GetComponent<UnityEngine.UI.Image>().CrossFadeAlpha(1f - fadeOut, 0f, false);
+            bambooRight.GetComponent<UnityEngine.UI.Image>().CrossFadeAlpha(1f - fadeOut, 0f, false);
             Sway(time);
             Drift(time, fadeOut);
 
@@ -102,6 +108,7 @@ public class LevelTitleFade : MonoBehaviour
 
         titleGroup.alpha = 0f;
         titleParticles.alpha = 0f;
+        titleParticles.gameObject.SetActive(false);
         SetBlur(0f);
     }
 

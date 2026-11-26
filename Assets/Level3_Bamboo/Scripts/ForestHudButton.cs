@@ -17,6 +17,9 @@ namespace Level3Bamboo
         public Image artwork;
         [Tooltip("Only used by the Mute Music button.")]
         public AudioSource music;
+        [Tooltip("A short click. Played with PlayOneShot, which still works while the game is paused.")]
+        public AudioSource clickSource;
+        public AudioClip clickSound;
 
         [Header("Sprites")]
         public Sprite normal;
@@ -48,6 +51,13 @@ namespace Level3Bamboo
         // Update is called once per frame
         void Update()
         {
+            // Keyboard shortcuts do the same thing as clicking the button:
+            // Esc or P pauses and resumes, M mutes and unmutes the music.
+            if (action == Action.Pause && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)))
+                OnClick();
+            if (action == Action.MuteMusic && Input.GetKeyDown(KeyCode.M))
+                OnClick();
+
             // Uses unscaled time so the button still animates while the game is paused.
             bool alternateState = action == Action.MuteMusic ? music.mute : Time.timeScale <= 0f;
             bool pressing = held && hovered || Time.unscaledTime < clickedUntil;
@@ -70,6 +80,8 @@ namespace Level3Bamboo
         private void OnClick()
         {
             clickedUntil = Time.unscaledTime + 0.12f;
+            if (clickSource != null && clickSound != null)
+                clickSource.PlayOneShot(clickSound, 0.5f);
             if (action == Action.MuteMusic)
             {
                 music.mute = !music.mute;

@@ -18,6 +18,18 @@ namespace Level3Bamboo
         public EnemyHealthBar healthBar;
         public int maxHealth = 20;
         public int contactDamage = 15;
+
+        // Sounds (Lab 7 style: an AudioSource plays clips with PlayOneShot).
+        [Header("Sounds")]
+        public AudioSource audioSource;
+        public AudioClip attackSound;   // when an eye warns, or Badawy summons
+        public EnemyHitEffect hitEffect;
+        public Color hitColor = Color.white;
+        public Color hitAccent = Color.white;
+        public AudioClip[] hitSounds = new AudioClip[2];
+        private int nextHitSound;
+        public AudioClip hurtSound;     // when the katana hits
+        public AudioClip deathSound;    // when health reaches 0
         public int katanaDamage = 10;
         public float moveSpeed = 2.25f;
         public float attackSpeed = 8f;
@@ -98,6 +110,7 @@ namespace Level3Bamboo
             if (!Alive)
                 return;
             Play("Action");
+            PlaySound(attackSound);
             phase = Phase.Recover;
             timer = 0.65f;
         }
@@ -144,6 +157,21 @@ namespace Level3Bamboo
                 MoveEnemy(target, center);
 
 
+        }
+
+        // Badawy hurts Ryu if Ryu walks into him during the fight (like the Lab 6 enemy trigger).
+        // Ryu's short invulnerability after a hit stops this from draining his health at once.
+        void OnTriggerStay2D(Collider2D other)
+        {
+            if (kind == Kind.Badawy && Alive && CanBeHit && other.tag == "Player")
+                player.TakeDamage(contactDamage);
+        }
+
+        // Plays a sound only if both the speaker and the clip were set in the Inspector.
+        private void PlaySound(AudioClip clip)
+        {
+            if (audioSource != null && clip != null)
+                audioSource.PlayOneShot(clip);
         }
 
         private void SetCrystalGlow(float intensity)
@@ -265,12 +293,22 @@ namespace Level3Bamboo
 
             Health = Mathf.Max(0, Health - katanaDamage);
             healthBar.SetHealth(Health, maxHealth);
+            if (hitEffect != null)
+                Instantiate(hitEffect, target, Quaternion.identity).Play(hitColor, hitAccent, false);
+            if (hitSounds.Length == 2 && hitSounds[0] != null && hitSounds[1] != null)
+            {
+                audioSource.PlayOneShot(hitSounds[nextHitSound], 0.45f);
+                nextHitSound = 1 - nextHitSound;
+            }
+            else if (Health > 0)
+                PlaySound(hurtSound);
             if (Health == 0)
             {
                 phase = Phase.Dead;
                 damageCollider.enabled = false;
                 timer = deathSeconds;
                 Play("Death");
+                PlaySound(deathSound);
                 Defeated?.Invoke(this);
             }
             else
@@ -286,6 +324,7 @@ namespace Level3Bamboo
             phase = Phase.Warning;
             timer = warningSeconds;
             Play("Action");
+            PlaySound(attackSound);
         }
 
         private void Recover()

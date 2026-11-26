@@ -38,6 +38,9 @@ namespace Level3Bamboo
         [Tooltip("Frame number where the blade lands. Enemies are hit on that frame, once per swing.")]
         [SerializeField] private int strikeFrame = 2;
         [SerializeField] private float attackFrameSeconds = 0.07f;
+        [Tooltip("Played once at the start of each swing (Lab 7 style random clip, no immediate repeat).")]
+        public AudioClip[] swingSounds = new AudioClip[3];
+        public float swingVolume = 0.35f;
 
         [Header("Hurt")]
         [SerializeField] private Sprite[] hurtFrames = new Sprite[0];
@@ -95,6 +98,7 @@ namespace Level3Bamboo
         private bool strikeSent;
         private bool useSecondSwing;
         private bool testAttackQueued;
+        private int lastSwingSound = -1;
         private float respawnTimer;
         private float protectedUntil;
         private float hurtFlashUntil;
@@ -211,6 +215,10 @@ namespace Level3Bamboo
             protectedUntil = Time.time + damageInvulnerability;
             hurtFlashUntil = Time.time + 0.22f;
             hurtPoseUntil = Time.time + hurtPoseSeconds;
+            // Shake the camera a little when Ryu is hurt.
+            CameraFollow2D cameraFollow = FindObjectOfType<CameraFollow2D>();
+            if (cameraFollow != null)
+                cameraFollow.Shake(0.25f);
             if (hurtAudio != null && hurtClip != null)
                 hurtAudio.PlayOneShot(hurtClip);
             if (Health == 0)
@@ -252,8 +260,22 @@ namespace Level3Bamboo
             currentSwing = useSecondSwing ? secondSwingFrames : firstSwingFrames;
             useSecondSwing = !useSecondSwing;
             LastAttackIndex++;
+            PlaySwingSound();
             if (swingLocksFeet)
                 rb.velocity = new Vector2(0f, rb.velocity.y);
+        }
+
+        // Lab 7's PlayRandomSFX idea: pick a random clip, but never the same one twice in a row.
+        private void PlaySwingSound()
+        {
+            if (hurtAudio == null || swingSounds.Length == 0)
+                return;
+            int index = Random.Range(0, swingSounds.Length);
+            if (index == lastSwingSound && swingSounds.Length > 1)
+                index = (index + 1) % swingSounds.Length;
+            lastSwingSound = index;
+            if (swingSounds[index] != null)
+                hurtAudio.PlayOneShot(swingSounds[index], swingVolume);
         }
 
         private void UpdateAttack()

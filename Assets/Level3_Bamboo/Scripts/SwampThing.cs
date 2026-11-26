@@ -2,14 +2,30 @@ using UnityEngine;
 
 namespace Level3Bamboo
 {
+    // Swamp Thing, the rooted forest creature guarding the log cage.
+    // He sleeps as a mound until the entrance lines are over, then fights with three attacks:
+    //   Long-arm strike - wind up, the arm shoots out (damage only on the stretched frames), pull back.
+    //   Jump slam       - crouch while a mark shows where he will land, a real jump to that spot,
+    //                     a small impact on landing (damage once), then a short recovery.
+    //   Burrow          - sink into the ground, travel, a ground warning appears at a locked spot near Ryu,
+    //                     then he bursts out there (never inside Ryu) and recovers.
+    // Every attack has a warning and a recovery, and the same attack is never used more than twice in a row.
+    // He can't be hurt until his own arm has broken the cage (the log puzzle). Defeat leaves his log behind.
+    // Everything runs on Time.deltaTime, so pausing the game freezes him.
     public class SwampThing : MonoBehaviour
     {
         public enum State
         {
-            Dormant, Wake, Ready, ArmWarning, ArmStrike, RetractAndBurrow,
-            UndergroundTravel, EmergenceWarning, Emerge, Recovery, Dead
+            Dormant, Wake, Ready, Run, Hop, Hurt, Recovery,
+            ArmWindup, ArmStrike, ArmRetract,
+            SlamCrouch, SlamAir, SlamImpact,
+            Burrow, Underground, EmergeWarning, Emerge,
+            Dead
         }
 
+        private enum Attack { None, Arm, Slam, Burrow }
+
+        [Header("References")]
         public BambooPlayerController player;
         public SwampDialogue dialogue;
         public Collider2D playerCollider;
@@ -19,50 +35,85 @@ namespace Level3Bamboo
         public BoxCollider2D body;
         public BoxCollider2D arm;
         public BoxCollider2D breakout;
+        [Tooltip("Hit area under him when he lands from the jump slam.")]
+        public BoxCollider2D slamHitbox;
+        [Tooltip("Mark on the ground showing where the slam lands or where he will burst out.")]
+        public SpriteRenderer warningMarker;
         public EnemyHealthBar healthBar;
         public ParticleSystem debris;
+        public CameraFollow2D cameraFollow;
         public AudioSource voice;
+        public EnemyHitEffect hitEffect;
+        public AudioClip[] hitSounds = new AudioClip[2];
+        private int nextHitSound;
         public AudioClip wakeSound, warningSound, swingSound, slamSound, pullFreeSound, hurtSound, deathSound, soilSound, emergeSound;
 
+        [Header("Health and damage")]
         public int maxHealth = 80;
         public int swordDamage = 10;
-        public int armDamage = 24;
-        public int emergenceDamage = 18;
+        public int armDamage = 14;
+        public int slamDamage = 16;
+        public int emergenceDamage = 11;
+
+        [Header("Arena")]
         public float wakeRange = 6f;
-        public float armReach = 3.38f;
-        public float armWarningSeconds = 0.7f;
-        public float emergenceWarningSeconds = 0.8f;
-        public float recoverySeconds = 1.2f;
-        public float undergroundSpeed = 2.4f;
         public float minEncounterX = 103f;
         public float maxEncounterX = 113f;
+        [Tooltip("Half his body width: he stops this far from the cage while it is intact.")]
+        public float bodyHalfWidth = 0.7f;
         public float emergenceClearance = 1.35f;
+
+        [Header("Long-arm strike")]
+        public float armReach = 3.2f;
+        public float armWindupSeconds = 0.65f;
+        public float armStrikeSeconds = 0.36f;
+        public float armRetractSeconds = 0.3f;
+
+        [Header("Jump slam")]
+        public float slamCrouchSeconds = 0.7f;
+        public float slamFlightSeconds = 0.75f;
+        public float slamGravity = 30f;
+        public float slamMaxDistance = 5f;
+        public float slamImpactSeconds = 0.5f;
+
+        [Header("Burrow")]
+        public float burrowSeconds = 0.6f;
+        public float undergroundSpeed = 4f;
+        public float emergenceWarningSeconds = 0.75f;
+        public float emergeSeconds = 0.55f;
+        [Tooltip("Distances from Ryu where he may burst out of the ground (left or right of Ryu).")]
+        public float[] emergeOffsets = { 1.6f, 2.2f, 2.9f };
+
+        [Header("Pacing")]
+        public float recoverySeconds = 0.65f;
+        [Tooltip("Shortest and longest idle time before he acts again.")]
+        public Vector2 idleSeconds = new Vector2(0.15f, 0.4f);
+        public float runSpeed = 2.4f;
+        [Tooltip("If Ryu is farther than this he leaps toward him instead of running.")]
+        public float hopDistance = 5f;
+        public float hopFlightSeconds = 0.6f;
 
         public State CurrentState { get; private set; }
         public int Health { get; private set; }
 
-        private const float StrikeSeconds = 0.38f;
-        private const float EmergeSeconds = 0.52f;
         private readonly System.Collections.Generic.List<RaycastHit2D> casts = new System.Collections.Generic.List<RaycastHit2D>();
         private readonly Collider2D[] overlaps = new Collider2D[8];
         private Vector3 home;
         private Vector3 artOrigin;
-        private Vector3 emergencePoint;
+        private Vector3 target;          // locked landing / emergence spot
+        private Vector2 velocity;        // used while he is in the air
         private float elapsed;
         private float readyDelay;
         private float facing = -1f;
         private float hurtTime;
         private bool hitPlayer;
-        private float nextSoilPuff;
         private bool collapseResolved;
         private bool audioPaused;
-        private bool armRoute;
-        private bool lastWasArm;
+        private Attack lastAttack;
         private int repeatCount;
-        private bool lastEmergenceLeft;
-        private int sideRepeats;
+        private float nextSoilPuff;
+        private bool fallPoseShown;
 
-        // Start is called before the first frame update
         void Start()
         {
             home = transform.position;
@@ -76,12 +127,10 @@ namespace Level3Bamboo
         {
             if (player == null)
                 return;
-
             player.KatanaSwung -= OnSword;
             player.Respawned -= OnRespawn;
         }
 
-        // Update is called once per frame
         void Update()
         {
             if (Time.timeScale <= 0f)
@@ -104,68 +153,102 @@ namespace Level3Bamboo
             elapsed += Time.deltaTime;
             if (CurrentState == State.Dead)
             {
-                UpdateCollapse();
+                UpdateDefeat();
                 return;
             }
 
             UpdateHurtFlash();
+            UpdateMarker();
             switch (CurrentState)
             {
                 case State.Dormant:
                     if (PlayerNearby())
                     {
-                        FacePlayer();
-                        Enter(State.Wake, "Wake", wakeSound);
+                        // The entrance lines play first; he only rises once they are finished.
+                        dialogue.PlayEntrance();
+                        if (dialogue.EntranceFinished)
+                        {
+                            FacePlayer();
+                            Enter(State.Wake, "Wake", wakeSound);
+                        }
                     }
                     break;
                 case State.Wake:
-                    if (elapsed >= 0.64f)
+                    if (elapsed >= 0.6f)
                         BecomeReady();
                     break;
                 case State.Ready:
                     FacePlayer();
-                    if (elapsed < readyDelay)
-                        break;
-                    if (PlayerNearby())
-                        PickAttack();
+                    if (elapsed >= readyDelay && PlayerNearby())
+                        ChooseAction();
                     break;
-                case State.ArmWarning:
-                    if (elapsed >= armWarningSeconds)
-                        Enter(State.ArmStrike, "ArmStrike", swingSound);
+                case State.Run:
+                    UpdateRun();
                     break;
-                case State.ArmStrike:
-                    UpdateArm();
+                case State.Hop:
+                    if (UpdateFlight())
+                        Enter(State.Recovery, "Land");
                     break;
-                case State.RetractAndBurrow:
-                    if (elapsed >= (armRoute ? 0.72f : 0.86f))
-                        BeginTravel();
-                    break;
-                case State.UndergroundTravel:
-                    MoveUnderground();
-                    break;
-                case State.EmergenceWarning:
-                    if (elapsed >= emergenceWarningSeconds)
-                    {
-                        if (HasRoom(emergencePoint))
-                        {
-                            Enter(State.Emerge, "Emerge", emergeSound);
-                            EmitDebris(10);
-                        }
-                        else
-                        {
-                            BeginTravel();
-                        }
-                    }
-                    break;
-                case State.Emerge:
-                    UpdateEmergence();
+                case State.Hurt:
+                    if (elapsed >= 0.25f)
+                        BecomeReady();
                     break;
                 case State.Recovery:
                     if (elapsed >= recoverySeconds)
                         BecomeReady();
                     break;
+
+                case State.ArmWindup:
+                    if (elapsed >= armWindupSeconds)
+                        Enter(State.ArmStrike, "ArmStrike", swingSound);
+                    break;
+                case State.ArmStrike:
+                    UpdateArm();
+                    if (elapsed >= armStrikeSeconds)
+                        Enter(State.ArmRetract, "ArmRetract", pullFreeSound);
+                    break;
+                case State.ArmRetract:
+                    if (elapsed >= armRetractSeconds)
+                        Enter(State.Recovery, "Idle");
+                    break;
+
+                case State.SlamCrouch:
+                    if (elapsed >= slamCrouchSeconds)
+                        StartSlamJump();
+                    break;
+                case State.SlamAir:
+                    if (velocity.y < 0f && !fallPoseShown)
+                    {
+                        fallPoseShown = true;
+                        SetPose("SlamFall");
+                    }
+                    if (UpdateFlight())
+                        Land();
+                    break;
+                case State.SlamImpact:
+                    UpdateSlamHit();
+                    if (elapsed >= slamImpactSeconds)
+                        Enter(State.Recovery, "Idle");
+                    break;
+
+                case State.Burrow:
+                    if (elapsed >= burrowSeconds)
+                        GoUnderground();
+                    break;
+                case State.Underground:
+                    MoveUnderground();
+                    break;
+                case State.EmergeWarning:
+                    if (elapsed >= emergenceWarningSeconds)
+                        TryEmerge();
+                    break;
+                case State.Emerge:
+                    UpdateEmergence();
+                    break;
             }
         }
+
+        // ---------------------------------------------------------------- choosing what to do
 
         private bool PlayerNearby()
         {
@@ -174,106 +257,280 @@ namespace Level3Bamboo
                 && Mathf.Abs(x - transform.position.x) <= wakeRange;
         }
 
-        private void FacePlayer()
+        // While the cage is intact he can't walk through it, so the arena starts just right of it.
+        private float MinX()
         {
-            facing = player.transform.position.x < transform.position.x ? -1f : 1f;
-            artwork.flipX = facing < 0f;
+            return cage.Broken ? minEncounterX : cage.chargeTarget.bounds.max.x + bodyHalfWidth;
+        }
+
+        private void ChooseAction()
+        {
+            float distance = Mathf.Abs(player.transform.position.x - transform.position.x);
+            bool inReach = distance <= armReach + 0.3f;
+            bool behindCage = !cage.Broken && player.transform.position.x < cage.chargeTarget.bounds.max.x;
+
+            // Too far to hit? Usually close the gap first (run, or leap if very far).
+            if (!inReach && !behindCage && Random.Range(0f, 1f) < 0.4f)
+            {
+                StartMove(distance);
+                return;
+            }
+
+            Attack attack;
+            float roll = Random.Range(0f, 1f);
+            if (behindCage)
+                attack = roll < 0.75f ? Attack.Arm : Attack.Slam;     // the bait: his arm can reach the cage
+            else if (inReach)
+                attack = roll < 0.45f ? Attack.Arm : roll < 0.75f ? Attack.Slam : Attack.Burrow;
+            else
+                attack = roll < 0.55f ? Attack.Slam : Attack.Burrow;
+
+            // Never the same attack twice in a row (behind the cage the arm may repeat once, it is the bait).
+            int allowed = behindCage && attack == Attack.Arm ? 2 : 1;
+            if (attack == lastAttack && repeatCount >= allowed)
+                attack = attack == Attack.Slam ? (inReach || behindCage ? Attack.Arm : Attack.Burrow) : Attack.Slam;
+            // Standing right on top of Ryu a slam would only hop on the spot, so do something else.
+            if (attack == Attack.Slam && distance < 1.2f)
+                attack = lastAttack == Attack.Arm ? Attack.Burrow : Attack.Arm;
+            repeatCount = attack == lastAttack ? repeatCount + 1 : 1;
+            lastAttack = attack;
+
+            FacePlayer();
+            hitPlayer = false;
+            if (attack == Attack.Arm)
+                StartArm();
+            else if (attack == Attack.Slam)
+                StartSlam();
+            else
+                StartBurrow();
         }
 
         private void BecomeReady()
         {
-            readyDelay = Random.Range(0.36f, 0.69f);
+            readyDelay = Random.Range(idleSeconds.x, idleSeconds.y);
             Enter(State.Ready, "Idle");
         }
 
-        private void PickAttack()
+        private void FacePlayer()
         {
-            bool useArm = repeatCount >= 2 ? !lastWasArm : Random.value < 0.65f;
-            repeatCount = useArm == lastWasArm ? repeatCount + 1 : 1;
-            lastWasArm = useArm;
-            armRoute = useArm;
+            facing = player.transform.position.x < transform.position.x ? -1f : 1f;
+            artwork.flipX = facing < 0f;   // the drawings face right
+        }
+
+        // ---------------------------------------------------------------- moving
+
+        private void StartMove(float distance)
+        {
             FacePlayer();
-            if (useArm)
+            if (distance > hopDistance)
             {
-                hitPlayer = false;
-                Enter(State.ArmWarning, "ArmWarning", warningSound);
+                // Leap to a spot a little short of Ryu.
+                float x = Mathf.Clamp(player.transform.position.x - facing * 2.4f, MinX(), maxEncounterX);
+                Launch(x, hopFlightSeconds);
+                Enter(State.Hop, "Jump", null);
             }
             else
             {
-                Enter(State.RetractAndBurrow, "DirectBurrow", warningSound);
+                Enter(State.Run, "Run");
             }
+        }
+
+        private void UpdateRun()
+        {
+            FacePlayer();
+            float distance = Mathf.Abs(player.transform.position.x - transform.position.x);
+            float x = Mathf.Clamp(transform.position.x + facing * runSpeed * Time.deltaTime, MinX(), maxEncounterX);
+            bool stuck = Mathf.Approximately(x, transform.position.x);
+            transform.position = new Vector3(x, home.y, home.z);
+            if (distance <= armReach - 0.4f || stuck || elapsed >= 1.6f || !PlayerNearby())
+            {
+                readyDelay = 0.1f;
+                Enter(State.Ready, "Idle");
+            }
+        }
+
+        // Sets up a real jump (a parabola) that lands exactly on targetX after the given time.
+        private void Launch(float targetX, float seconds)
+        {
+            fallPoseShown = false;
+            target = new Vector3(targetX, home.y, home.z);
+            velocity = new Vector2((targetX - transform.position.x) / seconds, slamGravity * seconds * 0.5f);
+        }
+
+        // Moves him through the air. Returns true on the frame he lands.
+        private bool UpdateFlight()
+        {
+            velocity.y -= slamGravity * Time.deltaTime;
+            Vector3 next = transform.position + (Vector3)(velocity * Time.deltaTime);
+            if (velocity.y < 0f && next.y <= home.y)
+            {
+                transform.position = new Vector3(target.x, home.y, home.z);
+                return true;
+            }
+            transform.position = next;
+            return false;
+        }
+
+        // ---------------------------------------------------------------- long-arm strike
+
+        private void StartArm()
+        {
+            dialogue.AttackLine();
+            Enter(State.ArmWindup, "ArmWindup", warningSound);
         }
 
         private void UpdateArm()
         {
-            if (elapsed >= StrikeSeconds)
-            {
-                Enter(State.RetractAndBurrow, "Retract", pullFreeSound);
-                return;
-            }
-
-            // The three full-extension poses start after the first wind-up frame.
+            // Damage only on the stretched frames.
             string frame = artwork.sprite.name;
-            if (frame != "Arm 03" && frame != "Arm 04" && frame != "Arm 05")
+            float stretch = frame == "Rooted Arm 3" ? 0.78f : frame == "Rooted Arm 4" ? 1f : 0f;
+            if (stretch <= 0f)
             {
                 arm.enabled = false;
                 return;
             }
 
-            float reach = armReach * (frame == "Arm 03" ? 0.81f : frame == "Arm 04" ? 1f : 0.88f);
-            Vector2 shoulder = (Vector2)transform.position + new Vector2(facing * 0.55f, 1.05f);
-            var filter = new ContactFilter2D { useTriggers = false };
-            float length = reach - 0.55f;
-            int hitCount = Physics2D.BoxCast(shoulder, new Vector2(0.06f, 0.42f), 0f,
-                Vector2.right * facing, filter, casts, length);
-            for (int i = 0; i < hitCount; i++)
-            {
-                var hit = casts[i];
-                if (hit.collider != playerCollider)
-                    length = Mathf.Min(length, Mathf.Max(0f, hit.distance));
-            }
-
-            arm.enabled = length > 0.02f;
-            if (!arm.enabled)
-                return;
-
-            arm.size = new Vector2(length, 0.48f);
-            arm.offset = new Vector2(facing * (0.55f + length * 0.5f), 1.05f);
+            float length = armReach * stretch - 0.4f;
+            arm.size = new Vector2(length, 0.45f);
+            arm.offset = new Vector2(facing * (0.4f + length * 0.5f), 1.0f);
+            arm.enabled = true;
             Physics2D.SyncTransforms();
+
             cage.TryBreakFromArm(this);
 
-            if (!hitPlayer && arm.bounds.Intersects(playerCollider.bounds)
-                && ClearLine(shoulder, playerCollider.bounds.center))
+            if (!hitPlayer && arm.bounds.Intersects(playerCollider.bounds))
             {
                 hitPlayer = true;
                 player.TakeDamage(armDamage);
             }
         }
 
-        private void BeginTravel()
+        // ---------------------------------------------------------------- jump slam
+
+        private void StartSlam()
+        {
+            // Lock the landing spot now, so Ryu can see it and step away.
+            float px = player.transform.position.x;
+            float x = Mathf.Clamp(px, transform.position.x - slamMaxDistance, transform.position.x + slamMaxDistance);
+            x = Mathf.Clamp(x, MinX(), maxEncounterX);
+            if (!GroundAt(x, out Vector3 ground))
+                x = transform.position.x;
+            target = new Vector3(x, home.y, home.z);
+            ShowMarker(target);
+            dialogue.AttackLine();
+            Enter(State.SlamCrouch, "SlamCrouch", warningSound);
+        }
+
+        private void StartSlamJump()
+        {
+            Launch(target.x, slamFlightSeconds);
+            Enter(State.SlamAir, "SlamJump", swingSound);
+        }
+
+        private void Land()
+        {
+            HideMarker();
+            EmitDebris(16);
+            if (cameraFollow != null)
+                cameraFollow.Shake(0.25f);
+            Enter(State.SlamImpact, "SlamImpact", slamSound);
+        }
+
+        private void UpdateSlamHit()
+        {
+            // The shockwave only hurts for a moment after touching down.
+            slamHitbox.enabled = elapsed < 0.15f;
+            if (slamHitbox.enabled && !hitPlayer && slamHitbox.bounds.Intersects(playerCollider.bounds))
+            {
+                hitPlayer = true;
+                player.TakeDamage(slamDamage);
+            }
+        }
+
+        // ---------------------------------------------------------------- burrow
+
+        private void StartBurrow()
+        {
+            dialogue.AttackLine();
+            Enter(State.Burrow, "Burrow", soilSound);
+        }
+
+        private void GoUnderground()
         {
             body.enabled = false;
             healthBar.gameObject.SetActive(false);
-            emergencePoint = ChooseEmergence();
-            nextSoilPuff = Time.time;
-            Enter(State.UndergroundTravel, "Underground", soilSound);
+            artwork.enabled = false;
+            target = ChooseEmergence();
+            nextSoilPuff = 0f;
+            Enter(State.Underground, null, soilSound);
+        }
+
+        private void MoveUnderground()
+        {
+            float x = Mathf.MoveTowards(transform.position.x, target.x, undergroundSpeed * Time.deltaTime);
+            transform.position = new Vector3(x, home.y, home.z);
+            if (elapsed >= nextSoilPuff)
+            {
+                nextSoilPuff = elapsed + 0.22f;
+                EmitDebris(2);
+            }
+            if (Mathf.Abs(x - target.x) > 0.02f)
+                return;
+
+            // Arrived: lock this spot and warn.
+            ShowMarker(target);
+            Enter(State.EmergeWarning, null, warningSound);
+            nextSoilPuff = 0f;
+        }
+
+        private void TryEmerge()
+        {
+            if (!HasRoom(target))
+            {
+                // Ryu is standing on the spot: pick another and warn again (never burst out inside him).
+                HideMarker();
+                target = ChooseEmergence();
+                Enter(State.Underground, null);
+                return;
+            }
+            HideMarker();
+            artwork.enabled = true;
+            EmitDebris(10);
+            Enter(State.Emerge, "Emerge", emergeSound);
+        }
+
+        private void UpdateEmergence()
+        {
+            // The burst only hurts on the frames where he rises out of the soil.
+            string frame = artwork.sprite.name;
+            breakout.enabled = frame == "Rooted Emerge 2" || frame == "Rooted Emerge 3";
+            if (breakout.enabled && !hitPlayer && breakout.bounds.Intersects(playerCollider.bounds))
+            {
+                hitPlayer = true;
+                player.TakeDamage(emergenceDamage);
+            }
+
+            if (elapsed < emergeSeconds)
+                return;
+            body.enabled = true;
+            healthBar.SetHealth(Health, maxHealth);
+            Enter(State.Recovery, "Idle");
         }
 
         private Vector3 ChooseEmergence()
         {
-            bool left = sideRepeats >= 2 ? !lastEmergenceLeft : Random.value < 0.5f;
+            // Try the set distances on a random side of Ryu, then the other side. Must be on the
+            // floor, inside the arena, and not inside Ryu.
+            bool left = Random.Range(0f, 1f) < 0.5f;
             float px = player.transform.position.x;
-            for (int i = 0; i < 8; i++)
+            int first = Random.Range(0, emergeOffsets.Length);
+            for (int i = 0; i < emergeOffsets.Length * 2; i++)
             {
-                bool useLeft = i % 2 == 0 ? left : !left;
-                float offset = 1.48f + (i / 2) * 0.62f + Random.Range(0f, 0.26f);
-                float x = Mathf.Clamp(px + offset * (useLeft ? -1f : 1f), minEncounterX, maxEncounterX);
-                if (GroundAt(x, out Vector3 point) && HasRoom(point) && GroundPath(point.x))
-                {
-                    sideRepeats = useLeft == lastEmergenceLeft ? sideRepeats + 1 : 1;
-                    lastEmergenceLeft = useLeft;
-                    return point;
-                }
+                bool useLeft = i < emergeOffsets.Length ? left : !left;
+                float offset = emergeOffsets[(first + i) % emergeOffsets.Length];
+                float x = Mathf.Clamp(px + offset * (useLeft ? -1f : 1f), MinX(), maxEncounterX);
+                if (GroundAt(x, out Vector3 point) && HasRoom(point))
+                    return new Vector3(x, home.y, home.z);
             }
             return transform.position;
         }
@@ -293,91 +550,89 @@ namespace Level3Bamboo
             return false;
         }
 
-        private bool GroundPath(float destination)
-        {
-            int samples = Mathf.Max(1, Mathf.CeilToInt(Mathf.Abs(destination - transform.position.x) / 0.35f));
-            for (int i = 1; i <= samples; i++)
-            {
-                float x = Mathf.Lerp(transform.position.x, destination, i / (float)samples);
-                if (!GroundAt(x, out Vector3 point) || !TravelClear(point))
-                    return false;
-            }
-            return true;
-        }
-
-        private bool TravelClear(Vector3 point)
-        {
-            var filter = new ContactFilter2D { useTriggers = false };
-            int count = Physics2D.OverlapBox((Vector2)point + Vector2.up * 0.31f,
-                new Vector2(0.60f, 0.42f), 0f, filter, overlaps);
-            for (int i = 0; i < count; i++)
-                if (overlaps[i] != playerCollider && overlaps[i] != body)
-                    return false;
-            return true;
-        }
-
         private bool HasRoom(Vector3 point)
         {
             if (Mathf.Abs(point.x - playerCollider.bounds.center.x) < emergenceClearance)
                 return false;
-
-            var filter = new ContactFilter2D { useTriggers = false };
-            Vector2 center = (Vector2)point + Vector2.up * 0.94f;
-            int count = Physics2D.OverlapBox(center, new Vector2(1.30f, 1.75f), 0f, filter, overlaps);
-            if (count != 0)
-                return false;
-
-            return cage.Broken || !cage.chargeTarget.bounds.Intersects(new Bounds(center, new Vector3(1.40f, 1.78f, 0.3f)));
+            return cage.Broken || !cage.chargeTarget.bounds.Intersects(
+                new Bounds((Vector2)point + Vector2.up * 0.94f, new Vector3(1.40f, 1.78f, 0.3f)));
         }
 
-        private void MoveUnderground()
-        {
-            float x = Mathf.MoveTowards(transform.position.x, emergencePoint.x, undergroundSpeed * Time.deltaTime);
-            if (GroundAt(x, out Vector3 step) && TravelClear(step))
-            {
-                bool moved = Mathf.Abs(step.x - transform.position.x) > 0.005f;
-                transform.position = step;
-                if (moved && Time.time >= nextSoilPuff)
-                {
-                    nextSoilPuff = Time.time + 0.22f;
-                    EmitDebris(2);
-                }
-            }
-            else
-                emergencePoint = transform.position;
+        // ---------------------------------------------------------------- the warning mark
 
-            if (Mathf.Abs(transform.position.x - emergencePoint.x) > 0.02f)
-                return;
-            if (!HasRoom(emergencePoint))
-            {
-                // Retry without polling the player every frame or replaying the travel sound.
-                if (elapsed > 0.4f)
-                {
-                    elapsed = 0f;
-                    emergencePoint = ChooseEmergence();
-                }
-                return;
-            }
-            hitPlayer = false;
-            Enter(State.EmergenceWarning, "Underground", warningSound);
+        private void ShowMarker(Vector3 spot)
+        {
+            warningMarker.enabled = true;
+            warningMarker.transform.position = spot + Vector3.up * 0.04f;
         }
 
-        private void UpdateEmergence()
+        private void HideMarker()
         {
-            breakout.enabled = artwork.sprite.name == "Burrow 12" || artwork.sprite.name == "Burrow 13";
-            if (breakout.enabled && !hitPlayer && breakout.bounds.Intersects(playerCollider.bounds)
-                && ClearLine(breakout.bounds.center, playerCollider.bounds.center))
-            {
-                hitPlayer = true;
-                player.TakeDamage(emergenceDamage);
-            }
+            warningMarker.enabled = false;
+        }
 
-            if (elapsed < EmergeSeconds)
+        // Keeps the mark on its locked spot (he moves, it doesn't) and makes it pulse.
+        private void UpdateMarker()
+        {
+            if (!warningMarker.enabled)
+                return;
+            warningMarker.transform.position = target + Vector3.up * 0.04f;
+            Color c = warningMarker.color;
+            c.a = 0.55f + 0.35f * Mathf.Sin(elapsed * 14f);
+            warningMarker.color = c;
+            if (CurrentState == State.EmergeWarning && elapsed >= nextSoilPuff)
+            {
+                nextSoilPuff = elapsed + 0.18f;
+                debris.transform.position = target + Vector3.up * 0.3f;
+                EmitDebris(2);
+            }
+        }
+
+        // ---------------------------------------------------------------- being hit
+
+        private void OnSword(Vector2 origin, float direction)
+        {
+            if (Health <= 0 || !body.enabled)
                 return;
 
-            body.enabled = true;
+            Vector2 hitPoint = body.bounds.ClosestPoint(origin + Vector2.right * direction * 0.68f);
+            Vector2 delta = hitPoint - origin;
+            if (delta.x * direction < -0.10f || Mathf.Abs(delta.x) > 1.20f
+                || Mathf.Abs(delta.y) > 0.83f || !ClearLine(origin, hitPoint))
+                return;
+
+            // Swamp Thing can't be hurt until his own arm has broken the cage.
+            if (!cage.Broken)
+            {
+                Play(warningSound);
+                return;
+            }
+
+            Health = Mathf.Max(0, Health - swordDamage);
             healthBar.SetHealth(Health, maxHealth);
-            Enter(State.Recovery, "Idle");
+            if (hitEffect != null)
+                Instantiate(hitEffect, hitPoint, Quaternion.identity).Play(new Color(0.48f, 0.67f, 0.20f), new Color(0.49f, 0.29f, 0.14f), true);
+            AudioClip impact = hurtSound;
+            if (hitSounds.Length == 2 && hitSounds[0] != null && hitSounds[1] != null)
+            {
+                impact = hitSounds[nextHitSound];
+                nextHitSound = 1 - nextHitSound;
+            }
+            if (Health == 0)
+            {
+                Die();
+                if (impact != null)
+                    voice.PlayOneShot(impact, 0.45f);
+                return;
+            }
+            if (impact != null)
+                voice.PlayOneShot(impact, 0.45f);
+
+
+            hurtTime = 0.2f;
+            // Flinch only when he is not in the middle of an attack (attacks stay readable).
+            if (CurrentState == State.Ready || CurrentState == State.Recovery || CurrentState == State.Run)
+                Enter(State.Hurt, "Hurt");
         }
 
         private bool ClearLine(Vector2 from, Vector2 to)
@@ -390,57 +645,46 @@ namespace Level3Bamboo
             return true;
         }
 
-        private void OnSword(Vector2 origin, float direction)
-        {
-            if (Health <= 0 || !body.enabled)
-                return;
-
-            Vector2 target = body.bounds.ClosestPoint(origin + Vector2.right * direction * 0.68f);
-            Vector2 delta = target - origin;
-            if (delta.x * direction < -0.10f || Mathf.Abs(delta.x) > 1.20f
-                || Mathf.Abs(delta.y) > 0.83f || !ClearLine(origin, target))
-                return;
-
-            Health = Mathf.Max(0, Health - swordDamage);
-            healthBar.SetHealth(Health, maxHealth);
-            if (Health == 0)
-            {
-                voice.Stop();
-                Enter(State.Dead, null, deathSound);
-                animator.enabled = false;
-                body.enabled = false;
-                collapseResolved = false;
-                EmitDebris(18);
-                return;
-            }
-            hurtTime = 0.2f;
-            Play(hurtSound);
-        }
-
         private void UpdateHurtFlash()
         {
             hurtTime = Mathf.Max(0f, hurtTime - Time.deltaTime);
             float amount = hurtTime / 0.2f;
             artwork.color = Color.Lerp(Color.white, new Color(1f, 0.60f, 0.48f), amount);
-            artwork.transform.localPosition = artOrigin + Vector3.left * facing * amount * 0.11f;
         }
 
-        private void UpdateCollapse()
+        // ---------------------------------------------------------------- defeat
+
+        private void Die()
         {
-            float progress = Mathf.Clamp01(elapsed / 0.65f);
-            artwork.transform.localPosition = artOrigin + Vector3.down * (progress * 0.28f);
-            artwork.color = new Color(0.63f, 0.57f, 0.48f, 1f - progress);
-            if (!collapseResolved && elapsed >= 0.48f)
+            voice.Stop();
+            HideMarker();
+            artwork.enabled = true;
+            artwork.color = Color.white;
+            transform.position = new Vector3(transform.position.x, home.y, home.z);   // never die in mid-air
+            body.enabled = false;
+            collapseResolved = false;
+            Enter(State.Dead, "Defeat", deathSound);
+            dialogue.Defeated();
+            EmitDebris(18);
+        }
+
+        // The defeat clip ends with him lying as a log; then the real collectible log takes his place.
+        private void UpdateDefeat()
+        {
+            if (!collapseResolved && elapsed >= 0.8f)
             {
                 collapseResolved = true;
-                float x = transform.position.x;
-                Vector3? rewardPosition = GroundAt(x, out Vector3 ground) ? ground : (Vector3?)null;
+                Vector3? rewardPosition = GroundAt(transform.position.x, out Vector3 ground) ? ground : (Vector3?)null;
                 cage.ResolveDefeat(rewardPosition);
             }
 
-            if (progress >= 1f && !voice.isPlaying && !debris.IsAlive())
+            float fade = Mathf.Clamp01((elapsed - 0.8f) / 0.4f);
+            artwork.color = new Color(1f, 1f, 1f, 1f - fade);
+            if (fade >= 1f && !voice.isPlaying && !debris.IsAlive())
                 gameObject.SetActive(false);
         }
+
+        // ---------------------------------------------------------------- respawn / helpers
 
         private void OnRespawn()
         {
@@ -451,47 +695,53 @@ namespace Level3Bamboo
             debris.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             transform.position = home;
             artwork.transform.localPosition = artOrigin;
+            artwork.enabled = true;
             artwork.color = Color.white;
-            animator.enabled = true;
+            HideMarker();
             hurtTime = 0f;
+            lastAttack = Attack.None;
             repeatCount = 0;
-            sideRepeats = 0;
+            velocity = Vector2.zero;
             Health = maxHealth;
             body.enabled = true;
             healthBar.SetHealth(Health, maxHealth);
             healthBar.gameObject.SetActive(false);
             Enter(State.Dormant, "Dormant");
-            if (dialogue != null)
-                dialogue.ResetAttempt();
+            dialogue.ResetAttempt();
         }
 
         private void Enter(State state, string pose, AudioClip sound = null)
         {
             CurrentState = state;
-            if (dialogue != null)
-            {
-                if (state == State.RetractAndBurrow)
-                    dialogue.FirstBurrow();
-                if (state == State.Dead)
-                    dialogue.Defeated();
-            }
             elapsed = 0f;
             DisableAttacks();
             if (pose != null)
-                animator.Play(pose, 0, 0f);
+                SetPose(pose);
             if (state == State.Wake)
                 healthBar.SetHealth(Health, maxHealth);
             Play(sound);
+        }
+
+        // Lab 3 style: every pose is an Animator state reached from Any State by a Trigger with the same name
+        // (no exit time, no blend). Old triggers are cleared first so only the newest pose is used.
+        private void SetPose(string pose)
+        {
+            foreach (AnimatorControllerParameter parameter in animator.parameters)
+                animator.ResetTrigger(parameter.name);
+            animator.SetTrigger(pose);
         }
 
         private void DisableAttacks()
         {
             arm.enabled = false;
             breakout.enabled = false;
+            slamHitbox.enabled = false;
         }
 
         private void EmitDebris(int count)
         {
+            if (CurrentState != State.EmergeWarning)
+                debris.transform.localPosition = new Vector3(0f, 0.55f, 0f);
             debris.Emit(count);
         }
 

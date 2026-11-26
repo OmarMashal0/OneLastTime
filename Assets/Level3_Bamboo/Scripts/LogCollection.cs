@@ -57,7 +57,8 @@ namespace Level3Bamboo
         void Start()
         {
             prompt.enabled = false;
-            completionMessage.SetActive(false);
+            if (completionMessage != null)   // the old completion card was removed
+                completionMessage.SetActive(false);
             UpdateCounter();
         }
 
@@ -82,7 +83,7 @@ namespace Level3Bamboo
             if (completionRemaining > 0f)
             {
                 completionRemaining -= Time.deltaTime;
-                if (completionRemaining <= 0f)
+                if (completionRemaining <= 0f && completionMessage != null)
                     completionMessage.SetActive(false);
             }
 
@@ -212,7 +213,7 @@ namespace Level3Bamboo
 
             LogCollected?.Invoke(log, collectedIds.Count, logs.Length);
 
-            if (showCompletionCard && collectedIds.Count == logs.Length && completionSeconds > 0f)
+            if (showCompletionCard && completionMessage != null && collectedIds.Count == logs.Length && completionSeconds > 0f)
             {
                 completionMessage.SetActive(true);
                 completionRemaining = completionSeconds;

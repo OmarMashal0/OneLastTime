@@ -21,6 +21,7 @@ namespace Level3Bamboo.River
         public AudioSource sound;
         public AudioSource ambience;
         private bool audioPaused;
+        public AudioClip crackClip;
         public AudioClip breakClip;
         public AudioClip splashClip;
         public GameObject ripplePrefab;
@@ -180,6 +181,12 @@ namespace Level3Bamboo.River
             sound.Stop();
             foreach (FloatingRiverLog log in logs)
                 log.ResetLog(deployed);
+        }
+
+        public void PlayCrack()
+        {
+            if (crackClip != null)
+                sound.PlayOneShot(crackClip, 0.55f);
         }
 
         public void PlayBreak(Vector3 position)

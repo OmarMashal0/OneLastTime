@@ -9,7 +9,7 @@ namespace Level3Bamboo
         [Tooltip("Moon, Leaf or Sun. ChimePuzzle compares this with its correct order.")]
         public string symbol;
         public Animator animator;
-        [Tooltip("Plays the chime sound. Its Pitch makes each chime sound different.")]
+        [Tooltip("Plays this chime's own note.")]
         public AudioSource sound;
         public SpriteRenderer art;
         [Tooltip("Where Ryu has to stand near, measured from the chime's feet.")]

@@ -189,7 +189,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 11
-  m_Sprite: {fileID: -7868486073996878698, guid: aed07cde1d2366648b78a2496858ff1c, type: 3}
+  m_Sprite: {fileID: -4147984011931709571, guid: 7b6eb4db257ff2441b86f3baa4d9decf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -276,7 +276,7 @@ Animator:
   m_GameObject: {fileID: 8036814582252400584}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e27d2d09246c9ba478783d8b4afccb70, type: 2}
+  m_Controller: {fileID: 9100000, guid: b11589b64ea7db443aaeddcf124ecc59, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -395,6 +395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  dialogue: {fileID: 0}
   playerCollider: {fileID: 0}
   cage: {fileID: 0}
   artwork: {fileID: 4742670347516570249}
@@ -402,8 +403,11 @@ MonoBehaviour:
   body: {fileID: 8045817053752648425}
   arm: {fileID: 6565156067896686609}
   breakout: {fileID: 6401283430733411211}
+  slamHitbox: {fileID: 0}
+  warningMarker: {fileID: 0}
   healthBar: {fileID: 2577401152328279940}
   debris: {fileID: 7992670518620891640}
+  cameraFollow: {fileID: 0}
   voice: {fileID: 976341886879965495}
   wakeSound: {fileID: 8300000, guid: 13865ad6502657d44aa7361ae52cb3f8, type: 3}
   warningSound: {fileID: 8300000, guid: 31744d974abd00f468b922f548251ec2, type: 3}
@@ -417,16 +421,35 @@ MonoBehaviour:
   maxHealth: 80
   swordDamage: 10
   armDamage: 24
+  slamDamage: 16
   emergenceDamage: 18
   wakeRange: 6
-  armReach: 3.38
-  armWarningSeconds: 0.7
-  emergenceWarningSeconds: 0.8
-  recoverySeconds: 1.2
-  undergroundSpeed: 2.4
   minEncounterX: 103
   maxEncounterX: 113
+  bodyHalfWidth: 0.7
   emergenceClearance: 1.35
+  armReach: 3.38
+  armWindupSeconds: 0.65
+  armStrikeSeconds: 0.36
+  armRetractSeconds: 0.3
+  slamCrouchSeconds: 0.7
+  slamFlightSeconds: 0.75
+  slamGravity: 30
+  slamMaxDistance: 5
+  slamImpactSeconds: 0.5
+  burrowSeconds: 0.6
+  undergroundSpeed: 2.4
+  emergenceWarningSeconds: 0.8
+  emergeSeconds: 0.55
+  emergeOffsets:
+  - 1.6
+  - 2.2
+  - 2.9
+  recoverySeconds: 1.2
+  idleSeconds: {x: 0.25, y: 0.6}
+  runSpeed: 2.4
+  hopDistance: 5
+  hopFlightSeconds: 0.6
 --- !u!1 &8567277795805732269
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 
 namespace Level3Bamboo
@@ -13,7 +12,6 @@ namespace Level3Bamboo
         public SpriteRenderer lantern;
         public Sprite litSprite;
         public SpriteRenderer glow;
-        public TMP_Text feedback;
         [Tooltip("If this earlier lantern was skipped, lighting this one does not move the respawn point.")]
         public ForestCheckpoint previous;
         [Tooltip("Optional: this lantern only lights after this fight is won.")]
@@ -27,7 +25,6 @@ namespace Level3Bamboo
         void Start()
         {
             glow.enabled = false;
-            feedback.enabled = false;
         }
 
         // Update is called once per frame
@@ -36,9 +33,8 @@ namespace Level3Bamboo
             if (!Activated)
                 return;
 
-            // The "Checkpoint" text shows for a moment and the glow fades down to a steady light.
+            // The glow flares up for a moment, then fades down to a steady light (no text: checkpoints are silent).
             flash -= Time.deltaTime;
-            feedback.enabled = flash > 0f;
             glow.color = new Color(1f, 0.66f, 0.24f, 0.23f + Mathf.Clamp01(flash) * 0.48f);
         }
 
@@ -56,7 +52,6 @@ namespace Level3Bamboo
             lantern.sprite = litSprite;
             flash = 1.8f;
             glow.enabled = true;
-            feedback.enabled = true;
         }
     }
 }

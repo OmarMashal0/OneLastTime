@@ -2,7 +2,8 @@ using UnityEngine;
 
 namespace Level3Bamboo
 {
-    // Follows Ryu smoothly, leads a little in the direction he runs, and never shows past the level edges.
+    // Follows Ryu smoothly with a small dead zone, looks ahead in the direction he faces,
+    // ignores normal jump bounces, and never shows past the level edges.
     // Mouse wheel or +/- (also Q/E and I/O) zoom in and out. E is skipped while it is needed to collect a log.
     public class CameraFollow2D : MonoBehaviour
     {
@@ -28,16 +29,34 @@ namespace Level3Bamboo
         public float minWorldX = -12.0f;
         public float maxWorldX = 158.0f;
 
-        [Tooltip("Maximum horizontal framing lead in the direction of motion.")]
+        [Tooltip("How far the camera looks ahead in the direction Ryu is facing.")]
         public float lookAhead = 1.35f;
+
+        [Header("Dead Zone & Jumps")]
+        [Tooltip("Ryu can move this far left or right before the camera starts to follow.")]
+        public float deadZoneWidth = 0.6f;
+        [Tooltip("Seconds the camera takes to catch up vertically (bigger = calmer).")]
+        public float verticalSmoothTime = 0.32f;
+        [Tooltip("The camera ignores jumps up to this height above the last ground Ryu stood on.")]
+        public float jumpAllowance = 2.4f;
         public float worldTopY = 8f;
         public LogCollection logCollection;
 
+        // Camera shake: Shake(seconds) adds a small random offset for a short time.
+        [Header("Camera Shake")]
+        public float shakeStrength = 0.12f;   // how far the camera jumps, in world units
+        private float shakeTimer;             // seconds of shaking left
+        private Vector3 followPosition;       // where the camera would be without shaking
+
         private Camera cam;
-        private Rigidbody2D targetBody;
         private float currentLead;
         private float leadVelocity;
         private Vector3 currentVelocity;
+        private BambooPlayerController player;
+        private float focusX;        // centre of the dead zone
+        private float groundY;       // height of the last ground Ryu stood on
+        private float xVelocity;
+        private float yVelocity;
         private float targetZoom;
         private float zoomVelocity;
 
@@ -68,6 +87,13 @@ namespace Level3Bamboo
             }
         }
 
+        // When the camera is switched back on (after the tea talk or the hallucination),
+        // follow from where it is now.
+        private void OnEnable()
+        {
+            followPosition = transform.position;
+        }
+
         // Start is called before the first frame update
         private void Start()
         {
@@ -86,17 +112,39 @@ namespace Level3Bamboo
             if (Time.timeScale <= 0f)
                 return;
 
-            if (targetBody == null)
-                targetBody = target.GetComponent<Rigidbody2D>();
+            if (player == null)
+                player = target.GetComponent<BambooPlayerController>();
 
-            float speed = targetBody == null ? 0f : targetBody.velocity.x;
-            float lead = Mathf.Clamp(speed / 5f, -1f, 1f) * lookAhead;
-            currentLead = Mathf.SmoothDamp(currentLead, lead, ref leadVelocity, 0.28f);
+            // 1. Dead zone: small steps left and right do not move the camera.
+            float x = target.position.x;
+            if (x > focusX + deadZoneWidth)
+                focusX = x - deadZoneWidth;
+            else if (x < focusX - deadZoneWidth)
+                focusX = x + deadZoneWidth;
+
+            // 2. Look ahead in the direction Ryu faces (his transform is flipped to face left).
+            float facing = target.lossyScale.x < 0f ? -1f : 1f;
+            currentLead = Mathf.SmoothDamp(currentLead, facing * lookAhead, ref leadVelocity, 0.45f);
+
+            // 3. Vertical: follow the ground Ryu stands on, so normal jumps do not bounce the camera.
+            //    Only a very high jump or a fall pulls the camera up or down.
+            float y = target.position.y;
+            if (player == null || player.IsGrounded)
+                groundY = y;
+            else if (y < groundY - 0.5f)
+                groundY = y;
+            else if (y > groundY + jumpAllowance)
+                groundY = y - jumpAllowance;
 
             Vector3 goal = GetTargetPosition();
-            Vector3 next = Vector3.SmoothDamp(transform.position, goal, ref currentVelocity, smoothTime);
-            // Clamp the final viewport too, so a zoom or aspect change cannot expose an edge.
-            transform.position = ClampViewport(next);
+            // Follow from the calm position (x and y smoothed separately), then add the shake on top.
+            Vector3 next = followPosition;
+            next.x = Mathf.SmoothDamp(followPosition.x, goal.x, ref xVelocity, smoothTime);
+            next.y = Mathf.SmoothDamp(followPosition.y, goal.y, ref yVelocity, verticalSmoothTime);
+            next.z = goal.z;
+            followPosition = ClampViewport(next);
+            // Clamp again so neither a zoom nor the shake can show past the level edges.
+            transform.position = ClampViewport(followPosition + ShakeOffset());
         }
 
         private void HandleZoomInput()
@@ -134,8 +182,7 @@ namespace Level3Bamboo
 
         private Vector3 GetTargetPosition()
         {
-            Vector3 goal = target.position + offset;
-            goal.x += currentLead;
+            Vector3 goal = new Vector3(focusX + currentLead, groundY, 0f) + offset;
             goal.z = offset.z;
             return ClampViewport(goal);
         }
@@ -162,6 +209,23 @@ namespace Level3Bamboo
                 : (min + max) * 0.5f;
         }
 
+        // Call this to shake the camera, e.g. Shake(0.25f) for a quarter of a second.
+        public void Shake(float seconds)
+        {
+            shakeTimer = seconds;
+        }
+
+        // A small random offset while the timer runs, zero afterwards.
+        private Vector3 ShakeOffset()
+        {
+            if (shakeTimer <= 0f)
+                return Vector3.zero;
+
+            shakeTimer -= Time.deltaTime;
+            Vector2 random = Random.insideUnitCircle * shakeStrength;
+            return new Vector3(random.x, random.y, 0f);
+        }
+
         public void SetZoom(float newZoom)
         {
             targetZoom = Mathf.Clamp(newZoom, minZoom, maxZoom);
@@ -171,9 +235,14 @@ namespace Level3Bamboo
         {
             if (target != null)
             {
-                currentLead = 0f;
+                focusX = target.position.x;
+                groundY = target.position.y;
+                currentLead = (target.lossyScale.x < 0f ? -1f : 1f) * lookAhead;
                 leadVelocity = 0f;
+                xVelocity = 0f;
+                yVelocity = 0f;
                 transform.position = GetTargetPosition();
+                followPosition = transform.position;
                 currentVelocity = Vector3.zero;
             }
         }

@@ -3,8 +3,11 @@ using UnityEngine;
 namespace Level3Bamboo.River
 {
     // One mossy log in the river. Ryu can stand on its Box Collider 2D.
-    // The first time he lands on top, a countdown starts: after crackSeconds the log starts cracking,
-    // and after breakSeconds (4) it breaks, the collider switches off and Ryu falls into the water.
+    // The first time he lands on top, a countdown starts (only once). The crack warning shows straight away,
+    // and after breakSeconds (1) it breaks, even if Ryu has already jumped away: the collider switches off,
+    // the Break animation plays and the water ripple under it is hidden at once, so nothing is left
+    // floating where the log used to be. (The logs have no Particle Systems of their own; the short
+    // break splash is spawned by RiverCrossing and removed after 0.75 seconds or on respawn.)
     // The pictures come from three ordinary Animator clips on the Art child: Float, Crack and Break.
     // When Ryu respawns, RiverCrossing calls ResetLog so the log floats again for the next try.
     public class FloatingRiverLog : MonoBehaviour
@@ -12,8 +15,10 @@ namespace Level3Bamboo.River
         public BoxCollider2D surface;
         [Tooltip("The Art child: SpriteRenderer + Animator with the Float, Crack and Break states.")]
         public Animator animator;
-        public float crackSeconds = 1.25f;
-        public float breakSeconds = 4f;
+        public float crackSeconds = 0f;
+        public float breakSeconds = 1f;
+        [Tooltip("The Ripple child: the animated ring of water around the log. Hidden when the log breaks.")]
+        public GameObject ripple;
 
         public bool CountdownStarted { get; private set; }
         public bool Broken { get; private set; }
@@ -40,6 +45,7 @@ namespace Level3Bamboo.River
             surface.enabled = deployed;
             art.localPosition = Vector3.zero;
             gameObject.SetActive(deployed);
+            ripple.SetActive(true);
             if (deployed)
                 animator.Play("Float", 0, Random.value);
         }
@@ -77,6 +83,7 @@ namespace Level3Bamboo.River
             {
                 cracking = true;
                 animator.Play("Crack");
+                crossing.PlayCrack();
             }
 
             if (Elapsed >= breakSeconds)
@@ -84,6 +91,7 @@ namespace Level3Bamboo.River
                 Broken = true;
                 surface.enabled = false;
                 animator.Play("Break");
+                ripple.SetActive(false);
                 crossing.PlayBreak(transform.position);
             }
         }

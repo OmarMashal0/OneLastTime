@@ -2,12 +2,14 @@ using UnityEngine;
 
 namespace Level3Bamboo
 {
-    // A bird sits on its perch and now and then hops up with its wings raised, then settles again.
+    // A bird sits on its perch and every few seconds hops up with its wings raised, then settles again.
+    // Give each bird a different Phase (0-1) so they do not all flap at the same moment.
     public class PerchedBird : MonoBehaviour
     {
         public SpriteRenderer body;
         public Sprite wingsUp;
-        public float phase;
+        public float flapEverySeconds = 5f;
+        [Range(0f, 1f)] public float phase;
 
         private Vector3 startPosition;
         private Sprite perched;
@@ -22,9 +24,10 @@ namespace Level3Bamboo
         // Update is called once per frame
         void Update()
         {
-            // The hop takes the last 16% of a slow loop (about every 14 seconds).
-            float loop = Mathf.Repeat(Time.timeSinceLevelLoad * 0.07f + phase, 1f);
-            float hop = Mathf.InverseLerp(0.8f, 0.96f, loop);
+            // One loop lasts flapEverySeconds. The flap and hop happen near the end of each loop
+            // and take about 0.8 seconds. timeSinceLevelLoad stops while the game is paused.
+            float loop = Mathf.Repeat(Time.timeSinceLevelLoad / flapEverySeconds + phase, 1f);
+            float hop = Mathf.InverseLerp(0.84f, 1f, loop);
             bool flying = hop > 0f && hop < 1f;
 
             body.sprite = flying ? wingsUp : perched;

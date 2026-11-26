@@ -1,0 +1,1191 @@
+fileFormatVersion: 2
+guid: 7b6eb4db257ff2441b86f3baa4d9decf
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 54
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Rooted Idle 0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 980
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf39673fe02532880800000000000000
+      internalID: -8636969436198824964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Idle 1
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 980
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c544a58cd929fe9e0800000000000000
+      internalID: -1589890937069616036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Idle 2
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 980
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26882011d1d5de4c0800000000000000
+      internalID: -4256643693374437278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Idle 3
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 980
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8eeb14ce47dc30410800000000000000
+      internalID: 1442222207752322792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Idle 4
+      rect:
+        serializedVersion: 2
+        x: 1680
+        y: 980
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b33290dd2725ec370800000000000000
+      internalID: 8344697812852220731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Idle 5
+      rect:
+        serializedVersion: 2
+        x: 2100
+        y: 980
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f79de7dcc4abc2dd0800000000000000
+      internalID: -2509426053324285569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Run 0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 840
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b22249baa7ce60130800000000000000
+      internalID: 3532770969327510059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Run 1
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 840
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 632543188a5871400800000000000000
+      internalID: 294851259384746550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Run 2
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 840
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0f41ab3e9fe1edc0800000000000000
+      internalID: -3611341963290128629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Run 3
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 840
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87d2f29373fccfe10800000000000000
+      internalID: 2232887351358467448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Run 4
+      rect:
+        serializedVersion: 2
+        x: 1680
+        y: 840
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b396db85df297550800000000000000
+      internalID: 6159006559626498995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Run 5
+      rect:
+        serializedVersion: 2
+        x: 2100
+        y: 840
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 595947b43d04ca4c0800000000000000
+      internalID: -4274970670033234539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Jump 0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 700
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 613a8dbe455e53f60800000000000000
+      internalID: 8013563264872522518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Jump 1
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 700
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f179ac64b21d2060800000000000000
+      internalID: 6930215967719518709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Jump 2
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 700
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8ae6d0e0105f96c0800000000000000
+      internalID: -4134497899480946037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Jump 3
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 700
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7cca6969ca8806310800000000000000
+      internalID: 1396266159327063239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Jump 4
+      rect:
+        serializedVersion: 2
+        x: 1680
+        y: 700
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3814304c30c13ea40800000000000000
+      internalID: 5396187581019013507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Jump 5
+      rect:
+        serializedVersion: 2
+        x: 2100
+        y: 700
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef10c5e0163c13040800000000000000
+      internalID: 4625693113906364926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Slam 0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 560
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39f2385f4f23296d0800000000000000
+      internalID: -2985267575320793197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Slam 1
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 560
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c918bc30ac904a60800000000000000
+      internalID: 7656291578557241797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Slam 2
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 560
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d76f88b0c5f20fe90800000000000000
+      internalID: -6994038148929358211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Slam 3
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 560
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdd382113801c76c0800000000000000
+      internalID: -4144419401973088804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Slam 4
+      rect:
+        serializedVersion: 2
+        x: 1680
+        y: 560
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c7581f9b8fe08dc0800000000000000
+      internalID: -3638645115966695479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Slam 5
+      rect:
+        serializedVersion: 2
+        x: 2100
+        y: 560
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90544c97470720d10800000000000000
+      internalID: 2090356822614754569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Arm 0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 420
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b31a5e7febef3d600800000000000000
+      internalID: 492016880469778747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Arm 1
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 420
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ed724442bcd91350800000000000000
+      internalID: 5988059837773282791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Arm 2
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 420
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 834c37ed27d9ea4f0800000000000000
+      internalID: -815541365823519688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Arm 3
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 420
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c491f3e0f156c070800000000000000
+      internalID: 8126272672694899913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Arm 4
+      rect:
+        serializedVersion: 2
+        x: 1680
+        y: 420
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ea68d1c1981f6170800000000000000
+      internalID: 8173778863002249959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Arm 5
+      rect:
+        serializedVersion: 2
+        x: 2100
+        y: 420
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffe89ad88a90aaa70800000000000000
+      internalID: 8838887838203875071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Burrow 0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 280
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cba840a363f2ab80800000000000000
+      internalID: -8384871946994013243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Burrow 1
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 280
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 965929b69088c3000800000000000000
+      internalID: 17038072643491177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Burrow 2
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 280
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3baf5def047bbb70800000000000000
+      internalID: 8915847499065830206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Burrow 3
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 280
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c3620a16e73b2c70800000000000000
+      internalID: 8947306546119992264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Burrow 4
+      rect:
+        serializedVersion: 2
+        x: 1680
+        y: 280
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf835e33a9aa8d030800000000000000
+      internalID: 3519750688062388476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Burrow 5
+      rect:
+        serializedVersion: 2
+        x: 2100
+        y: 280
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a88fc8e207eb43460800000000000000
+      internalID: 7220605491608352906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Emerge 0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 140
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7f8fc2a4866f66c0800000000000000
+      internalID: -4147984011931709571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Emerge 1
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 140
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 190b6bc45c0d576a0800000000000000
+      internalID: -6452021345324191599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Emerge 2
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 140
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50aaae5cecbe25ec0800000000000000
+      internalID: -3579539480489842171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Emerge 3
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 140
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5485d1b8f79019f20800000000000000
+      internalID: 3427531234805110853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Emerge 4
+      rect:
+        serializedVersion: 2
+        x: 1680
+        y: 140
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b811f43fcbea4cbd0800000000000000
+      internalID: -2610769757408915061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Emerge 5
+      rect:
+        serializedVersion: 2
+        x: 2100
+        y: 140
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d2e55f6b51d764d0800000000000000
+      internalID: -3141312024427502894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Fall 0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bff6f78eda95ec500800000000000000
+      internalID: 418370418856914939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Fall 1
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 0
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87c8f62ac7e595900800000000000000
+      internalID: 673673508662774904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Fall 2
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 0
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac7c9cffc0b8333d0800000000000000
+      internalID: -3228083619947231286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Fall 3
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 0
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 717080f096a271e10800000000000000
+      internalID: 2168248376314300183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Fall 4
+      rect:
+        serializedVersion: 2
+        x: 1680
+        y: 0
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 510923a9991e6dd50800000000000000
+      internalID: 6761839940376629269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rooted Fall 5
+      rect:
+        serializedVersion: 2
+        x: 2100
+        y: 0
+        width: 420
+        height: 140
+      alignment: 9
+      pivot: {x: 0.4047619, y: 0.042857144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b2d92cfb1929a5b0800000000000000
+      internalID: -5356705081609039181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Rooted Fall 0: 418370418856914939
+      Rooted Emerge 4: -2610769757408915061
+      Rooted Run 0: 3532770969327510059
+      Rooted Arm 5: 8838887838203875071
+      Rooted Jump 2: -4134497899480946037
+      Rooted Emerge 1: -6452021345324191599
+      Rooted Idle 4: 8344697812852220731
+      Rooted Idle 3: 1442222207752322792
+      Rooted Slam 3: -4144419401973088804
+      Rooted Fall 4: 6761839940376629269
+      Rooted Burrow 0: -8384871946994013243
+      Rooted Idle 2: -4256643693374437278
+      Rooted Arm 2: -815541365823519688
+      Rooted Fall 1: 673673508662774904
+      Rooted Fall 2: -3228083619947231286
+      Rooted Emerge 2: -3579539480489842171
+      Rooted Idle 1: -1589890937069616036
+      Rooted Emerge 3: 3427531234805110853
+      Rooted Burrow 2: 8915847499065830206
+      Rooted Jump 4: 5396187581019013507
+      Rooted Jump 0: 8013563264872522518
+      Rooted Idle 5: -2509426053324285569
+      Rooted Arm 4: 8173778863002249959
+      Rooted Burrow 4: 3519750688062388476
+      Rooted Slam 2: -6994038148929358211
+      Rooted Slam 5: 2090356822614754569
+      Rooted Fall 5: -5356705081609039181
+      Rooted Run 5: -4274970670033234539
+      Rooted Run 4: 6159006559626498995
+      Rooted Burrow 1: 17038072643491177
+      Rooted Arm 3: 8126272672694899913
+      Rooted Fall 3: 2168248376314300183
+      Rooted Idle 0: -8636969436198824964
+      Rooted Burrow 3: 8947306546119992264
+      Rooted Emerge 0: -4147984011931709571
+      Rooted Arm 0: 492016880469778747
+      Rooted Arm 1: 5988059837773282791
+      Rooted Run 3: 2232887351358467448
+      Rooted Slam 4: -3638645115966695479
+      Rooted Run 1: 294851259384746550
+      Rooted Run 2: -3611341963290128629
+      Rooted Jump 1: 6930215967719518709
+      Rooted Jump 5: 4625693113906364926
+      Rooted Burrow 5: 7220605491608352906
+      Rooted Slam 0: -2985267575320793197
+      Rooted Emerge 5: -3141312024427502894
+      Rooted Jump 3: 1396266159327063239
+      Rooted Slam 1: 7656291578557241797
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
