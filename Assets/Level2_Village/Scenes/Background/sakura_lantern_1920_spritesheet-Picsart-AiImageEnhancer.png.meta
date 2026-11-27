@@ -1,0 +1,651 @@
+fileFormatVersion: 2
+guid: 988994c09881c1849b417f5389910aad
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_0
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 1172
+        width: 426
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75f1d41437293f4478ec68c98c39d73d
+      internalID: -2025875845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_1
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 1172
+        width: 428
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4550d59da3913034599259c95fc04b8d
+      internalID: -206780382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_2
+      rect:
+        serializedVersion: 2
+        x: 1492
+        y: 1172
+        width: 426
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4c25dfaec7bbdc4685361c2e5bb78e8
+      internalID: 1550260492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_3
+      rect:
+        serializedVersion: 2
+        x: 2176
+        y: 1172
+        width: 428
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa55dec983eded14dba529bd3f7ce11b
+      internalID: 399187408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_4
+      rect:
+        serializedVersion: 2
+        x: 2862
+        y: 1172
+        width: 426
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea146adb3244b5443bc21ce2baa9de44
+      internalID: -1192086031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_5
+      rect:
+        serializedVersion: 2
+        x: 3548
+        y: 1172
+        width: 426
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0513f1839c8668245b49ce052584555b
+      internalID: 1700914978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_6
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 782
+        width: 426
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 053faeb1d158a1a43a5392c0c4653705
+      internalID: -1874778290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_7
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 782
+        width: 428
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4553f334a1710145817c1ebfbf7ea48
+      internalID: 569995664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_8
+      rect:
+        serializedVersion: 2
+        x: 1492
+        y: 782
+        width: 426
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34647e3180b0de0418218114eac3f34a
+      internalID: -461583852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_9
+      rect:
+        serializedVersion: 2
+        x: 2176
+        y: 782
+        width: 428
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49fcd2c871878de4e8759a4a8c85e715
+      internalID: 882677613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_10
+      rect:
+        serializedVersion: 2
+        x: 2862
+        y: 782
+        width: 426
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c52ba7da1c4a3d4599d7840aaa0403f
+      internalID: 728757716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_11
+      rect:
+        serializedVersion: 2
+        x: 3548
+        y: 782
+        width: 426
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06498827d19e56f4db13ff59e8360474
+      internalID: -252041702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_12
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 390
+        width: 426
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b273fae2ebc923468529a72da6cdc4c
+      internalID: 472453692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_13
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 390
+        width: 428
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4cbd8f30e78341546a4dd843c2126a7c
+      internalID: -478126216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_14
+      rect:
+        serializedVersion: 2
+        x: 1492
+        y: 390
+        width: 426
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f1ed868dae2e694da85ea9a47127eac
+      internalID: -70664272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_15
+      rect:
+        serializedVersion: 2
+        x: 2176
+        y: 390
+        width: 428
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15171d208daa7e94dbca7dc707de0b7d
+      internalID: -632380420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_16
+      rect:
+        serializedVersion: 2
+        x: 2862
+        y: 390
+        width: 426
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bacd8049337df7469f8a66305f5eb5a
+      internalID: -1533996502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_17
+      rect:
+        serializedVersion: 2
+        x: 3548
+        y: 390
+        width: 426
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7297e094bdda11c43b9173ccaa752c66
+      internalID: 1164548957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_18
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 0
+        width: 426
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2249c60d624422b4bba529beb8f89db9
+      internalID: -1393865120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_19
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 0
+        width: 428
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05047a892621e2544984999a5ddf998d
+      internalID: 237173267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_20
+      rect:
+        serializedVersion: 2
+        x: 1492
+        y: 0
+        width: 426
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95e097c1d6a65de43802b57048984f6c
+      internalID: 881444939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_21
+      rect:
+        serializedVersion: 2
+        x: 2176
+        y: 0
+        width: 428
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d09365880d586b459e0915903bcc609
+      internalID: 1723943134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_22
+      rect:
+        serializedVersion: 2
+        x: 2862
+        y: 0
+        width: 426
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6342e2dcd08f1564e9a891d7a2799b58
+      internalID: -1601859361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_23
+      rect:
+        serializedVersion: 2
+        x: 3548
+        y: 0
+        width: 426
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e5429f82e5b96e41b06e0f69a0c6a42
+      internalID: -421053833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_16: -1533996502
+      sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_12: 472453692
+      sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_6: -1874778290
+      sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_13: -478126216
+      sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_7: 569995664
+      sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_10: 728757716
+      sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_11: -252041702
+      sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_15: -632380420
+      sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_2: 1550260492
+      sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_0: -2025875845
+      sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_9: 882677613
+      sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_4: -1192086031
+      sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_23: -421053833
+      sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_8: -461583852
+      sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_20: 881444939
+      sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_5: 1700914978
+      sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_19: 237173267
+      sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_1: -206780382
+      sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_3: 399187408
+      sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_17: 1164548957
+      sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_21: 1723943134
+      sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_22: -1601859361
+      sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_18: -1393865120
+      sakura_lantern_1920_spritesheet-Picsart-AiImageEnhancer_14: -70664272
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

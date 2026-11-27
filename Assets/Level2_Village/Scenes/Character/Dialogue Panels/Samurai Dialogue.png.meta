@@ -1,0 +1,1179 @@
+fileFormatVersion: 2
+guid: 607cc0d3a1954bbbafcbaf24f673a216
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 4096
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Samurai Dialogue_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 756
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f4cfdea5d60476fbb63b692eac80461
+      internalID: 21300010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_1
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 756
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f32ddc36466b4874b703bacd063d0761
+      internalID: 21300012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_2
+      rect:
+        serializedVersion: 2
+        x: 912
+        y: 756
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48cef7d26e754d6887fa643050b7aafd
+      internalID: 21300014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_3
+      rect:
+        serializedVersion: 2
+        x: 1368
+        y: 756
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ee6f8f8eea3413aa9421dbd3f7a2b00
+      internalID: 21300016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_4
+      rect:
+        serializedVersion: 2
+        x: 1824
+        y: 756
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 428868bdc4c54237831c69ad390fa65f
+      internalID: 21300018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_5
+      rect:
+        serializedVersion: 2
+        x: 2280
+        y: 756
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7963798984d4bc2a37d563eaa54544e
+      internalID: 21300020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 648
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b31f203a0f4545ce8c97029a32bd8905
+      internalID: 21300022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_7
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 648
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cbc123241444783acd7f92307ea390b
+      internalID: 21300024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_8
+      rect:
+        serializedVersion: 2
+        x: 912
+        y: 648
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6c9f998f6c9493eaca0c587aad6c8c1
+      internalID: 21300026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_9
+      rect:
+        serializedVersion: 2
+        x: 1368
+        y: 648
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 058231b34e484f0ab790701ba7a67c72
+      internalID: 21300028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_10
+      rect:
+        serializedVersion: 2
+        x: 1824
+        y: 648
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17d499a9bce844a8beebc6ab6bb23884
+      internalID: 21300030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_11
+      rect:
+        serializedVersion: 2
+        x: 2280
+        y: 648
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da640be548b14257a3a31fbb76827794
+      internalID: 21300032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 540
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91e25264840e4e81a9ba2d7e365c21d1
+      internalID: 21300034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_13
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 540
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2faf6ba35ec243b88e6fd463a767ab32
+      internalID: 21300036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_14
+      rect:
+        serializedVersion: 2
+        x: 912
+        y: 540
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7c444b89e6f4adbb00e1c8703c9f2d8
+      internalID: 21300038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_15
+      rect:
+        serializedVersion: 2
+        x: 1368
+        y: 540
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34ff49c8ea3b44bcb4d90cfe889296d6
+      internalID: 21300040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_16
+      rect:
+        serializedVersion: 2
+        x: 1824
+        y: 540
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 022dcb84c3734c9c89f3ff71b771a8e0
+      internalID: 21300042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_17
+      rect:
+        serializedVersion: 2
+        x: 2280
+        y: 540
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 672cdf0b4b644a24bace0f443240f9e6
+      internalID: 21300044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 432
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b04e7fbb56e041958119004ce3833008
+      internalID: 21300046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_19
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 432
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1552b70d859472481db58d24438d326
+      internalID: 21300048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_20
+      rect:
+        serializedVersion: 2
+        x: 912
+        y: 432
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a64462338084108bcb9074b073847b8
+      internalID: 21300050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_21
+      rect:
+        serializedVersion: 2
+        x: 1368
+        y: 432
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6754edaa047d43bea5dec321e375a86d
+      internalID: 21300052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_22
+      rect:
+        serializedVersion: 2
+        x: 1824
+        y: 432
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 311a38dd9bdb446cab5f437c4d379355
+      internalID: 21300054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_23
+      rect:
+        serializedVersion: 2
+        x: 2280
+        y: 432
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c78069e90e8b4f0da7ffab4f84eef398
+      internalID: 21300056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 324
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c442c84d8694b20b1f2fe3dd869c8a6
+      internalID: 21300058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_25
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 324
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98ad6878ae1f4d8ea22eeae0e99b4920
+      internalID: 21300060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_26
+      rect:
+        serializedVersion: 2
+        x: 912
+        y: 324
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a00b0b9cc7cd47568f0aa1ed0ca89829
+      internalID: 21300062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_27
+      rect:
+        serializedVersion: 2
+        x: 1368
+        y: 324
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1316aaaf812d4a6da37b85838e9779af
+      internalID: 21300064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_28
+      rect:
+        serializedVersion: 2
+        x: 1824
+        y: 324
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a9e387cebf74dabbd4a0c69a70a95f1
+      internalID: 21300066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_29
+      rect:
+        serializedVersion: 2
+        x: 2280
+        y: 324
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 191896cec8c14832b853d27a15a7428f
+      internalID: 21300068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 216
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d91b4004532c42fca38bc95099553326
+      internalID: 21300070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_31
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 216
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f72b3ac217c4daea94dfece2d4ddc07
+      internalID: 21300072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_32
+      rect:
+        serializedVersion: 2
+        x: 912
+        y: 216
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c62460a8000a477fae6165ae2a63745a
+      internalID: 21300074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_33
+      rect:
+        serializedVersion: 2
+        x: 1368
+        y: 216
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a66761f14bd47b480298b98fcec6dd1
+      internalID: 21300076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_34
+      rect:
+        serializedVersion: 2
+        x: 1824
+        y: 216
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b9c9dcb0818466fbafcec10b31dd763
+      internalID: 21300078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_35
+      rect:
+        serializedVersion: 2
+        x: 2280
+        y: 216
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f076367efe4a4b488ffa106cb3d1c15d
+      internalID: 21300080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_36
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 108
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b530e18c0ef048f593c16a6a7f01ef0d
+      internalID: 21300082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_37
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 108
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6cdfaa1bc91406da550bf78183a0d10
+      internalID: 21300084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_38
+      rect:
+        serializedVersion: 2
+        x: 912
+        y: 108
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90cdbffb565b40e5bf7a023d306555a1
+      internalID: 21300086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_39
+      rect:
+        serializedVersion: 2
+        x: 1368
+        y: 108
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41562352eb95430b848b34b43cf3444e
+      internalID: 21300088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_40
+      rect:
+        serializedVersion: 2
+        x: 1824
+        y: 108
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5059507ef20a4c44921568123088bcec
+      internalID: 21300090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_41
+      rect:
+        serializedVersion: 2
+        x: 2280
+        y: 108
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 591f8cf55d1a403aabdc78021c58325b
+      internalID: 21300092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_42
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6c7c7d8fef84d0789e232eccc26374f
+      internalID: 21300094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_43
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 0
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57c107a64d8b4e019ad8db80fe58c3d2
+      internalID: 21300096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_44
+      rect:
+        serializedVersion: 2
+        x: 912
+        y: 0
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac597b5b2b8f4adb85d00dd4d1199b35
+      internalID: 21300098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_45
+      rect:
+        serializedVersion: 2
+        x: 1368
+        y: 0
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 080d3637be184970a0d5ada95567a5e8
+      internalID: 21300100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_46
+      rect:
+        serializedVersion: 2
+        x: 1824
+        y: 0
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0969d56c0e4646e6a5ff8f3c250ba98e
+      internalID: 21300102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Samurai Dialogue_47
+      rect:
+        serializedVersion: 2
+        x: 2280
+        y: 0
+        width: 456
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76c5ab8af52b4be4a0f46ae3a978ba4c
+      internalID: 21300104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Samurai Dialogue_0: 21300010
+      Samurai Dialogue_1: 21300012
+      Samurai Dialogue_2: 21300014
+      Samurai Dialogue_3: 21300016
+      Samurai Dialogue_4: 21300018
+      Samurai Dialogue_5: 21300020
+      Samurai Dialogue_6: 21300022
+      Samurai Dialogue_7: 21300024
+      Samurai Dialogue_8: 21300026
+      Samurai Dialogue_9: 21300028
+      Samurai Dialogue_10: 21300030
+      Samurai Dialogue_11: 21300032
+      Samurai Dialogue_12: 21300034
+      Samurai Dialogue_13: 21300036
+      Samurai Dialogue_14: 21300038
+      Samurai Dialogue_15: 21300040
+      Samurai Dialogue_16: 21300042
+      Samurai Dialogue_17: 21300044
+      Samurai Dialogue_18: 21300046
+      Samurai Dialogue_19: 21300048
+      Samurai Dialogue_20: 21300050
+      Samurai Dialogue_21: 21300052
+      Samurai Dialogue_22: 21300054
+      Samurai Dialogue_23: 21300056
+      Samurai Dialogue_24: 21300058
+      Samurai Dialogue_25: 21300060
+      Samurai Dialogue_26: 21300062
+      Samurai Dialogue_27: 21300064
+      Samurai Dialogue_28: 21300066
+      Samurai Dialogue_29: 21300068
+      Samurai Dialogue_30: 21300070
+      Samurai Dialogue_31: 21300072
+      Samurai Dialogue_32: 21300074
+      Samurai Dialogue_33: 21300076
+      Samurai Dialogue_34: 21300078
+      Samurai Dialogue_35: 21300080
+      Samurai Dialogue_36: 21300082
+      Samurai Dialogue_37: 21300084
+      Samurai Dialogue_38: 21300086
+      Samurai Dialogue_39: 21300088
+      Samurai Dialogue_40: 21300090
+      Samurai Dialogue_41: 21300092
+      Samurai Dialogue_42: 21300094
+      Samurai Dialogue_43: 21300096
+      Samurai Dialogue_44: 21300098
+      Samurai Dialogue_45: 21300100
+      Samurai Dialogue_46: 21300102
+      Samurai Dialogue_47: 21300104
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

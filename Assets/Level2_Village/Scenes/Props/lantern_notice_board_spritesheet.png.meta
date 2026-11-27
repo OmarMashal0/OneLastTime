@@ -108,8 +108,8 @@ TextureImporter:
       name: lantern_notice_board_spritesheet_0
       rect:
         serializedVersion: 2
-        x: 33
-        y: 5
+        x: 1
+        y: 1096
         width: 413
         height: 359
       alignment: 0
@@ -129,10 +129,10 @@ TextureImporter:
       name: lantern_notice_board_spritesheet_1
       rect:
         serializedVersion: 2
-        x: 484
-        y: 7
+        x: 417
+        y: 1096
         width: 413
-        height: 357
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -150,10 +150,10 @@ TextureImporter:
       name: lantern_notice_board_spritesheet_2
       rect:
         serializedVersion: 2
-        x: 935
-        y: 7
+        x: 833
+        y: 1096
         width: 413
-        height: 357
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,8 +171,8 @@ TextureImporter:
       name: lantern_notice_board_spritesheet_3
       rect:
         serializedVersion: 2
-        x: 1386
-        y: 5
+        x: 1249
+        y: 1096
         width: 413
         height: 359
       alignment: 0
@@ -192,10 +192,10 @@ TextureImporter:
       name: lantern_notice_board_spritesheet_4
       rect:
         serializedVersion: 2
-        x: 1809
-        y: 252
-        width: 4
-        height: 4
+        x: 1
+        y: 732
+        width: 413
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -213,8 +213,8 @@ TextureImporter:
       name: lantern_notice_board_spritesheet_5
       rect:
         serializedVersion: 2
-        x: 1837
-        y: 5
+        x: 417
+        y: 732
         width: 413
         height: 359
       alignment: 0
@@ -234,10 +234,10 @@ TextureImporter:
       name: lantern_notice_board_spritesheet_6
       rect:
         serializedVersion: 2
-        x: 2290
-        y: 7
-        width: 411
-        height: 357
+        x: 833
+        y: 732
+        width: 413
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -255,8 +255,8 @@ TextureImporter:
       name: lantern_notice_board_spritesheet_7
       rect:
         serializedVersion: 2
-        x: 2739
-        y: 5
+        x: 1249
+        y: 732
         width: 413
         height: 359
       alignment: 0
@@ -276,8 +276,8 @@ TextureImporter:
       name: lantern_notice_board_spritesheet_8
       rect:
         serializedVersion: 2
-        x: 3190
-        y: 5
+        x: 1
+        y: 368
         width: 413
         height: 359
       alignment: 0
@@ -297,10 +297,10 @@ TextureImporter:
       name: lantern_notice_board_spritesheet_9
       rect:
         serializedVersion: 2
-        x: 1809
-        y: 147
-        width: 37
-        height: 104
+        x: 417
+        y: 368
+        width: 413
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -318,10 +318,10 @@ TextureImporter:
       name: lantern_notice_board_spritesheet_10
       rect:
         serializedVersion: 2
-        x: 2260
-        y: 245
-        width: 6
-        height: 6
+        x: 833
+        y: 368
+        width: 413
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -339,10 +339,10 @@ TextureImporter:
       name: lantern_notice_board_spritesheet_11
       rect:
         serializedVersion: 2
-        x: 907
-        y: 201
-        width: 14
-        height: 36
+        x: 1249
+        y: 368
+        width: 413
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -360,10 +360,10 @@ TextureImporter:
       name: lantern_notice_board_spritesheet_12
       rect:
         serializedVersion: 2
-        x: 2260
-        y: 154
-        width: 30
-        height: 90
+        x: 1
+        y: 4
+        width: 413
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -381,10 +381,10 @@ TextureImporter:
       name: lantern_notice_board_spritesheet_13
       rect:
         serializedVersion: 2
-        x: 907
-        y: 192
-        width: 6
-        height: 8
+        x: 417
+        y: 4
+        width: 413
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -402,10 +402,10 @@ TextureImporter:
       name: lantern_notice_board_spritesheet_14
       rect:
         serializedVersion: 2
-        x: 907
-        y: 178
-        width: 9
-        height: 11
+        x: 833
+        y: 4
+        width: 413
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

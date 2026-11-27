@@ -1,15 +1,23 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
+using NoticeboardRunes;
 
 public class Inspect_to_another_scene_button  : MonoBehaviour
 {
     // Drag "Canvas For Inspect Button" here. It must have a CanvasGroup component.
     [SerializeField] private CanvasGroup promptGroup;
+    [SerializeField] private RawImage promptImage;
+
+    private const int SheetColumns = 8;
+    private const int SheetRows = 6;
+    private const float FramesPerSecond = 24f;
+    private float promptTime;
 
     // How many seconds the prompt takes to fade in or out.
     [SerializeField] private float promptFadeTime = 0.3f;
 
-    // The exact name of the scene to load when F is pressed.
+    // Scene to open when the player interacts.
     [SerializeField] private string nextSceneName = "NextScene";
 
     [SerializeField] private string playerTag = "Player";
@@ -31,7 +39,7 @@ public class Inspect_to_another_scene_button  : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag(playerTag))
+        if (!ScrollHotbar.HasDecodedScroll && other.CompareTag(playerTag))
         {
             playerInside = true;
             StartPromptFade(1f); // fade in
@@ -49,7 +57,22 @@ public class Inspect_to_another_scene_button  : MonoBehaviour
 
     private void Update()
     {
-        if (playerInside && !transitioning && Input.GetKeyDown(KeyCode.F))
+        if (promptImage != null && promptGroup != null && promptGroup.alpha > 0f)
+        {
+            promptTime = Mathf.Repeat(promptTime + Time.deltaTime, SheetColumns * SheetRows / FramesPerSecond);
+            int frame = Mathf.FloorToInt(promptTime * FramesPerSecond);
+            promptImage.uvRect = new Rect(
+                (frame % SheetColumns) / (float)SheetColumns,
+                (SheetRows - 1 - frame / SheetColumns) / (float)SheetRows,
+                1f / SheetColumns, 1f / SheetRows);
+        }
+        else
+        {
+            promptTime = 0f;
+        }
+
+        if (playerInside && !transitioning && !ScrollHotbar.HasDecodedScroll &&
+            (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.F)))
         {
             transitioning = true;
             StartPromptFade(0f);

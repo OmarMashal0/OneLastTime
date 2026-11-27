@@ -11,6 +11,7 @@ public class SceneFader : MonoBehaviour
     [SerializeField] private float fadeDuration = 0.6f;
 
     private CanvasGroup group;
+    public bool IsTransitioning => group.blocksRaycasts;
 
     // Runs automatically before the first scene loads, so you don't need to place anything in the scene.
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]

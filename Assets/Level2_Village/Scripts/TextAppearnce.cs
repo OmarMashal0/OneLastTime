@@ -6,10 +6,13 @@ public class TextAppearnce : MonoBehaviour
     // Added: tag of the object that can activate this trigger (your player)
     [Header("Trigger")]
     [SerializeField] private string playerTag = "Player";
+    [SerializeField] private WellRabbitSpawner rabbitWell;
+    [SerializeField] private AudioClip titleCue;
 
     // Added: the PNG object that fades in and later fades out
     [Header("Floating Text")]
     [SerializeField] private GameObject textImage;
+    [SerializeField] private Cam_Follow cameraFollow;
     // Added: how long the PNG takes to fade in
     [SerializeField] private float textFadeDuration = 1f;
     // Added: how long the PNG stays visible before it fades out (the 3 seconds)
@@ -31,6 +34,7 @@ public class TextAppearnce : MonoBehaviour
 
     // Added: makes sure the trigger only runs once
     private bool hasTriggered;
+    private DummyPlayer lockedPlayer;
 
     // Added: detects the player entering the BoxCollider2D (Is Trigger = true)
     private void OnTriggerEnter2D(Collider2D other)
@@ -41,6 +45,15 @@ public class TextAppearnce : MonoBehaviour
         }
 
         hasTriggered = true;
+        lockedPlayer = other.GetComponentInParent<DummyPlayer>();
+        if (lockedPlayer != null) lockedPlayer.SetMovementLocked(true);
+        if (titleCue != null)
+        {
+            var audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.spatialBlend = 0f;
+            audioSource.PlayOneShot(titleCue);
+        }
+        if (rabbitWell != null) rabbitWell.Begin(other);
         StartCoroutine(PlaySequence());
     }
 
@@ -55,6 +68,9 @@ public class TextAppearnce : MonoBehaviour
 
         // Added: keep the text drawn above the fog
         SetSortingOrder();
+
+        if (cameraFollow != null && textImage != null)
+            cameraFollow.SetFocus(textImage.transform);
 
         yield return FadeText(0f, 1f, textFadeDuration);
 
@@ -78,6 +94,18 @@ public class TextAppearnce : MonoBehaviour
         if (textImage != null)
         {
             textImage.SetActive(false);
+        }
+
+        if (cameraFollow != null && textImage != null)
+        {
+            yield return new WaitForSeconds(1.2f);
+            cameraFollow.SetFocus(null);
+        }
+
+        if (lockedPlayer != null)
+        {
+            lockedPlayer.SetMovementLocked(false);
+            lockedPlayer = null;
         }
     }
 
