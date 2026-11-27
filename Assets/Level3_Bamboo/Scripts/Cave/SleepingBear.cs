@@ -58,6 +58,10 @@ namespace Level3Bamboo
             // Everything below uses Time.deltaTime, which is 0 while paused.
             bool heard = HeardRyu();
 
+            // Ryu died (any cause): stop on the spot at once, even mid-warning. CaveZone puts her back asleep on respawn.
+            if (player.IsDead && (CurrentState == State.Waking || CurrentState == State.Charging))
+                Stop();
+
             switch (CurrentState)
             {
                 case State.Sleeping:
@@ -72,11 +76,6 @@ namespace Level3Bamboo
                     break;
 
                 case State.Charging:
-                    if (player.IsDead)
-                    {
-                        Stop();   // Ryu died some other way: stop anyway
-                        break;
-                    }
                     float targetX = Mathf.Clamp(player.transform.position.x, minX, maxX);
                     Face(targetX - transform.position.x);
                     float x = Mathf.MoveTowards(transform.position.x, targetX, chargeSpeed * Time.deltaTime);

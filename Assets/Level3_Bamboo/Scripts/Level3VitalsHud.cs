@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 namespace Level3Bamboo
 {
+    // Fills the health and sanity bars from Ryu's current values.
     public class Level3VitalsHud : MonoBehaviour
     {
         public BambooPlayerController player;

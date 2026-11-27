@@ -105,7 +105,7 @@ MonoBehaviour:
   maxHealth: 30
   contactDamage: 12
   audioSource: {fileID: 2149837667317692651}
-  attackSound: {fileID: 8300000, guid: 31744d974abd00f468b922f548251ec2, type: 3}
+  attackSound: {fileID: 8300000, guid: 3a904554261b7294e9b6605eca80d68c, type: 3}
   hitEffect: {fileID: 3266968707530765101, guid: 73abb344019a28b43ac47791dc79d51e, type: 3}
   hitColor: {r: 0.65, g: 0.35, b: 0.87, a: 1}
   hitAccent: {r: 0.85, g: 0.66, b: 0.96, a: 1}

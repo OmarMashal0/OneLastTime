@@ -2,6 +2,8 @@ using UnityEngine;
 
 namespace Level3Bamboo
 {
+    // A log Ryu can collect with E. LogCollection finds the nearest one and calls MarkCollected().
+    // locked = true while a puzzle still hides it (the chime box, the Swamp Thing cage).
     public class CollectibleLog : MonoBehaviour
     {
         public string logId;
@@ -9,16 +11,6 @@ namespace Level3Bamboo
         public Vector2 interactionOffset = new Vector2(0f, 0.18f);
 
         public Vector2 InteractionPoint => (Vector2)transform.position + interactionOffset;
-
-        // Start is called before the first frame update
-        void Start()
-        {
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        }
 
         public void MarkCollected()
         {

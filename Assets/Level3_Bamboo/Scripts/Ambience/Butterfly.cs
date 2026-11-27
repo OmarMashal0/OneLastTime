@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Level3Bamboo
 {
+    // A butterfly that flutters in a small loop around where it was placed.
     public class Butterfly : MonoBehaviour
     {
         public SpriteRenderer body;

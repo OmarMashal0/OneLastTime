@@ -65,6 +65,13 @@ namespace Level3Bamboo
         public AudioSource drone;
         [Range(0f, 1f)] public float droneVolume = 0.35f;
 
+        [Header("Dialogue sounds (quiet)")]
+        public AudioSource dialogueSound;
+        public AudioClip openClip;      // the box opens
+        public AudioClip lineClip;      // a new line starts
+        public AudioClip tickClip;      // a soft typing tick
+        [Min(1)] public int lettersPerTick = 4;   // one tick every few letters, not every letter
+
         private bool played;
         private bool running;
 
@@ -98,6 +105,13 @@ namespace Level3Bamboo
         }
 
         private void OnDisable()
+        {
+            RestoreNow();
+        }
+
+        // Called by the Skip button: end the talk now with the normal finish
+        // (camera, zoom, lighting, music, drone and Ryu's controls all go back).
+        public void Skip()
         {
             RestoreNow();
         }
@@ -143,6 +157,7 @@ namespace Level3Bamboo
             drone.Play();
 
             Vector3 focus = new Vector3(cameraFocus.position.x, cameraFocus.position.y, savedCameraPosition.z);
+            PlayDialogueSound(openClip, 0.5f);
             yield return Blend(savedCameraPosition, focus, savedCameraSize, conversationZoom, 0f, 1f);
 
             foreach (Line line in lines)
@@ -186,11 +201,18 @@ namespace Level3Bamboo
             text.text = line.text;
             text.maxVisibleCharacters = 0;
             cloud.SetActive(true);
+            PlayDialogueSound(lineClip, 0.45f);
             float shown = 0f;
+            int nextTick = lettersPerTick;
             while (shown < line.text.Length)
             {
                 shown += Time.deltaTime * lettersPerSecond;
                 text.maxVisibleCharacters = (int)shown;
+                if (shown >= nextTick)
+                {
+                    PlayDialogueSound(tickClip, 0.12f);
+                    nextTick += lettersPerTick;
+                }
                 yield return null;
             }
             text.maxVisibleCharacters = line.text.Length;
@@ -199,6 +221,13 @@ namespace Level3Bamboo
             cloud.SetActive(false);
             speaker.Play("Idle");
             yield return new WaitForSeconds(0.4f);
+        }
+
+        // Plays a dialogue sound once, quietly (all three clips use this).
+        private void PlayDialogueSound(AudioClip clip, float volume)
+        {
+            if (dialogueSound != null && clip != null)
+                dialogueSound.PlayOneShot(clip, volume);
         }
 
         // Puts the camera, look, audio and Ryu back to normal. Safe to call more than once.

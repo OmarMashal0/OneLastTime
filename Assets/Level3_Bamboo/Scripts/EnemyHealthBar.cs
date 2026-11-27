@@ -3,20 +3,11 @@ using UnityEngine;
 
 namespace Level3Bamboo
 {
+    // Small bar above an enemy. The enemy calls SetHealth; the bar hides itself at 0.
     public class EnemyHealthBar : MonoBehaviour
     {
         public SpriteRenderer fill;
         public TMP_Text enemyName;
-
-        // Start is called before the first frame update
-        void Start()
-        {
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        }
 
         public void SetHealth(int health, int maximum)
         {

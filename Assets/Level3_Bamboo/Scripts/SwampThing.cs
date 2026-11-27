@@ -37,16 +37,26 @@ namespace Level3Bamboo
         public BoxCollider2D breakout;
         [Tooltip("Hit area under him when he lands from the jump slam.")]
         public BoxCollider2D slamHitbox;
-        [Tooltip("Mark on the ground showing where the slam lands or where he will burst out.")]
-        public SpriteRenderer warningMarker;
         public EnemyHealthBar healthBar;
         public ParticleSystem debris;
         public CameraFollow2D cameraFollow;
         public AudioSource voice;
         public EnemyHitEffect hitEffect;
-        public AudioClip[] hitSounds = new AudioClip[2];
+        // Sounds. Each action has its own clip; actions that repeat a lot have two clips that take turns.
+        [Header("Sounds")]
+        public AudioClip wakeSound;        // entrance growl when he rises
+        public AudioClip warningSound;     // crouch / wind-up / "I'm about to burst out" warning
+        public AudioClip pullFreeSound;    // arm pulled back out of the ground
+        public AudioClip hurtSound;        // used only if hitSounds is empty
+        public AudioClip deathSound;       // collapsing wood and roots
+        public AudioClip emergeSound;      // roots and earth breaking upward
+        public AudioClip[] hitSounds = new AudioClip[2];    // katana hits him (bark crack + groan)
+        public AudioClip[] armSounds = new AudioClip[2];    // stretching roots + whoosh
+        public AudioClip[] jumpSounds = new AudioClip[2];   // effort + root creak as he jumps
+        public AudioClip[] landSounds = new AudioClip[2];   // heavy earth impact
+        public AudioClip[] soilSounds = new AudioClip[2];   // digging / soil shifting
         private int nextHitSound;
-        public AudioClip wakeSound, warningSound, swingSound, slamSound, pullFreeSound, hurtSound, deathSound, soilSound, emergeSound;
+        private int nextVariation;
 
         [Header("Health and damage")]
         public int maxHealth = 80;
@@ -97,7 +107,6 @@ namespace Level3Bamboo
         public int Health { get; private set; }
 
         private readonly System.Collections.Generic.List<RaycastHit2D> casts = new System.Collections.Generic.List<RaycastHit2D>();
-        private readonly Collider2D[] overlaps = new Collider2D[8];
         private Vector3 home;
         private Vector3 artOrigin;
         private Vector3 target;          // locked landing / emergence spot
@@ -158,7 +167,8 @@ namespace Level3Bamboo
             }
 
             UpdateHurtFlash();
-            UpdateMarker();
+            if (CurrentState == State.EmergeWarning)
+                UpdateEmergeWarning();
             switch (CurrentState)
             {
                 case State.Dormant:
@@ -200,7 +210,7 @@ namespace Level3Bamboo
 
                 case State.ArmWindup:
                     if (elapsed >= armWindupSeconds)
-                        Enter(State.ArmStrike, "ArmStrike", swingSound);
+                        Enter(State.ArmStrike, "ArmStrike", Next(armSounds));
                     break;
                 case State.ArmStrike:
                     UpdateArm();
@@ -407,33 +417,33 @@ namespace Level3Bamboo
 
         // ---------------------------------------------------------------- jump slam
 
+        // The crouch and its sound are the warning (no floor circle any more).
         private void StartSlam()
         {
-            // Lock the landing spot now, so Ryu can see it and step away.
+            dialogue.AttackLine();
+            Enter(State.SlamCrouch, "SlamCrouch", warningSound);
+        }
+
+        // The landing spot is locked at the moment he jumps: where Ryu is now, within jump range.
+        // He does not steer in the air, so Ryu can still run out of the way during the flight.
+        private void StartSlamJump()
+        {
             float px = player.transform.position.x;
             float x = Mathf.Clamp(px, transform.position.x - slamMaxDistance, transform.position.x + slamMaxDistance);
             x = Mathf.Clamp(x, MinX(), maxEncounterX);
             if (!GroundAt(x, out Vector3 ground))
                 x = transform.position.x;
             target = new Vector3(x, home.y, home.z);
-            ShowMarker(target);
-            dialogue.AttackLine();
-            Enter(State.SlamCrouch, "SlamCrouch", warningSound);
-        }
-
-        private void StartSlamJump()
-        {
             Launch(target.x, slamFlightSeconds);
-            Enter(State.SlamAir, "SlamJump", swingSound);
+            Enter(State.SlamAir, "SlamJump", Next(jumpSounds));
         }
 
         private void Land()
         {
-            HideMarker();
             EmitDebris(16);
             if (cameraFollow != null)
                 cameraFollow.Shake(0.25f);
-            Enter(State.SlamImpact, "SlamImpact", slamSound);
+            Enter(State.SlamImpact, "SlamImpact", Next(landSounds));
         }
 
         private void UpdateSlamHit()
@@ -452,7 +462,7 @@ namespace Level3Bamboo
         private void StartBurrow()
         {
             dialogue.AttackLine();
-            Enter(State.Burrow, "Burrow", soilSound);
+            Enter(State.Burrow, "Burrow", Next(soilSounds));
         }
 
         private void GoUnderground()
@@ -462,7 +472,7 @@ namespace Level3Bamboo
             artwork.enabled = false;
             target = ChooseEmergence();
             nextSoilPuff = 0f;
-            Enter(State.Underground, null, soilSound);
+            Enter(State.Underground, null, Next(soilSounds));
         }
 
         private void MoveUnderground()
@@ -477,8 +487,7 @@ namespace Level3Bamboo
             if (Mathf.Abs(x - target.x) > 0.02f)
                 return;
 
-            // Arrived: lock this spot and warn.
-            ShowMarker(target);
+            // Arrived: this spot is now locked (target does not change), and he warns with sound and soil.
             Enter(State.EmergeWarning, null, warningSound);
             nextSoilPuff = 0f;
         }
@@ -488,12 +497,10 @@ namespace Level3Bamboo
             if (!HasRoom(target))
             {
                 // Ryu is standing on the spot: pick another and warn again (never burst out inside him).
-                HideMarker();
                 target = ChooseEmergence();
                 Enter(State.Underground, null);
                 return;
             }
-            HideMarker();
             artwork.enabled = true;
             EmitDebris(10);
             Enter(State.Emerge, "Emerge", emergeSound);
@@ -558,34 +565,14 @@ namespace Level3Bamboo
                 new Bounds((Vector2)point + Vector2.up * 0.94f, new Vector3(1.40f, 1.78f, 0.3f)));
         }
 
-        // ---------------------------------------------------------------- the warning mark
-
-        private void ShowMarker(Vector3 spot)
+        // While he waits under the soil, small puffs of dirt rise from the locked spot (no floor circle).
+        private void UpdateEmergeWarning()
         {
-            warningMarker.enabled = true;
-            warningMarker.transform.position = spot + Vector3.up * 0.04f;
-        }
-
-        private void HideMarker()
-        {
-            warningMarker.enabled = false;
-        }
-
-        // Keeps the mark on its locked spot (he moves, it doesn't) and makes it pulse.
-        private void UpdateMarker()
-        {
-            if (!warningMarker.enabled)
+            if (elapsed < nextSoilPuff)
                 return;
-            warningMarker.transform.position = target + Vector3.up * 0.04f;
-            Color c = warningMarker.color;
-            c.a = 0.55f + 0.35f * Mathf.Sin(elapsed * 14f);
-            warningMarker.color = c;
-            if (CurrentState == State.EmergeWarning && elapsed >= nextSoilPuff)
-            {
-                nextSoilPuff = elapsed + 0.18f;
-                debris.transform.position = target + Vector3.up * 0.3f;
-                EmitDebris(2);
-            }
+            nextSoilPuff = elapsed + 0.18f;
+            debris.transform.position = target + Vector3.up * 0.3f;
+            EmitDebris(2);
         }
 
         // ---------------------------------------------------------------- being hit
@@ -657,7 +644,6 @@ namespace Level3Bamboo
         private void Die()
         {
             voice.Stop();
-            HideMarker();
             artwork.enabled = true;
             artwork.color = Color.white;
             transform.position = new Vector3(transform.position.x, home.y, home.z);   // never die in mid-air
@@ -697,7 +683,6 @@ namespace Level3Bamboo
             artwork.transform.localPosition = artOrigin;
             artwork.enabled = true;
             artwork.color = Color.white;
-            HideMarker();
             hurtTime = 0f;
             lastAttack = Attack.None;
             repeatCount = 0;
@@ -743,6 +728,15 @@ namespace Level3Bamboo
             if (CurrentState != State.EmergeWarning)
                 debris.transform.localPosition = new Vector3(0f, 0.55f, 0f);
             debris.Emit(count);
+        }
+
+        // Picks the clips of an array in turn (1, 2, 1, 2 ...), so a repeated action does not sound identical.
+        private AudioClip Next(AudioClip[] clips)
+        {
+            if (clips == null || clips.Length == 0)
+                return null;
+            nextVariation++;
+            return clips[nextVariation % clips.Length];
         }
 
         private void Play(AudioClip clip)

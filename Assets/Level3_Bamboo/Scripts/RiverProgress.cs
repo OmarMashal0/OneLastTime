@@ -21,6 +21,7 @@ namespace Level3Bamboo.River
         {
             carriedLogs = null;
             MusicMuted = false;
+            RiverWatcherReveal.SeenThisRun = false;
             SceneManager.sceneLoaded -= DiscardUnclaimedCarry;
             SceneManager.sceneLoaded += DiscardUnclaimedCarry;
         }
@@ -30,7 +31,10 @@ namespace Level3Bamboo.River
         private static void DiscardUnclaimedCarry(Scene scene, LoadSceneMode mode)
         {
             if (mode == LoadSceneMode.Single && scene.name != RiverScene)
+            {
                 carriedLogs = null;
+                RiverWatcherReveal.SeenThisRun = false;   // a new level run: the stranger may appear again
+            }
         }
 
         public static void Carry(IEnumerable<string> ids, BambooPlayerController player, bool muted)

@@ -20,6 +20,13 @@ namespace Level3Bamboo
         [Min(1f)] public float lettersPerSecond = 30f;
         [Min(0f)] public float displaySeconds = 1.6f;
 
+        [Header("Dialogue sounds (quiet)")]
+        public AudioSource dialogueSound;
+        public AudioClip openClip;      // the box opens
+        public AudioClip lineClip;      // a new line starts
+        public AudioClip tickClip;      // a soft typing tick
+        [Min(1)] public int lettersPerTick = 4;   // one tick every few letters, not every letter
+
         private readonly List<string> waiting = new List<string>();
         private int entranceLinesLeft;
         private bool entrancePlayed, attackSaid, defeatPlayed;
@@ -78,10 +85,12 @@ namespace Level3Bamboo
                 Add("The roots… remember.");
         }
 
+        // A new attempt after a respawn. The entrance lines are NOT reset: they play once per level run,
+        // so on a retry he wakes straight away. Only the attack line can be said again.
         public void ResetAttempt()
         {
             Hide();
-            entrancePlayed = attackSaid = defeatPlayed = false;
+            attackSaid = false;
             entranceLinesLeft = 0;
         }
 
@@ -102,6 +111,8 @@ namespace Level3Bamboo
 
         private IEnumerator TypeLines()
         {
+            PlayDialogueSound(openClip, 0.5f);   // the box opens once for a group of lines
+            bool firstLine = true;
             while (waiting.Count > 0)
             {
                 string sentence = waiting[0];
@@ -111,13 +122,23 @@ namespace Level3Bamboo
                 panel.SetActive(true);
                 dialogueText.ForceMeshUpdate();
 
+                if (!firstLine)
+                    PlayDialogueSound(lineClip, 0.45f);
+                firstLine = false;
+
                 int length = dialogueText.textInfo.characterCount;
                 float visible = 0f;
+                int nextTick = lettersPerTick;
                 while (dialogueText.maxVisibleCharacters < length)
                 {
                     yield return null;
                     visible += Time.deltaTime * lettersPerSecond;
                     dialogueText.maxVisibleCharacters = Mathf.Min(length, (int)visible);
+                    if (visible >= nextTick)
+                    {
+                        PlayDialogueSound(tickClip, 0.12f);
+                        nextTick += lettersPerTick;
+                    }
                 }
                 yield return new WaitForSeconds(displaySeconds);
                 if (entranceLinesLeft > 0)
@@ -125,6 +146,13 @@ namespace Level3Bamboo
             }
             typing = null;
             panel.SetActive(false);
+        }
+
+        // Plays a dialogue sound once, quietly (all three clips use this).
+        private void PlayDialogueSound(AudioClip clip, float volume)
+        {
+            if (dialogueSound != null && clip != null)
+                dialogueSound.PlayOneShot(clip, volume);
         }
 
         private void Hide()

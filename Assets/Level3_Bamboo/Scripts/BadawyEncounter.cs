@@ -14,6 +14,9 @@ namespace Level3Bamboo
         public ForestEnemy purpleEye;
         public ForestEnemy greenEye;
         public GameObject trailBlocker;
+        [Header("Sound")]
+        public AudioSource sound;
+        public AudioClip gateOpenClip;
         public event System.Action ObjectiveChanged;
         public CanvasGroup encounterTitle;
         public float spawnInterval = 6f;
@@ -142,6 +145,8 @@ namespace Level3Bamboo
             Completed = true;
             encounterTitle.alpha = 0f;
             trailBlocker.SetActive(false);
+            if (sound != null && gateOpenClip != null)
+                sound.PlayOneShot(gateOpenClip, 0.7f);   // the trail gate opens
             ObjectiveChanged?.Invoke();
         }
 

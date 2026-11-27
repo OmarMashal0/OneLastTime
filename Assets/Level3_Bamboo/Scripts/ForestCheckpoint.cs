@@ -16,6 +16,9 @@ namespace Level3Bamboo
         public ForestCheckpoint previous;
         [Tooltip("Optional: this lantern only lights after this fight is won.")]
         public BadawyEncounter requiredEncounter;
+        [Header("Sound")]
+        public AudioSource sound;
+        public AudioClip lightClip;   // the lantern catches fire
 
         public bool Activated { get; private set; }
 
@@ -33,7 +36,7 @@ namespace Level3Bamboo
             if (!Activated)
                 return;
 
-            // The glow flares up for a moment, then fades down to a steady light (no text: checkpoints are silent).
+            // The glow flares up for a moment, then fades down to a steady light (no text; a soft ignite sound plays once).
             flash -= Time.deltaTime;
             glow.color = new Color(1f, 0.66f, 0.24f, 0.23f + Mathf.Clamp01(flash) * 0.48f);
         }
@@ -50,6 +53,8 @@ namespace Level3Bamboo
             if (previous == null || previous.Activated || requiredEncounter != null)
                 player.SetCheckpoint(respawnPoint.position);
             lantern.sprite = litSprite;
+            if (sound != null && lightClip != null)
+                sound.PlayOneShot(lightClip, 0.6f);
             flash = 1.8f;
             glow.enabled = true;
         }

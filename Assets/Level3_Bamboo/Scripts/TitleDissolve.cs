@@ -1,7 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-// Split the existing sprite into little squares. The original sprite alpha still shapes the letters.
+// The "breaking apart" effect on the Level 3 title letters (used by LevelTitleFade).
+//
+// Why it is code: a CanvasGroup can only fade the whole title evenly. To make the letters crumble
+// into small squares that vanish one by one, the Image's flat rectangle (4 corners) is rebuilt as a
+// 48-column grid of small squares, and squares are left out as progress goes from 0 to 1.
+// The original sprite's transparency still shapes the letters, so each square shows its piece of them.
+//
+// How it runs: LevelTitleFade calls SetProgress(0..1) every frame of the fade-out. Unity UI then calls
+// ModifyMesh (BaseMeshEffect) whenever the Image is redrawn, and this script decides which squares to draw.
 public class TitleDissolve : BaseMeshEffect
 {
     private float progress;
@@ -16,8 +24,11 @@ public class TitleDissolve : BaseMeshEffect
 
     public override void ModifyMesh(VertexHelper mesh)
     {
+        // Nothing to do before the fade-out starts (or if the Image is not a simple rectangle).
         if (!IsActive() || progress <= 0f || mesh.currentVertCount != 4)
             return;
+
+        // Read the bottom-left and top-right corners of the Image, then throw the rectangle away.
 
         var bottom = new UIVertex();
         var top = new UIVertex();
@@ -25,6 +36,7 @@ public class TitleDissolve : BaseMeshEffect
         mesh.PopulateUIVertex(ref top, 2);
         mesh.Clear();
 
+        // Make the squares roughly square: same count across, rows depend on the Image's height.
         const int columns = 48;
         int rows = Mathf.Max(1, Mathf.RoundToInt(columns * (top.position.y - bottom.position.y)
             / Mathf.Max(1f, top.position.x - bottom.position.x)));
@@ -36,6 +48,7 @@ public class TitleDissolve : BaseMeshEffect
             if (threshold < progress)
                 continue;
 
+            // Draw this square: 4 corners and 2 triangles.
             int first = mesh.currentVertCount;
             AddCorner(mesh, bottom, top, x / (float)columns, y / (float)rows);
             AddCorner(mesh, bottom, top, x / (float)columns, (y + 1f) / rows);
@@ -46,6 +59,7 @@ public class TitleDissolve : BaseMeshEffect
         }
     }
 
+    // One corner of a square, at a fraction (x, y) of the way across the Image: position and texture spot.
     private static void AddCorner(VertexHelper mesh, UIVertex bottom, UIVertex top, float x, float y)
     {
         var corner = bottom;

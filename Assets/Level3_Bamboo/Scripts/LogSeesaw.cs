@@ -19,6 +19,9 @@ namespace Level3Bamboo
         public float pushSpeed = 2.7f;
         public float tiltDegrees = 15f;
         public float settleSeconds = 0.45f;
+        [Header("Sound")]
+        public AudioSource sound;
+        public AudioClip tipClip;   // the rock lands on the board and it tips
 
         private Vector3 loadedFrom;
         private float tilt;
@@ -32,11 +35,6 @@ namespace Level3Bamboo
             // stop him every physics step and the push stuttered.
             raisedStep.enabled = false;
             raisedStep.GetComponent<SpriteRenderer>().enabled = false;
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
         }
 
         void FixedUpdate()
@@ -56,6 +54,8 @@ namespace Level3Bamboo
                     position.x = Mathf.MoveTowards(position.x, loadedRock.position.x, pushSpeed * Time.fixedDeltaTime);
                     rockBody.MovePosition(position);
                     weighted = position.x >= loadedRock.position.x;
+                    if (weighted && sound != null && tipClip != null)
+                        sound.PlayOneShot(tipClip, 0.7f);   // once: weighted never goes back to false
                     loadedFrom = new Vector3(position.x, position.y, rock.position.z);
                 }
                 return;

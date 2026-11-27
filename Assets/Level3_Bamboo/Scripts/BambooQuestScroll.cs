@@ -174,6 +174,15 @@ namespace Level3Bamboo
             sequence = StartCoroutine(Finish());
         }
 
+        // A finished objective: the small tab with a ticked box. Clicking it still opens the text.
+        public void ShowDone(string title, string instruction, Sprite icon)
+        {
+            CancelSequence();
+            CancelLeaves();
+            SetContent(title, instruction, icon, true);
+            ShowTab();
+        }
+
         // No active objective: keep the small tab with the general goal so it can still be clicked.
         public void Hide()
         {

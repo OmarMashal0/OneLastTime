@@ -12,6 +12,8 @@ namespace Level3Bamboo
     // The shared Animator has no attack or hurt animation, so those frames are shown here: after the
     // Animator has picked its sprite for this frame, LateUpdate swaps in the right attack or hurt sprite.
     // The frames come from Level 3 copies of the team's ATTACK 1, ATTACK 2 and HURT sheets.
+    // Runs before the team's PlayerMovement (order 0), so canMove is already off on the same frame Ryu
+    // dies, starts a swing or the game pauses - PlayerMovement never gets one extra frame of input.
     [DefaultExecutionOrder(-50)]
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(SpriteRenderer))]

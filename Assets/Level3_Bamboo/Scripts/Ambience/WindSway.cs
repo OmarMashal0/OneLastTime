@@ -27,7 +27,7 @@ namespace Level3Bamboo
         void Start()
         {
             startRotation = transform.localRotation;
-            // Neighbours respond a fraction of a second apart instead of in lockstep.
+            // A fixed pseudo-random delay (0-0.55 s) made from phase, so neighbours sway a moment apart, the same every run.
             lag = Mathf.Repeat(Mathf.Sin(phase * 12.9898f + 3f * 78.233f) * 43758.5453f, 1f) * 0.55f;
         }
 

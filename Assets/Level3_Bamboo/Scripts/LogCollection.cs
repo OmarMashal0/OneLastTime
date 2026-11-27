@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 namespace Level3Bamboo
 {
-    // Resolve the interaction before the camera checks its shared E shortcut.
+    // Runs before the default scripts (camera, torch, ChimePuzzle at -40), so when E is pressed this
+    // script claims it first and the others see BusyWithLog / ReservesInteractionKey on the same frame.
+    // Without it one E press could pick up a log and also zoom the camera or solve the chimes.
     [DefaultExecutionOrder(-50)]
     public class LogCollection : MonoBehaviour
     {
@@ -15,7 +17,6 @@ namespace Level3Bamboo
         public Canvas hudCanvas;
         public Image prompt;
         public TMP_Text counter;
-        public GameObject completionMessage;
         public CollectibleLog[] logs;
 
         public Sprite idle;
@@ -27,7 +28,6 @@ namespace Level3Bamboo
         [Min(0f)] public float promptHeight = 1.38f;
         [Min(0.01f)] public float pressedSeconds = 0.12f;
         [Min(0.01f)] public float releasedSeconds = 0.12f;
-        [Min(0f)] public float completionSeconds = 4.5f;
 
         private readonly HashSet<string> collectedIds = new HashSet<string>();
         private readonly List<RaycastHit2D> obstructionHits = new List<RaycastHit2D>();
@@ -36,11 +36,9 @@ namespace Level3Bamboo
         private float feedbackElapsed;
         private float promptBob;
         private float readyElapsed;
-        private float completionRemaining;
         private bool showingFeedback;
         private bool consumedKey;
 
-        public bool showCompletionCard = true;
         public event System.Action<CollectibleLog, int, int> LogCollected;
 
         public int CollectedCount => collectedIds.Count;
@@ -57,8 +55,6 @@ namespace Level3Bamboo
         void Start()
         {
             prompt.enabled = false;
-            if (completionMessage != null)   // the old completion card was removed
-                completionMessage.SetActive(false);
             UpdateCounter();
         }
 
@@ -78,13 +74,6 @@ namespace Level3Bamboo
                 candidate = null;
                 prompt.enabled = false;
                 return;
-            }
-
-            if (completionRemaining > 0f)
-            {
-                completionRemaining -= Time.deltaTime;
-                if (completionRemaining <= 0f && completionMessage != null)
-                    completionMessage.SetActive(false);
             }
 
             if (showingFeedback)
@@ -212,39 +201,21 @@ namespace Level3Bamboo
             UpdateCounter();
 
             LogCollected?.Invoke(log, collectedIds.Count, logs.Length);
-
-            if (showCompletionCard && completionMessage != null && collectedIds.Count == logs.Length && completionSeconds > 0f)
-            {
-                completionMessage.SetActive(true);
-                completionRemaining = completionSeconds;
-            }
         }
 
-        private string combatObjective;
-        private Vector2 originalCardSize;
-        private Vector2 originalCardPosition;
-        private Vector2 originalTextSize;
-
-        public void SetCombatObjective(string objective)
+        // Puts a collected log back (used when Ryu dies in the cave before reaching the surface with it).
+        // Remove() is only true once, so the counter goes down exactly once.
+        public void Uncollect(CollectibleLog log)
         {
-            RectTransform card = (RectTransform)counter.transform.parent;
-            if (originalCardSize == Vector2.zero)
-            {
-                originalCardSize = card.sizeDelta;
-                originalCardPosition = card.anchoredPosition;
-                originalTextSize = counter.rectTransform.sizeDelta;
-            }
-            combatObjective = objective;
-            float extra = string.IsNullOrEmpty(objective) ? 0f : 420f;
-            card.sizeDelta = originalCardSize + Vector2.right * extra;
-            card.anchoredPosition = originalCardPosition + Vector2.right * (extra * 0.5f);
-            counter.rectTransform.sizeDelta = originalTextSize + Vector2.right * extra;
+            if (!collectedIds.Remove(log.logId))
+                return;
+            log.gameObject.SetActive(true);
             UpdateCounter();
         }
 
         private void UpdateCounter()
         {
-            counter.text = string.IsNullOrEmpty(combatObjective) ? $"Logs: {collectedIds.Count}/{logs.Length}" : combatObjective;
+            counter.text = $"Logs: {collectedIds.Count}/{logs.Length}";
         }
     }
 }

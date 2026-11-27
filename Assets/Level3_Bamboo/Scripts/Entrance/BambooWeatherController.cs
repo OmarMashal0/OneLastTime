@@ -53,12 +53,9 @@ namespace Level3Bamboo
         public ParticleSystem snow;
         public float snowRate = 14f;
 
-        [Header("Sound (optional: no rain clip exists in the project yet)")]
+        [Header("Rain sound (fades in with the rain)")]
         public AudioSource rainAudio;
         public float rainAudioVolume = 0.25f;
-
-        public float Night => night;
-        public float Snow => snowAmount;
 
         private float night;
         private float snowAmount;

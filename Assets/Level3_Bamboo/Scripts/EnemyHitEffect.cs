@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Level3Bamboo
 {
+    // Particle burst played when the katana hits an enemy (colours chosen by the enemy).
     public class EnemyHitEffect : MonoBehaviour
     {
         public ParticleSystem impact;

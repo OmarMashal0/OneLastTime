@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Level3Bamboo.River
 {
+    // Gently bobs a river decoration (or drifts it across with the current when driftAcross is on).
     public class RiverDecorationDrift : MonoBehaviour
     {
         public Vector2 range;

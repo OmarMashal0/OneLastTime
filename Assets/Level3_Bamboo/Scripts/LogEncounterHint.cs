@@ -3,6 +3,7 @@ using TMPro;
 
 namespace Level3Bamboo
 {
+    // Shows an instruction text when Ryu walks near a log that is still locked.
     public class LogEncounterHint : MonoBehaviour
     {
         public Transform player;

@@ -20,8 +20,6 @@ namespace Level3Bamboo
         public Vector2 ruffleEvery = new Vector2(28f, 45f);
         public float ruffleSeconds = 0.55f;
 
-        public bool LookingRight => lookingRight;
-
         private bool lookingRight;
         private float hold;
         private float away;

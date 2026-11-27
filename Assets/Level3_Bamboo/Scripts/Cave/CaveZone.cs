@@ -8,7 +8,9 @@ namespace Level3Bamboo
     // just before the cracked ground.
     // The cave resets (bear asleep at home, torch back on its bracket, cracked ground whole again,
     // introduction ready) when Ryu dies, and when he climbs out of the escape shaft.
-    // Collected logs are never touched, so a log can't be collected twice.
+    // The cave log is "pending" from the moment Ryu picks it up until he climbs out of the shaft. If he dies
+    // while it is pending, it goes back to its spot behind the bear and the counter drops by one.
+    // Every other log is left alone.
     // (The team's PlayerMovement already walks slowly with Left Shift everywhere; the cave only lowers that speed.)
     public class CaveZone : MonoBehaviour
     {
@@ -17,6 +19,7 @@ namespace Level3Bamboo
         public CameraFollow2D cameraFollow;
         [Tooltip("The cave's log. The instruction hides once it has been collected.")]
         public CollectibleLog log;
+        public LogCollection logCollection;
         public GameObject instruction;
         [Tooltip("Ryu's feet are placed here when he dies in the cave (above ground, before the cracked ground).")]
         public Transform retryPoint;
@@ -40,6 +43,8 @@ namespace Level3Bamboo
 
         public bool PlayerInside { get; private set; }
 
+        private bool logPending;   // the cave log is collected but Ryu has not reached the surface with it yet
+        private bool logCarriedOut; // he reached the surface with it: never return it again
         private float normalSneakSpeed;
         private float normalCameraBottom;
 
@@ -72,7 +77,11 @@ namespace Level3Bamboo
             PlayerInside = false;
             // Climbed out of the shaft: later deaths respawn on the far side, and the cave is reset.
             if (escapeShaft.PlayerInside)
+            {
                 player.SetCheckpoint(surfaceReturn.position);
+                logCarriedOut = logPending || logCarriedOut;   // safe on the surface: kept for the rest of the run
+                logPending = false;
+            }
             ResetCave();
         }
 
@@ -81,6 +90,11 @@ namespace Level3Bamboo
         private void OnRespawned()
         {
             PlayerInside = false;
+            if (logPending)
+            {
+                logCollection.Uncollect(log);
+                logPending = false;
+            }
             ResetCave();
             movement.sneakSpeed = normalSneakSpeed;
             cameraFollow.groundBottomY = normalCameraBottom;
@@ -88,7 +102,7 @@ namespace Level3Bamboo
             cameraFollow.ResetPositionImmediate();
         }
 
-        // The one reset for another try. Collected logs are not touched.
+        // The one reset for another try (the cave log is handled in OnRespawned).
         public void ResetCave()
         {
             introduction.ResetIntro();
@@ -103,6 +117,10 @@ namespace Level3Bamboo
 
             float bottom = PlayerInside ? caveCameraBottom : normalCameraBottom;
             cameraFollow.groundBottomY = Mathf.MoveTowards(cameraFollow.groundBottomY, bottom, cameraLimitSpeed * Time.deltaTime);
+
+            // Picked up in the cave (and not yet carried out): remember it, so a death can return it.
+            if (PlayerInside && !log.gameObject.activeSelf && !player.IsDead && !logCarriedOut)
+                logPending = true;
 
             instruction.SetActive(PlayerInside && log.gameObject.activeSelf && Time.timeScale > 0f);
             foreach (GameObject plant in surfaceForeground)

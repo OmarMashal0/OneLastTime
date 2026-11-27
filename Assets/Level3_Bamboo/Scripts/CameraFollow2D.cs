@@ -39,6 +39,14 @@ namespace Level3Bamboo
         public float verticalSmoothTime = 0.32f;
         [Tooltip("The camera ignores jumps up to this height above the last ground Ryu stood on.")]
         public float jumpAllowance = 2.4f;
+
+        [Header("Forest Height")]
+        [Tooltip("On: above the forest floor the camera keeps the normal forest height (ledges do not lift it).")]
+        public bool holdForestHeight = false;
+        [Tooltip("Ryu's height when he stands on the forest floor.")]
+        public float forestStandY = -5.27f;
+        [Tooltip("Space kept above Ryu's feet at the top of the screen; the camera only rises if he would go higher.")]
+        public float topMargin = 1.8f;
         public float worldTopY = 8f;
         public LogCollection logCollection;
 
@@ -54,7 +62,7 @@ namespace Level3Bamboo
         private Vector3 currentVelocity;
         private BambooPlayerController player;
         private float focusX;        // centre of the dead zone
-        private float groundY;       // height of the last ground Ryu stood on
+        private float groundY;       // ground height the camera frames (only changes outside the dead zone)
         private float xVelocity;
         private float yVelocity;
         private float targetZoom;
@@ -126,10 +134,15 @@ namespace Level3Bamboo
             float facing = target.lossyScale.x < 0f ? -1f : 1f;
             currentLead = Mathf.SmoothDamp(currentLead, facing * lookAhead, ref leadVelocity, 0.45f);
 
-            // 3. Vertical: follow the ground Ryu stands on, so normal jumps do not bounce the camera.
-            //    Only a very high jump or a fall pulls the camera up or down.
+            // 3. Vertical.
+            //    Forest (on or above the forest floor): always frame the forest floor, so ledges and
+            //    jumps never lift the camera (GetTargetPosition only raises it if Ryu would leave the top).
+            //    Cave and escape shaft (below the floor): follow the ground Ryu stands on; while in the air
+            //    only a very high jump or a fall moves the camera.
             float y = target.position.y;
-            if (player == null || player.IsGrounded)
+            if (holdForestHeight && y > forestStandY - 0.5f)
+                groundY = forestStandY;
+            else if (player == null || player.IsGrounded)
                 groundY = y;
             else if (y < groundY - 0.5f)
                 groundY = y;
@@ -184,6 +197,9 @@ namespace Level3Bamboo
         {
             Vector3 goal = new Vector3(focusX + currentLead, groundY, 0f) + offset;
             goal.z = offset.z;
+            // Rise only as much as needed to keep Ryu below the top edge (he is never centred).
+            if (holdForestHeight && cam != null)
+                goal.y = Mathf.Max(goal.y, target.position.y + topMargin - cam.orthographicSize);
             return ClampViewport(goal);
         }
 
